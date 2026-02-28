@@ -72,7 +72,7 @@ export default function Home() {
                   v{process.env.NEXT_PUBLIC_VERSION}
                 </span>
               </div>
-              <div className="flex items-center text-sm">
+              <div className="flex flex-wrap items-center text-sm">
                 <span className="text-sm text-zinc-700 dark:text-zinc-300">
                   <span className="text-emerald-500">betterconsole</span>.
                   <Popover.Root>
@@ -172,7 +172,7 @@ export default function Home() {
                 <span className="text-sm text-cyan-500">[INFO]</span>
                 <span className="text-sm text-zinc-300">Hello, World!</span>
               </div>
-              <div className="flex items-center text-sm">
+              <div className="flex flex-wrap items-center text-sm">
                 <span className="text-sm text-zinc-700 dark:text-zinc-300">
                   <span className="text-emerald-500">
                     <span className="text-blue-500">new</span> betterconsole
@@ -248,7 +248,7 @@ export default function Home() {
                   (
                 </span>
                 <span className="text-sm text-orange-400">"Files"</span>,
-                <span className="text-sm text-cyan-400">36</span>
+                <span className="text-sm text-cyan-400">46</span>
                 <span className="text-sm text-zinc-700 dark:text-zinc-300">
                   );
                 </span>
@@ -384,7 +384,8 @@ export default function Home() {
                 <span className="text-sm text-blue-500">{"{"}</span>
                 <span className="text-sm text-cyan-400">color</span>:{" "}
                 <span className="text-sm text-orange-400">"red"</span>,{" "}
-                <span className="text-sm text-cyan-400">styles</span>: [
+                <span className="text-sm text-cyan-400">styles</span>:{" "}
+                <span>[</span>
                 <span className="text-sm text-orange-400">"italic"</span>]
                 <span className="text-sm text-blue-500">{"}"}</span>
                 <span className="text-sm text-zinc-700 dark:text-zinc-300">
@@ -397,7 +398,7 @@ export default function Home() {
                 </span>
               </div>
               <br />
-              <div className="flex items-center text-sm">
+              <div className="flex flex-wrap items-center text-sm">
                 <span className="text-sm text-zinc-700 dark:text-zinc-300">
                   <span className="text-emerald-500">betterconsole</span>.
                   <Popover.Root>
