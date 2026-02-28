@@ -11,8 +11,8 @@ import Link from "next/link";
 export default function Home() {
   return (
     <div className="relative min-h-[calc(100vh-5rem)]">
-      <div className="flex min-h-[calc(100vh-5rem)] items-center justify-center font-sans gap-16 relative z-10">
-        <main className="flex min-h-[calc(100vh-5rem)] max-w-6xl flex-col items-center justify-between py-32 px-16 gap-6 sm:items-start">
+      <div className="flex min-h-[calc(100vh-5rem)] items-center justify-center font-sans max-lg:flex-col xl:gap-16 relative z-10">
+        <main className="flex lg:min-h-[calc(100vh-5rem)] max-w-6xl flex-col items-center justify-between py-32 px-16 gap-6 sm:items-start">
           <div className="flex items-center gap-4">
             <MagicWandIcon weight="fill" size={36} />
             <h1 className="text-xl font-semibold">TS Better Console</h1>
@@ -50,8 +50,8 @@ export default function Home() {
             </Link>
           </div>
         </main>
-        <div>
-          <div className="w-[640px] relative bg-zinc-200 dark:bg-zinc-900 rounded-lg flex flex-col overflow-hidden">
+        <div className="p-4">
+          <div className="w-[640px] max-xl:w-[480px] max-md:w-full relative bg-zinc-200 dark:bg-zinc-900 rounded-lg flex flex-col overflow-hidden">
             <div className="w-full h-12 bg-zinc-300 dark:bg-zinc-800 flex items-center justify-between gap-2 px-4">
               <h1 className="text-sm font-mono text-zinc-600 dark:text-zinc-400 flex items-center gap-2">
                 <TerminalWindowIcon weight="fill" size={20} />
