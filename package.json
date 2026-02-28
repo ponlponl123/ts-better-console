@@ -1,0 +1,27 @@
+{
+  "name": "ts-better-console",
+  "module": "src/index.ts",
+  "type": "module",
+  "scripts": {
+    "bun:build": "bun run clear-dist && bun build src/index.ts --outdir dist",
+    "node:build": "npm run clear-dist && tsc --outDir dist",
+    "build": "command -v bun >/dev/null 2>&1 && bun run bun:build || npm run node:build",
+    "bun:test": "bun test src",
+    "node:test": "npm run node:build && node dist/index.test.js",
+    "node:dev": "tsc --watch",
+    "bun:dev": "bun run ./src/index.ts --watch",
+    "dev": "command -v bun >/dev/null 2>&1 && bun run bun:dev || npm run node:dev",
+    "lint": "eslint . --ext .ts",
+    "unix:clear-dist": "rm -rf dist",
+    "win:clear-dist": "rmdir /s /q dist",
+    "clear-dist": "node -e \"require('node:fs').rmSync('dist', { recursive: true, force: true })\""
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "tsc": "^2.0.4",
+    "typescript": "^5.9.3"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  }
+}
