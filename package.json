@@ -1,9 +1,38 @@
 {
   "name": "ts-better-console",
-  "module": "src/index.ts",
+  "description": "A TypeScript library that provides enhanced console logging capabilities with improved type safety and formatting options.",
+  "version": "0.1.0",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
   "type": "module",
+  "files": [
+    "dist"
+  ],
+  "author": {
+    "name": "Ponlponl123",
+    "email": "itsme@ponlponl123.com",
+    "url": "https://github.com/Ponlponl123/ts-better-console"
+  },
+  "keywords": [
+    "typescript",
+    "console",
+    "logging",
+    "cli",
+    "spinner",
+    "progress",
+    "menu",
+    "card",
+    "button"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/Ponlponl123/ts-better-console",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ponlponl123/ts-better-console.git"
+  },
   "scripts": {
-    "bun:build": "bun run clear-dist && bun build src/index.ts --outdir dist",
+    "bun:build": "bun run clear-dist && bun build src/index.ts --outdir dist && bunx tsc",
     "node:build": "npm run clear-dist && tsc --outDir dist",
     "build": "command -v bun >/dev/null 2>&1 && bun run bun:build || npm run node:build",
     "bun:test": "bun test src",
@@ -18,7 +47,6 @@
   },
   "devDependencies": {
     "@types/bun": "latest",
-    "tsc": "^2.0.4",
     "typescript": "^5.9.3"
   },
   "peerDependencies": {

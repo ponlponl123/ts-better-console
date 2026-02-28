@@ -14,6 +14,10 @@
     "allowImportingTsExtensions": false,
     "verbatimModuleSyntax": true,
     "noEmit": false,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "outDir": "dist",
+    "rootDir": "src",
     // Best practices
     "strict": true,
     "skipLibCheck": true,
@@ -26,10 +30,11 @@
     "noPropertyAccessFromIndexSignature": false
   },
   "include": [
-    "test/**/*"
+    "src/**/*"
   ],
   "exclude": [
     "node_modules",
-    "dist"
+    "dist",
+    "docs",
   ]
 }

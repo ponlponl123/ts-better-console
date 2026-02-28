@@ -1,4 +1,4 @@
-import betterconsole, { cs, Progress, s, dl, ts, tsdl } from "../src";
+import betterconsole, { Progress, s, tsdl } from "../src";
 
 const progress = new Progress("Something awesome", 100);
 const progress_withbuffer = new Progress("Awesome video", 100);

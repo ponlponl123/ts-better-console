@@ -28,7 +28,11 @@ class Progress extends EventEmitter {
   private static renderedLineCount: number = 0;
   private static initialRenderScheduled: boolean = false;
 
-  constructor(title: string, total: number, options: ProgressOptions = {}) {
+  constructor(
+    title: string,
+    total: number = 100,
+    options: ProgressOptions = {},
+  ) {
     super();
     this.title = title;
     this.total = total;
