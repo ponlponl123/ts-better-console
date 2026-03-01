@@ -1,7 +1,7 @@
 {
   "name": "ts-better-console",
   "description": "A TypeScript library that provides enhanced console logging capabilities with improved type safety and formatting options.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
@@ -26,7 +26,7 @@
     "button"
   ],
   "license": "MIT",
-  "homepage": "https://github.com/Ponlponl123/ts-better-console",
+  "homepage": "https://ponlponl123.github.io/ts-better-console",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Ponlponl123/ts-better-console.git"
