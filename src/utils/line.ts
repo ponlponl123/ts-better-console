@@ -23,13 +23,17 @@ function ts(date: boolean = true, ...args: any[]): string {
 }
 
 // debug level
-function dl(level: DebugLevel, ...args: any[]): string {
+function flag(level: DebugLevel, ...args: any[]): string {
   return cs([cs(["[", debugLevels[level], "]"], false), ...args]);
 }
 
 // timestamped and debug level
-function tsdl(level: DebugLevel, date: boolean = true, ...args: any[]): string {
-  return ts(date, dl(level, ...args));
+function tsflag(
+  level: DebugLevel,
+  date: boolean = true,
+  ...args: any[]
+): string {
+  return ts(date, flag(level, ...args));
 }
 
 // combine strings
@@ -57,4 +61,4 @@ function toMaxLinesLength(lines: string[], width: number): string[] {
   return lines.flatMap((line) => toMaxLineLength(line, width));
 }
 
-export { cs, ts, dl, tsdl, toMaxLineLength, toMaxLinesLength };
+export { cs, ts, flag, tsflag, toMaxLineLength, toMaxLinesLength };

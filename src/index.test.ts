@@ -1,5 +1,5 @@
 import { describe, it } from "bun:test";
-import betterconsole, { cs, s } from ".";
+import betterConsole, { cs, flag, s } from ".";
 import { clearStyle } from "./utils/style";
 
 const { w, d } = { w: process.stdout.columns, d: process.stdout.rows };
@@ -7,7 +7,36 @@ const { w, d } = { w: process.stdout.columns, d: process.stdout.rows };
 describe("ts-better-console", () => {
   it("should display json card", () => {
     const obj = { name: "Alice", age: 30, city: "New York" };
-    betterconsole.json(obj);
+    betterConsole.json(obj);
+  });
+
+  it("should log messages with different levels", () => {
+    betterConsole.log(cs([s("This is a debug message", { color: "cyan" })]));
+    betterConsole.warn(
+      cs([s("This is a warning message", { color: "yellow" })]),
+    );
+    betterConsole.error(cs([s("This is an error message", { color: "red" })]));
+    betterConsole.info(
+      cs([s("This is an info message", { color: "magenta" })]),
+    );
+  });
+
+  it("should marked with flag", () => {
+    betterConsole.log(flag("warn"), "Hello, World!");
+  });
+
+  it("should display simple short json card", () => {
+    const obj = { name: "Bob", age: 25, city: "Los Angeles" };
+    betterConsole.json(obj);
+  });
+
+  it("should display short json card", () => {
+    const obj = { name: "Bob", age: 25, city: "Los Angeles" };
+    betterConsole.json(obj, "auto", {
+      title: { content: "User Info" },
+      body: { color: "blue" },
+      borderStyle: { color: "gray", styles: ["italic"] },
+    });
   });
 
   it("should display long json card", () => {
@@ -24,7 +53,7 @@ describe("ts-better-console", () => {
       something_long:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     };
-    betterconsole.json(obj, "auto", {
+    betterConsole.json(obj, "auto", {
       title: {
         content: "userinfo.json",
         style: {

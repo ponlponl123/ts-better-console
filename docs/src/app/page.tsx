@@ -7,6 +7,12 @@ import {
 import * as Popover from "@radix-ui/react-popover";
 import * as Tooltip from "@radix-ui/react-tooltip";
 import Link from "next/link";
+import Style from "../components/code-popover/s";
+import Log from "../components/code-popover/log";
+import LinkPopover from "../components/code-popover/link";
+import TsFlag from "../components/code-popover/tsflag";
+import ProgressOptions from "../components/code-tooltips/progress-options";
+import Progress from "../components/code-popover/progress";
 
 export default function Home() {
   return (
@@ -38,7 +44,7 @@ export default function Home() {
           <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
             <Link
               className="flex h-12 items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc]"
-              href="/docs/getting-started"
+              href="/docs/quick-start"
             >
               <TerminalIcon size={16} /> Get Started
             </Link>
@@ -74,88 +80,17 @@ export default function Home() {
               </div>
               <div className="flex flex-wrap items-center text-sm">
                 <span className="text-sm text-zinc-700 dark:text-zinc-300">
-                  <span className="text-emerald-500">betterconsole</span>.
-                  <Popover.Root>
-                    <Popover.Trigger asChild>
-                      <span className="text-sm underline text-yellow-200 cursor-help text-shadow-yellow-400/80 hover:text-shadow-[0_3px_12px] apply-transition">
-                        log
-                      </span>
-                    </Popover.Trigger>
-                    <Popover.Content className="bg-white dark:bg-zinc-800 text-sm max-w-[98vw] text-zinc-700 dark:text-zinc-300 p-2 rounded shadow-lg flex flex-col gap-1 z-50">
-                      <div className="font-mono text-xs text-zinc-500">
-                        <span className="text-yellow-200">log</span>(...
-                        <span className="text-cyan-600">args</span>:{" "}
-                        <span className="text-cyan-600">any</span>[]):{" "}
-                        <span className="text-cyan-600">string</span>
-                      </div>
-                      <span className="text-zinc-500">
-                        // Basic logging method
-                      </span>
-                    </Popover.Content>
-                  </Popover.Root>
-                  (
+                  <span className="text-emerald-500">betterConsole</span>.
+                  <Log />(
                 </span>
-                <Popover.Root>
-                  <Popover.Trigger asChild>
-                    <span className="text-sm underline text-yellow-200 cursor-help text-shadow-yellow-400/80 hover:text-shadow-[0_3px_12px] apply-transition">
-                      tsdl
-                    </span>
-                  </Popover.Trigger>
-                  <Popover.Content className="bg-white dark:bg-zinc-800 text-sm max-w-[98vw] text-zinc-700 dark:text-zinc-300 p-2 rounded shadow-lg flex flex-col gap-1 z-50">
-                    <div className="font-mono text-xs text-zinc-500">
-                      <span className="text-yellow-200">tsdl</span>(
-                      <span className="text-cyan-600">level</span>:{" "}
-                      <Tooltip.Provider>
-                        <Tooltip.Root>
-                          <Tooltip.Trigger asChild>
-                            <span className="text-xs underline text-yellow-200 cursor-help text-shadow-yellow-400/80 hover:text-shadow-[0_3px_12px] apply-transition">
-                              DebugLevel
-                            </span>
-                          </Tooltip.Trigger>
-                          <Tooltip.Content className="bg-white dark:bg-zinc-800 text-sm max-w-[98vw] text-zinc-700 dark:text-zinc-300 p-2 rounded shadow-lg flex flex-col gap-1 z-50">
-                            <div className="font-mono text-xs text-zinc-500">
-                              <span className="text-yellow-200">
-                                DebugLevel
-                              </span>{" "}
-                              is a union type of:
-                              <ul className="list-disc list-inside">
-                                <li>
-                                  <span className="text-cyan-600">"DEBUG"</span>{" "}
-                                  - Detailed information for debugging purposes.
-                                </li>
-                                <li>
-                                  <span className="text-cyan-600">"INFO"</span>{" "}
-                                  - General informational messages.
-                                </li>
-                                <li>
-                                  <span className="text-cyan-600">"WARN"</span>{" "}
-                                  - Potentially harmful situations.
-                                </li>
-                                <li>
-                                  <span className="text-cyan-600">"ERROR"</span>{" "}
-                                  - Error events that might still allow the
-                                  application to continue running.
-                                </li>
-                              </ul>
-                            </div>
-                          </Tooltip.Content>
-                        </Tooltip.Root>
-                      </Tooltip.Provider>
-                      , <span className="text-cyan-600">date</span>?:{" "}
-                      <span className="text-cyan-600">boolean</span>, ...
-                      <span className="text-cyan-600">args</span>:{" "}
-                      <span className="text-cyan-600">any</span>[]):{" "}
-                      <span className="text-cyan-600">string</span>
-                    </div>
-                    <span className="text-zinc-500">
-                      // Timestamped & Debug Level
-                    </span>
-                  </Popover.Content>
-                </Popover.Root>
-                (
+                <TsFlag />(
+                <span className="text-sm text-orange-400">"info"</span>
+                <span className="text-sm text-zinc-700 dark:text-zinc-300">
+                  ),
+                </span>
                 <span className="text-sm text-orange-400">"Hello, World!"</span>
                 <span className="text-sm text-zinc-700 dark:text-zinc-300">
-                  ));
+                  );
                 </span>
               </div>
               <div className="flex items-center gap-2 text-sm">
@@ -170,82 +105,17 @@ export default function Home() {
                   ]
                 </span>
                 <span className="text-sm text-cyan-500">[INFO]</span>
-                <span className="text-sm text-zinc-300">Hello, World!</span>
+                <span className="text-sm dark:text-zinc-300">
+                  Hello, World!
+                </span>
               </div>
               <div className="flex flex-wrap items-center text-sm">
                 <span className="text-sm text-zinc-700 dark:text-zinc-300">
                   <span className="text-emerald-500">
-                    <span className="text-blue-500">new</span> betterconsole
+                    <span className="text-blue-500">new</span> betterConsole
                   </span>
                   .
-                  <Popover.Root>
-                    <Popover.Trigger asChild>
-                      <span className="text-sm underline text-yellow-200 cursor-help text-shadow-yellow-400/80 hover:text-shadow-[0_3px_12px] apply-transition">
-                        Progress
-                      </span>
-                    </Popover.Trigger>
-                    <Popover.Content className="bg-white dark:bg-zinc-800 text-sm max-w-[98vw] text-zinc-700 dark:text-zinc-300 p-2 rounded shadow-lg flex flex-col gap-1 z-50">
-                      <div className="font-mono text-xs text-zinc-500">
-                        <span className="text-yellow-200">Progress</span>(
-                        <span className="text-cyan-600">title</span>:{" "}
-                        <span className="text-cyan-600">string</span>,{" "}
-                        <span className="text-cyan-600">total</span>?:{" "}
-                        <span className="text-cyan-600">number</span>,{" "}
-                        <span className="text-cyan-600">options</span>?:{" "}
-                        <Tooltip.Provider>
-                          <Tooltip.Root>
-                            <Tooltip.Trigger asChild>
-                              <span className="text-xs underline text-yellow-200 cursor-help text-shadow-yellow-400/80 hover:text-shadow-[0_3px_12px] apply-transition">
-                                ProgressOptions
-                              </span>
-                            </Tooltip.Trigger>
-                            <Tooltip.Content className="bg-white dark:bg-zinc-800 text-sm max-w-[98vw] text-zinc-700 dark:text-zinc-300 p-2 rounded shadow-lg flex flex-col gap-1 z-50">
-                              <div className="font-mono text-xs text-zinc-500">
-                                <span className="text-yellow-200">
-                                  ProgressOptions
-                                </span>{" "}
-                                is an object type with optional properties:
-                                <ul className="list-disc list-inside">
-                                  <li>
-                                    <span className="text-cyan-600">label</span>{" "}
-                                    (optional): An object with two string
-                                    properties,{" "}
-                                    <span className="text-cyan-600">while</span>{" "}
-                                    and{" "}
-                                    <span className="text-cyan-600">past</span>,
-                                    representing the label to display while the
-                                    progress is active and after it is
-                                    completed, respectively.
-                                  </li>
-                                  <li>
-                                    <span className="text-cyan-600">
-                                      barLength
-                                    </span>{" "}
-                                    (optional): A number representing the length
-                                    of the progress bar in characters. Default
-                                    is 40.
-                                  </li>
-                                  <li>
-                                    <span className="text-cyan-600">
-                                      callout
-                                    </span>{" "}
-                                    (optional): A boolean indicating whether to
-                                    display a callout with the percentage.
-                                    Default is false.
-                                  </li>
-                                </ul>
-                              </div>
-                            </Tooltip.Content>
-                          </Tooltip.Root>
-                        </Tooltip.Provider>
-                        ): <span className="text-cyan-600">Progress</span>
-                      </div>
-                      <span className="text-zinc-500">
-                        // Creates a new progress bar instance.
-                      </span>
-                    </Popover.Content>
-                  </Popover.Root>
-                  (
+                  <Progress />(
                 </span>
                 <span className="text-sm text-orange-400">"Files"</span>,
                 <span className="text-sm text-cyan-400">46</span>
@@ -262,125 +132,11 @@ export default function Home() {
               </div>
               <div className="flex flex-wrap items-center text-sm">
                 <span className="text-sm text-zinc-700 dark:text-zinc-300">
-                  <span className="text-emerald-500">betterconsole</span>.
-                  <Popover.Root>
-                    <Popover.Trigger asChild>
-                      <span className="text-sm underline text-yellow-200 cursor-help text-shadow-yellow-400/80 hover:text-shadow-[0_3px_12px] apply-transition">
-                        log
-                      </span>
-                    </Popover.Trigger>
-                    <Popover.Content className="bg-white dark:bg-zinc-800 text-sm max-w-[98vw] text-zinc-700 dark:text-zinc-300 p-2 rounded shadow-lg flex flex-col gap-1 z-50">
-                      <div className="font-mono text-xs text-zinc-500">
-                        <span className="text-yellow-200">log</span>(...
-                        <span className="text-cyan-600">args</span>:{" "}
-                        <span className="text-cyan-600">any</span>[]):{" "}
-                        <span className="text-cyan-600">string</span>
-                      </div>
-                      <span className="text-zinc-500">
-                        // Basic logging method
-                      </span>
-                    </Popover.Content>
-                  </Popover.Root>
-                  (
+                  <span className="text-emerald-500">betterConsole</span>.
+                  <Log />(
                 </span>
-                <Popover.Root>
-                  <Popover.Trigger asChild>
-                    <span className="text-sm underline text-yellow-200 cursor-help text-shadow-yellow-400/80 hover:text-shadow-[0_3px_12px] apply-transition">
-                      s
-                    </span>
-                  </Popover.Trigger>
-                  <Popover.Content className="bg-white dark:bg-zinc-800 text-sm max-w-[98vw] text-zinc-700 dark:text-zinc-300 p-2 rounded shadow-lg flex flex-col gap-1 z-50">
-                    <div className="font-mono text-xs text-zinc-500">
-                      <span className="text-yellow-200">s</span>(
-                      <span className="text-cyan-600">str</span>:{" "}
-                      <span className="text-cyan-600">string</span>,{" "}
-                      <span className="text-cyan-600">style</span>:{" "}
-                      <Tooltip.Provider>
-                        <Tooltip.Root>
-                          <Tooltip.Trigger asChild>
-                            <span className="text-xs underline text-yellow-200 cursor-help text-shadow-yellow-400/80 hover:text-shadow-[0_3px_12px] apply-transition">
-                              StyleOptions
-                            </span>
-                          </Tooltip.Trigger>
-                          <Tooltip.Content className="bg-white dark:bg-zinc-800 text-sm max-w-[98vw] text-zinc-700 dark:text-zinc-300 p-2 rounded shadow-lg flex flex-col gap-1 z-50">
-                            <div className="font-mono text-xs text-zinc-500">
-                              <span className="text-yellow-200">
-                                StyleOptions
-                              </span>{" "}
-                              is an object type with optional properties:
-                              <ul className="list-disc list-inside">
-                                <li>
-                                  <span className="text-cyan-600">color</span>{" "}
-                                  (optional): A string representing the text
-                                  color. It can be one of the following values:{" "}
-                                  <span className="text-cyan-600">"black"</span>
-                                  , <span className="text-cyan-600">"red"</span>
-                                  ,{" "}
-                                  <span className="text-cyan-600">"green"</span>
-                                  ,{" "}
-                                  <span className="text-cyan-600">
-                                    "yellow"
-                                  </span>
-                                  ,{" "}
-                                  <span className="text-cyan-600">"blue"</span>,{" "}
-                                  <span className="text-cyan-600">
-                                    "magenta"
-                                  </span>
-                                  ,{" "}
-                                  <span className="text-cyan-600">"cyan"</span>,{" "}
-                                  <span className="text-cyan-600">"white"</span>
-                                  , or{" "}
-                                  <span className="text-cyan-600">"gray"</span>.
-                                </li>
-                                <li>
-                                  <span className="text-cyan-600">
-                                    backgroundColor
-                                  </span>{" "}
-                                  (optional): A string representing the
-                                  background color. It can be the same values as
-                                  the color property.
-                                </li>
-                                <li>
-                                  <span className="text-cyan-600">styles</span>{" "}
-                                  (optional): An array of strings representing
-                                  additional styles. Each string can be one of
-                                  the following values:{" "}
-                                  <span className="text-cyan-600">"bold"</span>,{" "}
-                                  <span className="text-cyan-600">
-                                    "italic"
-                                  </span>
-                                  ,{" "}
-                                  <span className="text-cyan-600">
-                                    "underline"
-                                  </span>
-                                  , or{" "}
-                                  <span className="text-cyan-600">
-                                    "strikethrough"
-                                  </span>
-                                  .
-                                </li>
-                                <li>
-                                  <span className="text-cyan-600">endless</span>{" "}
-                                  (optional): A boolean indicating whether the
-                                  style should be endless (not reset after the
-                                  string) or not. If set to true, the style will
-                                  continue to apply to all subsequent logs until
-                                  manually reset.
-                                </li>
-                              </ul>
-                            </div>
-                          </Tooltip.Content>
-                        </Tooltip.Root>
-                      </Tooltip.Provider>
-                      ): <span className="text-cyan-600">string</span>
-                    </div>
-                    <span className="text-zinc-500">
-                      // Styles the string with ANSI escape codes for terminal
-                      output.
-                    </span>
-                  </Popover.Content>
-                </Popover.Root>
-                (<span className="text-sm text-orange-400">"Text..."</span>,{" "}
+                <Style />(
+                <span className="text-sm text-orange-400">"Text..."</span>,{" "}
                 <span className="text-sm text-blue-500">{"{"}</span>
                 <span className="text-sm text-cyan-400">color</span>:{" "}
                 <span className="text-sm text-orange-400">"red"</span>,{" "}
@@ -397,54 +153,16 @@ export default function Home() {
                   Text with styles!✨
                 </span>
               </div>
-              <br />
               <div className="flex flex-wrap items-center text-sm">
                 <span className="text-sm text-zinc-700 dark:text-zinc-300">
-                  <span className="text-emerald-500">betterconsole</span>.
-                  <Popover.Root>
-                    <Popover.Trigger asChild>
-                      <span className="text-sm underline text-yellow-200 cursor-help text-shadow-yellow-400/80 hover:text-shadow-[0_3px_12px] apply-transition">
-                        log
-                      </span>
-                    </Popover.Trigger>
-                    <Popover.Content className="bg-white dark:bg-zinc-800 text-sm max-w-[98vw] text-zinc-700 dark:text-zinc-300 p-2 rounded shadow-lg flex flex-col gap-1 z-50">
-                      <div className="font-mono text-xs text-zinc-500">
-                        <span className="text-yellow-200">log</span>(...
-                        <span className="text-cyan-600">args</span>:{" "}
-                        <span className="text-cyan-600">any</span>[]):{" "}
-                        <span className="text-cyan-600">string</span>
-                      </div>
-                      <span className="text-zinc-500">
-                        // Basic logging method
-                      </span>
-                    </Popover.Content>
-                  </Popover.Root>
-                  (
+                  <span className="text-emerald-500">betterConsole</span>.
+                  <Log />(
                 </span>
-                <Popover.Root>
-                  <Popover.Trigger asChild>
-                    <span className="text-sm underline text-yellow-200 cursor-help text-shadow-yellow-400/80 hover:text-shadow-[0_3px_12px] apply-transition">
-                      link
-                    </span>
-                  </Popover.Trigger>
-                  <Popover.Content className="bg-white dark:bg-zinc-800 text-sm max-w-[98vw] text-zinc-700 dark:text-zinc-300 p-2 rounded shadow-lg flex flex-col gap-1 z-50">
-                    <div className="font-mono text-xs text-zinc-500">
-                      <span className="text-yellow-200">link</span>(
-                      <span className="text-cyan-600">text</span>:{" "}
-                      <span className="text-cyan-600">string</span>,{" "}
-                      <span className="text-cyan-600">url</span>:{" "}
-                      <span className="text-cyan-600">string</span>):{" "}
-                      <span className="text-cyan-600">string</span>
-                    </div>
-                    <span className="text-zinc-500">
-                      // Formats the string as a clickable link in supported
-                      terminals. The first argument is the text to display, and
-                      the second argument is the URL to link to.
-                    </span>
-                  </Popover.Content>
-                </Popover.Root>
-                (<span className="text-sm text-orange-400">"Explore more"</span>
-                , <span className="text-sm text-orange-400">"/docs"</span>
+                <LinkPopover />(
+                <span className="text-sm text-orange-400">
+                  "Explore more"
+                </span>,{" "}
+                <span className="text-sm text-orange-400">"/docs"</span>
                 <span className="text-sm text-zinc-700 dark:text-zinc-300">
                   ));
                 </span>

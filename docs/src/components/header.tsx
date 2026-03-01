@@ -9,8 +9,9 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import Link from "next/link";
 import clsx from "clsx";
+import Sidebar from "./sidebar";
 
-function ActiveLink({
+export function ActiveLink({
   href,
   children,
   className,
@@ -48,6 +49,9 @@ function ActiveLink({
 }
 
 function Header() {
+  const rawPathname = usePathname();
+  const basePath = process.env.__NEXT_ROUTER_BASEPATH ?? "";
+  const pathname = rawPathname.replace(new RegExp(`^${basePath}`), "") || "/";
   const [navOpen, setNavOpen] = useState(false);
 
   return (
@@ -75,8 +79,8 @@ function Header() {
               </div>
             </Link>
           </div>
-          <div className="flex items-center gap-6 max-md:hidden">
-            <ActiveLink href="/install">Installation</ActiveLink>
+          <div className="flex items-center gap-6 max-md:hidden max-h-[calc(100vh-5rem)] overflow-auto">
+            <ActiveLink href="/docs/quick-start">Installation</ActiveLink>
             <ActiveLink href="/docs">Docs</ActiveLink>
             <div className="flex items-center gap-2">
               <Link
@@ -110,14 +114,19 @@ function Header() {
           navOpen ? "block" : "hidden",
         )}
       >
-        <div className="flex flex-col items-center h-max gap-2 py-6 px-4 bg-zinc-50/95 dark:bg-zinc-900/95 border-b border-foreground/10">
+        <div
+          className="flex flex-col items-center h-max gap-2 py-6 px-4 bg-zinc-50/95 dark:bg-zinc-900/95 border-b border-foreground/10 max-h-[calc(100vh-5rem)] overflow-auto"
+          style={{
+            scrollbarWidth: "thin",
+          }}
+        >
           <ActiveLink
             className="w-full btn justify-center p-5!"
             classNames={{
               active:
                 "text-background! bg-foreground hover:bg-foreground/40! hover:text-foreground!",
             }}
-            href="/install"
+            href="/docs/quick-start"
           >
             Installation
           </ActiveLink>
@@ -131,6 +140,32 @@ function Header() {
           >
             Docs
           </ActiveLink>
+          {pathname.startsWith("/docs") && (
+            <div className="w-full mt-4 border-t border-foreground/10 pt-4">
+              <Sidebar
+                classNames={{
+                  accordion: {
+                    button: {
+                      active:
+                        "border-1 border-solid border-foreground/10 rounded-none bg-foreground/5!",
+                      inactive:
+                        "border-1 border-solid border-foreground/10 rounded-none",
+                    },
+                    content: {
+                      active: "border border-foreground/10 rounded-none p-1",
+                      inactive: "border border-foreground/10 rounded-none p-1",
+                    },
+                  },
+                  link: {
+                    active:
+                      "text-foreground/90 bg-foreground/5 border-1 border-foreground/10 rounded-none hover:text-foreground",
+                    inactive:
+                      "text-foreground/70 hover:text-foreground/90 border-1 border-transparent rounded-none hover:bg-foreground/5",
+                  },
+                }}
+              />
+            </div>
+          )}
           <div className="flex max-sm:flex-col w-full items-center gap-4 mt-4">
             <Link
               href="https://github.com/ponlponl123/ts-better-console"

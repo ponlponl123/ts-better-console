@@ -1,13 +1,44 @@
 import type { StyleOptions } from "../types/style";
 import { cs } from "./line";
 
+enum Colors {
+  black = "\x1b[30m",
+  red = "\x1b[31m",
+  green = "\x1b[32m",
+  yellow = "\x1b[33m",
+  blue = "\x1b[34m",
+  magenta = "\x1b[35m",
+  cyan = "\x1b[36m",
+  white = "\x1b[37m",
+  gray = "\x1b[90m",
+}
+
+enum BackgroundColors {
+  black = "\x1b[40m",
+  red = "\x1b[41m",
+  green = "\x1b[42m",
+  yellow = "\x1b[43m",
+  blue = "\x1b[44m",
+  magenta = "\x1b[45m",
+  cyan = "\x1b[46m",
+  white = "\x1b[47m",
+  gray = "\x1b[100m",
+}
+
+enum Styles {
+  bold = "\x1b[1m",
+  italic = "\x1b[3m",
+  underline = "\x1b[4m",
+  strikethrough = "\x1b[9m",
+}
+
 function getColorCode(
   color: string | undefined,
   isBackground: boolean,
 ): string {
   if (!color) return "";
   if (color === "gray") {
-    return isBackground ? "\x1b[100m" : "\x1b[90m";
+    return isBackground ? BackgroundColors.gray : Colors.gray;
   }
   const base = isBackground ? 40 : 30;
   const colors: Record<string, number> = {
@@ -53,9 +84,11 @@ function applyUndefinedStyles(str: string, style?: StyleOptions): string {
   return s(str, style);
 }
 
-function clearStyle(): string {
-  return "\x1b[0m";
+// clearStyle clears the styles by appending the reset code at the end of the string
+function clearStyle(str: string): string {
+  return `${str}\x1b[0m`;
 }
+const cls = "\x1b[0m";
 
 // rainbow colors
 function rainbow(str: string): string {
@@ -69,3 +102,5 @@ function rainbow(str: string): string {
 }
 
 export { s, applyUndefinedStyles, clearStyle, rainbow };
+// export const
+export { Colors, BackgroundColors, Styles, cls };

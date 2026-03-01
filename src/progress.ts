@@ -6,7 +6,7 @@ import type {
   ProgressEvents,
   ProgressStatus,
 } from "./types/progress";
-import betterconsole, { s, cs } from ".";
+import betterConsole, { s, cs } from ".";
 
 class Progress extends EventEmitter {
   public title: string;
@@ -166,7 +166,7 @@ class Progress extends EventEmitter {
     if (this.status !== "active") return;
     this.isExited = true;
     this.status = "cancelled";
-    betterconsole.warn(s(`✕ ${this.title} cancelled.`, { color: "yellow" }));
+    betterConsole.warn(s(`✕ ${this.title} cancelled.`, { color: "yellow" }));
     this.spinner.stop();
     this.emit("cancel");
     Progress.checkAllDone();
@@ -176,7 +176,7 @@ class Progress extends EventEmitter {
     if (this.status !== "active") return;
     this.isExited = true;
     this.status = "errored";
-    betterconsole.error(s(cs([`✕ Error:`, ...args]), { color: "red" }));
+    betterConsole.error(s(cs([`✕ Error:`, ...args]), { color: "red" }));
     this.spinner.stop();
     this.emit("error", ...args);
     Progress.checkAllDone();

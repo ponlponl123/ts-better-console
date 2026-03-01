@@ -1,4 +1,4 @@
-import betterconsole, { Progress, s, tsdl } from "../src";
+import betterConsole, { Progress, s, tsflag } from "../src";
 
 const progress = new Progress("Something awesome", 100);
 const progress_withbuffer = new Progress("Awesome video", 100);
@@ -26,9 +26,9 @@ const progress_withbuffer = new Progress("Awesome video", 100);
 })();
 
 process.on("SIGINT", () => {
-  betterconsole.skip();
-  betterconsole.log(
-    tsdl("info", true, s("Received SIGINT. Exiting...", { color: "yellow" })),
+  betterConsole.skip();
+  betterConsole.log(
+    tsflag("info", true, s("Received SIGINT. Exiting...", { color: "yellow" })),
   );
   progress.cancel();
   progress_withbuffer.cancel();

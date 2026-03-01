@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Sono, JetBrains_Mono } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
-import "./globals.css";
+import "@/src/styles/globals.css";
 
 import Header from "../components/header";
 import Footer from "../components/footer";
@@ -51,7 +51,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark apply-transition">
+    <html lang="en" className="apply-transition">
       <body
         className={`${sono.variable} ${jetbrainsMono.variable} antialiased apply-transition`}
       >

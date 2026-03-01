@@ -2,7 +2,7 @@ import { createCard, type cardOptions, type cardWidth } from "./card";
 import { cs } from "./utils/line";
 import { s } from "./utils/style";
 
-class betterconsole {
+class betterConsole {
   static json(
     obj: any,
     width: cardWidth = "auto",
@@ -63,7 +63,7 @@ class betterconsole {
   }
 }
 
-export default betterconsole;
+export default betterConsole;
 
 // types
 export * from "./types/button";
