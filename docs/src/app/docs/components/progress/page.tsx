@@ -109,14 +109,14 @@ function Page() {
             together and finish as a group.
           </li>
           <li>
-            <strong>Rainbow animation</strong>: Set{" "}
-            <code>bar.animation</code> to <code>&quot;rainbow&quot;</code> for a
-            scrolling parallax rainbow effect across the bar.
+            <strong>Rainbow animation</strong>: Set <code>bar.animation</code>{" "}
+            to <code>&quot;rainbow&quot;</code> for a scrolling parallax rainbow
+            effect across the bar.
           </li>
           <li>
-            <strong>Custom symbols</strong>: Configure{" "}
-            <code>loadedSymbol</code>, <code>bufferedSymbol</code>, and{" "}
-            <code>emptySymbol</code> to change the bar characters.
+            <strong>Custom symbols</strong>: Configure <code>loadedSymbol</code>
+            , <code>bufferedSymbol</code>, and <code>emptySymbol</code> to
+            change the bar characters.
           </li>
           <li>
             <strong>State colors</strong>: Customize colors for loaded,
@@ -233,15 +233,12 @@ const timer = setInterval(() => {
                       <i className="text-orange-400">30</i>,
                       <br />
                       <i className="text-blue-400">animation</i>:{" "}
-                      <i className="text-orange-400">
-                        &quot;rainbow&quot;
-                      </i>
+                      <i className="text-orange-400">&quot;rainbow&quot;</i>
                       ,
                       <br />
                       <i className="text-blue-400">color</i>: {"{"}{" "}
                       <i className="text-blue-400">completed</i>:{" "}
-                      <i className="text-orange-400">&quot;cyan&quot;</i>{" "}
-                      {"}"},
+                      <i className="text-orange-400">&quot;cyan&quot;</i> {"}"},
                     </div>
                     {"}"},
                   </div>
@@ -266,6 +263,31 @@ const timer = setInterval(() => {
                   <br />
                   <i className="text-blue-400">bar</i>.
                   <i className="text-yellow-400">init</i>();
+                  <br />
+                  <br />
+                  <i className="text-purple-400">let</i>{" "}
+                  <i className="text-blue-400">i</i> ={" "}
+                  <i className="text-orange-400">0</i>;
+                  <br />
+                  <i className="text-purple-400">const</i>{" "}
+                  <i className="text-blue-400">timer</i> ={" "}
+                  <i className="text-yellow-400">setInterval</i>(() =&gt; {"{"}
+                  <br />
+                  <div className="ml-4">
+                    <i className="text-blue-400">i</i> +={" "}
+                    <i className="text-orange-400">5</i>;
+                    <br />
+                    <i className="text-blue-400">bar</i>.
+                    <i className="text-yellow-400">update</i>(
+                    <i className="text-blue-400">i</i>);
+                    <br />
+                    <i className="text-purple-400">if</i> (
+                    <i className="text-blue-400">i</i> &gt;={" "}
+                    <i className="text-orange-400">50</i>){" "}
+                    <i className="text-yellow-400">clearInterval</i>(
+                    <i className="text-blue-400">timer</i>);
+                  </div>
+                  {"}"}, <i className="text-orange-400">200</i>);
                 </div>
               ),
               snippet: `import { Progress } from "ts-better-console";
@@ -283,7 +305,14 @@ bar.on("complete", (total) => {
   console.log(\`Done! Total: \${total}\`);
 });
 
-bar.init();`,
+bar.init();
+
+let i = 0;
+const timer = setInterval(() => {
+  i += 5;
+  bar.update(i);
+  if (i >= 50) clearInterval(timer);
+}, 200);`,
             },
             {
               title: "Custom Symbols and Colors",
@@ -319,9 +348,7 @@ bar.init();`,
                       <i className="text-orange-400">&quot;.&quot;</i>,
                       <br />
                       <i className="text-blue-400">length</i>:{" "}
-                      <i className="text-orange-400">
-                        &quot;full-width&quot;
-                      </i>
+                      <i className="text-orange-400">&quot;full-width&quot;</i>
                       ,
                       <br />
                       <i className="text-blue-400">color</i>: {"{"}
@@ -341,6 +368,38 @@ bar.init();`,
                     {"}"},
                   </div>
                   {"}"});
+                  <br />
+                  <br />
+                  <i className="text-blue-400">bar</i>.
+                  <i className="text-yellow-400">init</i>();
+                  <br />
+                  <br />
+                  <i className="text-purple-400">let</i>{" "}
+                  <i className="text-blue-400">loaded</i> ={" "}
+                  <i className="text-orange-400">0</i>;
+                  <br />
+                  <i className="text-purple-400">const</i>{" "}
+                  <i className="text-blue-400">interval</i> ={" "}
+                  <i className="text-yellow-400">setInterval</i>(() =&gt; {"{"}
+                  <br />
+                  <div className="ml-4">
+                    <i className="text-blue-400">loaded</i> +={" "}
+                    <i className="text-orange-400">
+                      Math.floor(Math.random() * 10) + 1
+                    </i>
+                    ;
+                    <br />
+                    <i className="text-blue-400">bar</i>.
+                    <i className="text-yellow-400">update</i>(
+                    <i className="text-blue-400">loaded</i>);
+                    <br />
+                    <i className="text-purple-400">if</i> (
+                    <i className="text-blue-400">loaded</i> &gt;={" "}
+                    <i className="text-orange-400">100</i>){" "}
+                    <i className="text-yellow-400">clearInterval</i>(
+                    <i className="text-blue-400">interval</i>);
+                  </div>
+                  {"}"}, <i className="text-orange-400">1000</i>);
                 </div>
               ),
               snippet: `import { Progress } from "ts-better-console";
@@ -357,7 +416,18 @@ const bar = new Progress("Uploading", 100, {
       errored: "red",
     },
   },
-});`,
+});
+
+bar.init();
+
+let loaded = 0;
+const interval = setInterval(() => {
+  loaded += Math.floor(Math.random() * 10) + 1;
+  bar.update(loaded);
+  if (loaded >= 100) {
+    clearInterval(interval);
+  }
+}, 1000);`,
             },
           ]}
         />

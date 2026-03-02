@@ -1,4 +1,4 @@
-import betterConsole, { Progress, s, tsflag } from "../../src";
+import betterConsole, { Progress, s, tsflag } from "../../dist";
 
 const progress = new Progress("Something awesome", 100);
 const progress_withbuffer = new Progress("Awesome video", 100, {

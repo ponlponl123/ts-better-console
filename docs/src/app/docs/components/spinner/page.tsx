@@ -5,12 +5,7 @@ function Page() {
   return (
     <div className="docs flex flex-col gap-12 min-h-screen bg-background text-foreground">
       <section>
-        <h1>
-          spinner{" "}
-          <span className="text-sm text-amber-500/50 px-2 py-0.5 bg-amber-500/10 rounded-full align-middle">
-            beta
-          </span>
-        </h1>
+        <h1>spinner</h1>
         <p>
           The <code>Spinner</code> class creates an animated spinner indicator
           in the terminal. It supports multiple built-in styles and custom
@@ -86,6 +81,9 @@ function Page() {
           <li>
             <code>&quot;arrow&quot;</code>: ← ↖ ↑ ↗ → ↘ ↓ ↙
           </li>
+          <li>
+            <code>&quot;moon&quot;</code>: 🌑 🌒 🌓 🌔 🌕 🌖 🌗 🌘
+          </li>
         </ul>
         <h2 className="mt-8">Usage</h2>
         <Code
@@ -150,14 +148,15 @@ setTimeout(() => spinner.stop(), 3000);`,
                   <br />
                   <div className="ml-4">
                     <i className="text-blue-400">frames</i>: [
-                    <i className="text-orange-400">&quot;🌑&quot;</i>,{" "}
-                    <i className="text-orange-400">&quot;🌒&quot;</i>,{" "}
-                    <i className="text-orange-400">&quot;🌓&quot;</i>,{" "}
-                    <i className="text-orange-400">&quot;🌔&quot;</i>,{" "}
-                    <i className="text-orange-400">&quot;🌕&quot;</i>,{" "}
-                    <i className="text-orange-400">&quot;🌖&quot;</i>,{" "}
-                    <i className="text-orange-400">&quot;🌗&quot;</i>,{" "}
-                    <i className="text-orange-400">&quot;🌘&quot;</i>],
+                    <i className="text-orange-400">&quot;🧎 &quot;</i>,{" "}
+                    <i className="text-orange-400">&quot;🧍 &quot;</i>,{" "}
+                    <i className="text-orange-400">&quot;🚶 &quot;</i>,{" "}
+                    <i className="text-orange-400">&quot;🏃 &quot;</i>,{" "}
+                    <i className="text-orange-400">&quot;🏃💨&quot;</i>,{" "}
+                    <i className="text-orange-400">&quot;🏃 &quot;</i>,{" "}
+                    <i className="text-orange-400">&quot;🚶 &quot;</i>,{" "}
+                    <i className="text-orange-400">&quot;🧍 &quot;</i>
+                    ],
                   </div>
                   <div className="ml-4">
                     <i className="text-blue-400">interval</i>:{" "}
@@ -172,8 +171,8 @@ setTimeout(() => spinner.stop(), 3000);`,
               snippet: `import { Spinner } from "ts-better-console";
 
 const spinner = new Spinner({
-  frames: ["🌑", "🌒", "🌓", "🌔", "🌕", "🌖", "🌗", "🌘"],
-  interval: 150,
+  frames: ["🧎  ", "🧍  ", "🚶  ", "🏃  ", "🏃💨", "🏃  ", "🚶  ", "🧍  "],
+  interval: 300,
 });
 spinner.start();`,
             },

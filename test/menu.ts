@@ -1,4 +1,4 @@
-import { Menu } from "../src";
+import { Menu } from "../dist";
 
 const menu = new Menu([
   { label: "item 1" },

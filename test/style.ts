@@ -1,4 +1,4 @@
-import betterConsole, { Color, cs, s } from "../src";
+import betterConsole, { Color, cs, s } from "../dist";
 
 betterConsole.log(s("This is a styled message!", { color: "cyan" }));
 

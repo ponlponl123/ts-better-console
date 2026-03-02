@@ -67,13 +67,15 @@ function Page() {
               code: (
                 <div>
                   <i className="text-purple-400">import</i> {"{"}{" "}
-                  <i className="text-blue-400">button</i> {"}"}{" "}
+                  <i className="text-blue-400">ButtonGroup</i> {"}"}{" "}
                   <i className="text-purple-400">from</i>{" "}
                   <i className="text-orange-400">"ts-better-console"</i>;
                   <br />
                   <br />
-                  <i className="text-emerald-400">button</i>.
-                  <i className="text-yellow-400">group</i>(
+                  <i className="text-purple-400">const</i>{" "}
+                  <i className="text-emerald-400">buttonGroup</i> ={" "}
+                  <i className="text-purple-400">new</i>{" "}
+                  <i className="text-blue-400">ButtonGroup</i>(
                   <br />
                   <div className="ml-4">
                     [
@@ -114,12 +116,12 @@ function Page() {
                     </div>
                     {"}"}
                   </div>
-                  );
+                  ).<i className="text-yellow-400">show</i>();
                 </div>
               ),
-              snippet: `import { button } from "ts-better-console";
+              snippet: `import { ButtonGroup } from "ts-better-console";
 
-button.group(
+const buttonGroup = new ButtonGroup(
   [
     { label: "Yes", onClick: () => {} },
     { label: "No", onClick: () => {} },
@@ -131,7 +133,7 @@ button.group(
       styles: ["bold"],
     },
   }
-);`,
+).show();`,
             },
           ]}
         />

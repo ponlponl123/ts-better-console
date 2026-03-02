@@ -80,62 +80,71 @@ function Page() {
               code: (
                 <div>
                   <i className="text-purple-400">import</i> {"{"}{" "}
-                  <i className="text-blue-400">button</i> {"}"}{" "}
+                  <i className="text-blue-400">ButtonGroup</i> {"}"}{" "}
                   <i className="text-purple-400">from</i>{" "}
                   <i className="text-orange-400">"ts-better-console"</i>;
                   <br />
                   <br />
-                  <i className="text-emerald-400">button</i>.
-                  <i className="text-yellow-400">group</i>([
+                  <i className="text-purple-400">const</i> buttonGroup ={" "}
+                  <i className="text-purple-400">new</i>{" "}
+                  <i className="text-blue-400">ButtonGroup</i>([
                   <br />
-                  <div className="ml-4">
-                    {"{"}
-                    <br />
-                    <div className="ml-4">
-                      <i className="text-blue-400">label</i>:{" "}
-                      <i className="text-orange-400">"Click Me"</i>,
-                    </div>
-                    <div className="ml-4">
-                      <i className="text-blue-400">style</i>: {"{"}{" "}
-                      <i className="text-blue-400">color</i>:{" "}
-                      <i className="text-orange-400">"white"</i>,{" "}
-                      <i className="text-blue-400">backgroundColor</i>:{" "}
-                      <i className="text-orange-400">"blue"</i> {"}"},
-                    </div>
-                    <div className="ml-4">
-                      <i className="text-blue-400">hoverStyle</i>: {"{"}{" "}
-                      <i className="text-blue-400">color</i>:{" "}
-                      <i className="text-orange-400">"white"</i>,{" "}
-                      <i className="text-blue-400">backgroundColor</i>:{" "}
-                      <i className="text-orange-400">"cyan"</i> {"}"},
-                    </div>
-                    <div className="ml-4">
-                      <i className="text-blue-400">onClick</i>: () =&gt; {"{"}
-                      <br />
-                      <div className="ml-4">
-                        <i className="text-emerald-400">console</i>.
-                        <i className="text-yellow-400">log</i>(
-                        <i className="text-orange-400">"Button clicked!"</i>);
-                      </div>
-                      {"}"},
-                    </div>
-                    {"}"},
-                  </div>
-                  ]);
+                  &nbsp;&nbsp;{"{"}
+                  <br />
+                  &nbsp;&nbsp;&nbsp;&nbsp;<i className="text-cyan-600">label</i>
+                  : <i className="text-orange-400">"Click Me"</i>,
+                  <br />
+                  &nbsp;&nbsp;&nbsp;&nbsp;<i className="text-cyan-600">style</i>
+                  : {"{"} <i className="text-blue-400">color</i>:{" "}
+                  <i className="text-orange-400">"white"</i>,{" "}
+                  <i className="text-blue-400">backgroundColor</i>:{" "}
+                  <i className="text-orange-400">"blue"</i> {"}"},
+                  <br />
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  <i className="text-cyan-600">hoverStyle</i>: {"{"}{" "}
+                  <i className="text-blue-400">color</i>:{" "}
+                  <i className="text-orange-400">"white"</i>,{" "}
+                  <i className="text-blue-400">backgroundColor</i>:{" "}
+                  <i className="text-orange-400">"cyan"</i> {"}"},
+                  <br />
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  <i className="text-cyan-600">onClick</i>: () =&gt; {"{"}
+                  <br />
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{"// Handle button click"}
+                  <br />
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <i className="text-emerald-400">console</i>.
+                  <i className="text-yellow-400">log</i>(
+                  <i className="text-orange-400">"Button clicked!"</i>);
+                  <br />
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <i className="text-emerald-400">buttonGroup</i>.
+                  <i className="text-yellow-400">destroy</i>();
+                  <br />
+                  &nbsp;&nbsp;&nbsp;&nbsp;{"}"}
+                  <br />
+                  &nbsp;&nbsp;{"}"}]);
+                  <br />
+                  <br />
+                  <i className="text-emerald-400">buttonGroup</i>.
+                  <i className="text-yellow-400">show</i>();
                 </div>
               ),
-              snippet: `import { button } from "ts-better-console";
+              snippet: `import { ButtonGroup } from "ts-better-console";
 
-button.group([
+const buttonGroup = new ButtonGroup([
   {
     label: "Click Me",
     style: { color: "white", backgroundColor: "blue" },
     hoverStyle: { color: "white", backgroundColor: "cyan" },
     onClick: () => {
       console.log("Button clicked!");
+      buttonGroup.destroy();
     },
   },
-]);`,
+]);
+
+buttonGroup.show();`,
             },
           ]}
         />

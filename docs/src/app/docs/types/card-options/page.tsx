@@ -87,6 +87,8 @@ function Page() {
                   <i className="text-orange-400">"ts-better-console"</i>;
                   <br />
                   <br />
+                  <i className="text-emerald-400">console</i>.
+                  <i className="text-yellow-400">log</i>(
                   <i className="text-emerald-400">createCard</i>(
                   <i className="text-orange-400">"Hello World"</i>, {"{"}
                   <br />
@@ -130,12 +132,12 @@ function Page() {
                     <i className="text-blue-400">color</i>:{" "}
                     <i className="text-orange-400">"blue"</i> {"}"},
                   </div>
-                  {"}"});
+                  {"}"}));
                 </div>
               ),
               snippet: `import { createCard } from "ts-better-console";
 
-createCard("Hello World", 50, {
+console.log(createCard("Hello World", 50, {
   title: {
     content: "My Card",
     style: { color: "cyan", styles: ["bold"] },
@@ -146,7 +148,7 @@ createCard("Hello World", 50, {
     style: { color: "gray" },
   },
   borderStyle: { color: "blue" },
-});`,
+}));`,
             },
           ]}
         />

@@ -162,13 +162,7 @@ function Sidebar({
           <li>
             <DocsActiveLink href="/docs/components/spinner">
               <SpinnerIcon weight="bold" size={16} />
-              <div className="flex flex-wrap items-center gap-1">
-                {" "}
-                spinner{" "}
-                <span className="text-xs text-amber-500/50 px-2 py-0.5 bg-amber-500/10 rounded-full">
-                  beta
-                </span>
-              </div>
+              <div className="flex flex-wrap items-center gap-1"> spinner</div>
             </DocsActiveLink>
           </li>
           <li>
@@ -530,6 +524,18 @@ function Sidebar({
               <div className="flex flex-wrap items-center gap-1">
                 {" "}
                 StyleOptions
+                <span className="text-xs text-cyan-500/50 px-2 py-0.5 bg-cyan-500/10 rounded-full">
+                  types
+                </span>
+              </div>
+            </DocsActiveLink>
+          </li>
+          <li>
+            <DocsActiveLink href="/docs/types/unspecified-color">
+              <PaletteIcon weight="bold" size={16} />
+              <div className="flex flex-wrap items-center gap-1">
+                {" "}
+                UnSpecifiedColor
                 <span className="text-xs text-cyan-500/50 px-2 py-0.5 bg-cyan-500/10 rounded-full">
                   types
                 </span>

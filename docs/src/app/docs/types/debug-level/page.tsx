@@ -65,7 +65,7 @@ function Page() {
               code: (
                 <div>
                   <i className="text-purple-400">import</i> {"{"}{" "}
-                  <i className="text-blue-400">betterConsole</i> {"}"}{" "}
+                  <i className="text-yellow-400">flag</i> {"}"}{" "}
                   <i className="text-purple-400">from</i>{" "}
                   <i className="text-orange-400">"ts-better-console"</i>;
                   <br />
@@ -74,29 +74,31 @@ function Page() {
                     // Only show warnings and errors
                   </span>
                   <br />
-                  <i className="text-emerald-400">betterConsole</i>.
+                  <i className="text-emerald-400">console</i>.
+                  <i className="text-yellow-400">log</i>(
                   <i className="text-yellow-400">flag</i>(
                   <i className="text-orange-400">"warn"</i>,{" "}
-                  <i className="text-orange-400">"This is a warning"</i>);
+                  <i className="text-orange-400">"This is a warning"</i>));
                   <br />
                   <br />
                   <span className="text-zinc-500">
                     // Show all messages including debug
                   </span>
                   <br />
-                  <i className="text-emerald-400">betterConsole</i>.
+                  <i className="text-emerald-400">console</i>.
+                  <i className="text-yellow-400">log</i>(
                   <i className="text-yellow-400">flag</i>(
                   <i className="text-orange-400">"debug"</i>,{" "}
-                  <i className="text-orange-400">"Detailed debug info"</i>);
+                  <i className="text-orange-400">"Detailed debug info"</i>));
                 </div>
               ),
-              snippet: `import { betterConsole } from "ts-better-console";
+              snippet: `import { flag } from "ts-better-console";
 
 // Only show warnings and errors
-betterConsole.flag("warn", "This is a warning");
+console.log(flag("warn", "This is a warning"));
 
 // Show all messages including debug
-betterConsole.flag("debug", "Detailed debug info");`,
+console.log(flag("debug", "Detailed debug info"));`,
             },
           ]}
         />

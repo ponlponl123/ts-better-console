@@ -70,8 +70,8 @@ function Page() {
               title: "Example",
               code: (
                 <div>
-                  <i className="text-purple-400">import</i> {"{"}{" "}
-                  <i className="text-blue-400">s</i> {"}"}{" "}
+                  <i className="text-purple-400">import</i>{" "}
+                  <i className="text-blue-400">betterConsole</i>{" "}
                   <i className="text-purple-400">from</i>{" "}
                   <i className="text-orange-400">"ts-better-console"</i>;<br />
                   <br />
@@ -87,7 +87,7 @@ function Page() {
                 </div>
               ),
               icon: <></>,
-              snippet: `import { s } from "ts-better-console";
+              snippet: `import betterConsole from "ts-better-console";
 
 betterConsole.log("Hello, World!", { foo: "bar" });`,
             },
@@ -95,8 +95,8 @@ betterConsole.log("Hello, World!", { foo: "bar" });`,
               title: "Example JSON Output",
               code: (
                 <div>
-                  <i className="text-purple-400">import</i> {"{"}{" "}
-                  <i className="text-blue-400">s</i> {"}"}{" "}
+                  <i className="text-purple-400">import</i>{" "}
+                  <i className="text-blue-400">betterConsole</i>{" "}
                   <i className="text-purple-400">from</i>{" "}
                   <i className="text-orange-400">"ts-better-console"</i>;<br />
                   <br />
@@ -128,7 +128,7 @@ betterConsole.log("Hello, World!", { foo: "bar" });`,
                 </div>
               ),
               icon: <></>,
-              snippet: `import { betterConsole } from "ts-better-console";
+              snippet: `import betterConsole from "ts-better-console";
 
 betterConsole.json({ name: "Alice", age: 30, city: "New York" });`,
             },

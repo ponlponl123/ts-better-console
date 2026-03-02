@@ -66,15 +66,15 @@ function Page() {
               code: (
                 <div>
                   <i className="text-purple-400">import</i> {"{"}{" "}
-                  <i className="text-blue-400">menu</i> {"}"}{" "}
+                  <i className="text-blue-400">Menu</i> {"}"}{" "}
                   <i className="text-purple-400">from</i>{" "}
                   <i className="text-orange-400">"ts-better-console"</i>;
                   <br />
                   <br />
                   <i className="text-purple-400">const</i>{" "}
                   <i className="text-blue-400">m</i> ={" "}
-                  <i className="text-emerald-400">menu</i>(
-                  <i className="text-orange-400">"Choose an option:"</i>, [
+                  <i className="text-purple-400">new</i>{" "}
+                  <i className="text-emerald-400">Menu</i>([
                   <br />
                   <div className="ml-4">
                     {"{"} <i className="text-blue-400">label</i>:{" "}
@@ -105,6 +105,10 @@ function Page() {
                     </i>
                     );
                   </div>
+                  <div className="ml-4">
+                    <i className="text-emerald-400">m</i>.
+                    <i className="text-yellow-400">destroy</i>();
+                  </div>
                   {"}"});
                   <br />
                   <br />
@@ -118,11 +122,15 @@ function Page() {
                     <i className="text-orange-400">"Menu closed"</i>);
                   </div>
                   {"}"});
+                  <br />
+                  <br />
+                  <i className="text-emerald-400">m</i>.
+                  <i className="text-yellow-400">show</i>();
                 </div>
               ),
-              snippet: `import { menu } from "ts-better-console";
+              snippet: `import { Menu } from "ts-better-console";
 
-const m = menu("Choose an option:", [
+const m = new Menu([
   { label: "Option 1" },
   { label: "Option 2" },
   { label: "Option 3" },
@@ -130,11 +138,14 @@ const m = menu("Choose an option:", [
 
 m.on("select", (label, index) => {
   console.log(\`Selected: \${label} at index \${index}\`);
+  m.destroy(); // Close menu after selection
 });
 
 m.on("exit", () => {
   console.log("Menu closed");
-});`,
+});
+
+m.show();`,
             },
           ]}
         />

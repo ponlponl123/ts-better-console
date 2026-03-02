@@ -92,16 +92,14 @@ function Page() {
               code: (
                 <div>
                   <i className="text-purple-400">import</i> {"{"}{" "}
-                  <i className="text-blue-400">menu</i> {"}"}{" "}
+                  <i className="text-blue-400">Menu</i> {"}"}{" "}
                   <i className="text-purple-400">from</i>{" "}
                   <i className="text-orange-400">"ts-better-console"</i>;
                   <br />
                   <br />
-                  <i className="text-emerald-400">menu</i>(
+                  <i className="text-purple-400">new</i>{" "}
+                  <i className="text-emerald-400">Menu</i>(
                   <br />
-                  <div className="ml-4">
-                    <i className="text-orange-400">"Pick a fruit:"</i>,
-                  </div>
                   <div className="ml-4">
                     [
                     <br />
@@ -143,13 +141,12 @@ function Page() {
                     </div>
                     {"}"}
                   </div>
-                  );
+                  ).<i className="text-yellow-400">show</i>();
                 </div>
               ),
-              snippet: `import { menu } from "ts-better-console";
+              snippet: `import { Menu } from "ts-better-console";
 
-menu(
-  "Pick a fruit:",
+new Menu(
   [
     { label: "Apple" },
     { label: "Banana" },
@@ -161,7 +158,7 @@ menu(
     focusStyle: { color: "cyan", styles: ["bold"] },
     defaultIndex: 0,
   }
-);`,
+).show();`,
             },
           ]}
         />

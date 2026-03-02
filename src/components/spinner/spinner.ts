@@ -6,6 +6,7 @@ class Spinner {
   private interval: number;
   private currentFrameIndex: number = 0;
   private timer?: NodeJS.Timeout;
+  private silent: boolean = false;
 
   constructor(options: SpinnerOptions = {}) {
     this.style = options.style || "dots";
@@ -15,6 +16,7 @@ class Spinner {
 
   start(silent: boolean = false) {
     if (this.timer) return; // Already spinning
+    this.silent = silent;
     this.timer = setInterval(() => {
       if (!silent) {
         process.stdout.write(`\r${this.getCurrentFrame()} `);
@@ -28,7 +30,9 @@ class Spinner {
     if (this.timer) {
       clearInterval(this.timer);
       this.timer = undefined;
-      process.stdout.write("\r"); // Clear the spinner line
+      if (!this.silent) {
+        process.stdout.write("\r"); // Clear the spinner line
+      }
     }
   }
 
@@ -46,6 +50,8 @@ class Spinner {
         return ["⠁", "⠂", "⠄", "⠂"];
       case "arrow":
         return ["←", "↖", "↑", "↗", "→", "↘", "↓", "↙"];
+      case "moon":
+        return ["🌑", "🌒", "🌓", "🌔", "🌕", "🌖", "🌗", "🌘"];
       default:
         return ["⣾", "⣷", "⣯", "⣟", "⣻", "⣽"];
     }

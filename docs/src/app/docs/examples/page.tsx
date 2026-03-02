@@ -34,7 +34,8 @@ function Page() {
               title: "Styled Log Example",
               code: (
                 <div>
-                  <i className="text-purple-400">import</i> {"{"}{" "}
+                  <i className="text-purple-400">import</i>{" "}
+                  <i className="text-blue-400">betterConsole</i>, {"{"}{" "}
                   <i className="text-blue-400">s</i> {"}"}{" "}
                   <i className="text-purple-400">from</i>{" "}
                   <i className="text-orange-400">"ts-better-console"</i>;
@@ -69,7 +70,7 @@ function Page() {
                 </div>
               ),
               icon: <></>,
-              snippet: `import { s } from "ts-better-console";
+              snippet: `import betterConsole, { s } from "ts-better-console";
 
 betterConsole.log(
   s("This is a styled log", {

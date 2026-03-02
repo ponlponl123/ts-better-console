@@ -22,8 +22,8 @@ function Page() {
           <li>
             <code>style</code>: An optional <code>SpinnerStyle</code> value that
             determines the animation style of the spinner. Available styles are{" "}
-            <code>"dots"</code>, <code>"line"</code>, <code>"bounce"</code>, and{" "}
-            <code>"arrow"</code>.
+            <code>"dots"</code>, <code>"line"</code>, <code>"bounce"</code>,{" "}
+            <code>"arrow"</code>, and <code>"moon"</code>.
           </li>
           <li>
             <code>frames</code>: An optional array of strings that define custom
@@ -68,12 +68,12 @@ function Page() {
                   <i className="text-purple-400">type</i>{" "}
                   <i className="text-blue-400">SpinnerStyle</i> ={" "}
                   <span className="text-orange-400">
-                    "dots" | "line" | "bounce" | "arrow"
+                    "dots" | "line" | "bounce" | "arrow" | "moon"
                   </span>
                   ;
                 </div>
               ),
-              snippet: `type SpinnerStyle = "dots" | "line" | "bounce" | "arrow";`,
+              snippet: `type SpinnerStyle = "dots" | "line" | "bounce" | "arrow" | "moon";`,
             },
           ]}
         />
@@ -89,7 +89,7 @@ function Page() {
               code: (
                 <div>
                   <i className="text-purple-400">import</i> {"{"}{" "}
-                  <i className="text-blue-400">spinner</i> {"}"}{" "}
+                  <i className="text-blue-400">Spinner</i> {"}"}{" "}
                   <i className="text-purple-400">from</i>{" "}
                   <i className="text-orange-400">"ts-better-console"</i>;
                   <br />
@@ -98,8 +98,8 @@ function Page() {
                     // Using a built-in style
                   </span>
                   <br />
-                  <i className="text-emerald-400">spinner</i>(
-                  <i className="text-orange-400">"Loading..."</i>, {"{"}
+                  <i className="text-purple-400">new</i>{" "}
+                  <i className="text-emerald-400">Spinner</i>({"{"}
                   <br />
                   <div className="ml-4">
                     <i className="text-blue-400">style</i>:{" "}
@@ -109,13 +109,13 @@ function Page() {
                     <i className="text-blue-400">interval</i>:{" "}
                     <i className="text-orange-400">80</i>,
                   </div>
-                  {"}"});
+                  {"}"}).<i className="text-yellow-400">start</i>();
                   <br />
                   <br />
                   <span className="text-zinc-500">// Using custom frames</span>
                   <br />
-                  <i className="text-emerald-400">spinner</i>(
-                  <i className="text-orange-400">"Processing..."</i>, {"{"}
+                  <i className="text-purple-400">new</i>{" "}
+                  <i className="text-emerald-400">Spinner</i>({"{"}
                   <br />
                   <div className="ml-4">
                     <i className="text-blue-400">frames</i>: [
@@ -129,22 +129,22 @@ function Page() {
                     <i className="text-blue-400">interval</i>:{" "}
                     <i className="text-orange-400">150</i>,
                   </div>
-                  {"}"});
+                  {"}"}).<i className="text-yellow-400">start</i>();
                 </div>
               ),
-              snippet: `import { spinner } from "ts-better-console";
+              snippet: `import { Spinner } from "ts-better-console";
 
 // Using a built-in style
-spinner("Loading...", {
+new Spinner({
   style: "dots",
   interval: 80,
-});
+}).start();
 
 // Using custom frames
-spinner("Processing...", {
+new Spinner({
   frames: ["🌑", "🌒", "🌓", "🌔", "🌕"],
   interval: 150,
-});`,
+}).start();`,
             },
           ]}
         />

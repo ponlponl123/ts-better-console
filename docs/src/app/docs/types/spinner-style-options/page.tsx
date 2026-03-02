@@ -32,6 +32,10 @@ function Page() {
             <code>"arrow"</code>: An arrow-based animation (e.g., ← ↖ ↑ ↗ → ↘ ↓
             ↙).
           </li>
+          <li>
+            <code>"moon"</code>: A moon phase animation (e.g., 🌑 🌒 🌓 🌔 🌕 🌖
+            🌗 🌘).
+          </li>
         </ul>
         <Code
           codesnippets={[
@@ -42,12 +46,12 @@ function Page() {
                   <i className="text-purple-400">type</i>{" "}
                   <i className="text-blue-400">SpinnerStyle</i> ={" "}
                   <span className="text-orange-400">
-                    "dots" | "line" | "bounce" | "arrow"
+                    "dots" | "line" | "bounce" | "arrow" | "moon"
                   </span>
                   ;
                 </div>
               ),
-              snippet: `type SpinnerStyle = "dots" | "line" | "bounce" | "arrow";`,
+              snippet: `type SpinnerStyle = "dots" | "line" | "bounce" | "arrow" | "moon";`,
             },
           ]}
         />
@@ -63,56 +67,67 @@ function Page() {
               code: (
                 <div>
                   <i className="text-purple-400">import</i> {"{"}{" "}
-                  <i className="text-blue-400">spinner</i> {"}"}{" "}
+                  <i className="text-blue-400">Spinner</i> {"}"}{" "}
                   <i className="text-purple-400">from</i>{" "}
                   <i className="text-orange-400">"ts-better-console"</i>;
                   <br />
                   <br />
                   <span className="text-zinc-500">// Dots style</span>
                   <br />
-                  <i className="text-emerald-400">spinner</i>(
-                  <i className="text-orange-400">"Loading..."</i>, {"{"}{" "}
+                  <i className="text-purple-400">new</i>{" "}
+                  <i className="text-emerald-400">Spinner</i>({"{"}{" "}
                   <i className="text-blue-400">style</i>:{" "}
                   <i className="text-orange-400">"dots"</i> {"}"});
                   <br />
                   <br />
                   <span className="text-zinc-500">// Line style</span>
                   <br />
-                  <i className="text-emerald-400">spinner</i>(
-                  <i className="text-orange-400">"Loading..."</i>, {"{"}{" "}
+                  <i className="text-purple-400">new</i>{" "}
+                  <i className="text-emerald-400">Spinner</i>({"{"}{" "}
                   <i className="text-blue-400">style</i>:{" "}
                   <i className="text-orange-400">"line"</i> {"}"});
                   <br />
                   <br />
                   <span className="text-zinc-500">// Bounce style</span>
                   <br />
-                  <i className="text-emerald-400">spinner</i>(
-                  <i className="text-orange-400">"Loading..."</i>, {"{"}{" "}
+                  <i className="text-purple-400">new</i>{" "}
+                  <i className="text-emerald-400">Spinner</i>({"{"}{" "}
                   <i className="text-blue-400">style</i>:{" "}
                   <i className="text-orange-400">"bounce"</i> {"}"});
                   <br />
                   <br />
                   <span className="text-zinc-500">// Arrow style</span>
                   <br />
-                  <i className="text-emerald-400">spinner</i>(
-                  <i className="text-orange-400">"Loading..."</i>, {"{"}{" "}
+                  <i className="text-purple-400">new</i>{" "}
+                  <i className="text-emerald-400">Spinner</i>({"{"}{" "}
                   <i className="text-blue-400">style</i>:{" "}
                   <i className="text-orange-400">"arrow"</i> {"}"});
+                  <br />
+                  <br />
+                  <span className="text-zinc-500">// Moon style</span>
+                  <br />
+                  <i className="text-purple-400">new</i>{" "}
+                  <i className="text-emerald-400">Spinner</i>({"{"}{" "}
+                  <i className="text-blue-400">style</i>:{" "}
+                  <i className="text-orange-400">"moon"</i> {"}"});
                 </div>
               ),
-              snippet: `import { spinner } from "ts-better-console";
+              snippet: `import { Spinner } from "ts-better-console";
 
 // Dots style
-spinner("Loading...", { style: "dots" });
+new Spinner({ style: "dots" });
 
 // Line style
-spinner("Loading...", { style: "line" });
+new Spinner({ style: "line" });
 
 // Bounce style
-spinner("Loading...", { style: "bounce" });
+new Spinner({ style: "bounce" });
 
 // Arrow style
-spinner("Loading...", { style: "arrow" });`,
+new Spinner({ style: "arrow" });
+
+// Moon style
+new Spinner({ style: "moon" });`,
             },
           ]}
         />

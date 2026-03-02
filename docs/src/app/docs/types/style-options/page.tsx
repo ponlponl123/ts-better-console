@@ -119,7 +119,8 @@ type style = "bold" | "italic" | "underline" | "strikethrough";`,
               title: "Using StyleOptions with the s function",
               code: (
                 <div>
-                  <i className="text-purple-400">import</i> {"{"}{" "}
+                  <i className="text-purple-400">import</i>{" "}
+                  <i className="text-emerald-400">betterConsole</i>, {"{"}{" "}
                   <i className="text-blue-400">s</i> {"}"}{" "}
                   <i className="text-purple-400">from</i>{" "}
                   <i className="text-orange-400">"ts-better-console"</i>;
@@ -153,7 +154,7 @@ type style = "bold" | "italic" | "underline" | "strikethrough";`,
                   ));
                 </div>
               ),
-              snippet: `import { s } from "ts-better-console";
+              snippet: `import betterConsole, { s } from "ts-better-console";
 
 betterConsole.log(
   s("This is a styled log", {
@@ -201,7 +202,7 @@ betterConsole.log(
                     </span>
                   </div>
                   <div className="flex items-center gap-2 mt-4">
-                    <span className="text-sm text-red-400 font-bold underline">
+                    <span className="text-sm text-red-400 bg-yellow-400 font-bold underline">
                       This is a styled log!✨
                     </span>
                   </div>

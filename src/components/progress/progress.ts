@@ -39,10 +39,18 @@ class Progress extends EventEmitter {
   private static activeBars: Progress[] = [];
   private static renderTimer?: NodeJS.Timeout;
   private static initialRenderScheduled: boolean = false;
-  private static queuedMessages: { level: "warn" | "error"; msg: string }[] = [];
+  private static queuedMessages: { level: "warn" | "error"; msg: string }[] =
+    [];
   private static originalStdoutWrite?: typeof process.stdout.write;
+  private static originalConsole?: {
+    log: typeof console.log;
+    warn: typeof console.warn;
+    error: typeof console.error;
+    info: typeof console.info;
+    debug: typeof console.debug;
+  };
   private static isRendering: boolean = false;
-  private static cursorSaved: boolean = false;
+  private static lastLineCount: number = 0;
 
   private static readonly RAINBOW_COLORS = [
     "\x1b[31m",
@@ -95,32 +103,104 @@ class Progress extends EventEmitter {
     this.spinner.start(true);
   }
 
+  private static directWrite(data: string) {
+    try {
+      require("fs").writeSync(1, data);
+    } catch {
+      // Fallback if writeSync is unavailable
+      const write =
+        Progress.originalStdoutWrite ||
+        process.stdout.write.bind(process.stdout);
+      write.call(process.stdout, data);
+    }
+  }
+
   private static hookStdout() {
-    if (Progress.originalStdoutWrite) return;
-    Progress.originalStdoutWrite = process.stdout.write.bind(process.stdout);
-    const origWrite = Progress.originalStdoutWrite;
-    process.stdout.write = function (...args: any[]) {
-      if (!Progress.isRendering && Progress.cursorSaved) {
-        Progress.isRendering = true;
-        origWrite.call(process.stdout, "\x1b[u\x1b[0J");
-        origWrite.apply(process.stdout, args as any);
-        origWrite.call(process.stdout, "\x1b[s");
-        let reRender = "";
-        for (const bar of Progress.activeBars) {
-          reRender += bar.getRenderedLine() + "\n";
+    if (!Progress.originalStdoutWrite) {
+      Progress.originalStdoutWrite = process.stdout.write.bind(process.stdout);
+      const origWrite = Progress.originalStdoutWrite;
+      process.stdout.write = function (...args: any[]) {
+        if (!Progress.isRendering && Progress.lastLineCount > 0) {
+          Progress.isRendering = true;
+          let output = `\x1b[${Progress.lastLineCount}A\x1b[0J`;
+          const content =
+            typeof args[0] === "string" ? args[0] : String(args[0]);
+          output += content;
+          output += "\x1b[?7l";
+          for (const bar of Progress.activeBars) {
+            output += bar.getRenderedLine() + "\n";
+          }
+          output += "\x1b[?7h";
+          Progress.directWrite(output);
+          Progress.isRendering = false;
+          return true;
         }
-        origWrite.call(process.stdout, reRender);
-        Progress.isRendering = false;
-        return true;
-      }
-      return origWrite.apply(process.stdout, args as any);
-    } as any;
+        return origWrite.apply(process.stdout, args as any);
+      } as any;
+    }
+
+    // Hook console methods (Bun's console.log may bypass process.stdout.write)
+    if (!Progress.originalConsole) {
+      Progress.originalConsole = {
+        log: console.log.bind(console),
+        warn: console.warn.bind(console),
+        error: console.error.bind(console),
+        info: console.info.bind(console),
+        debug: console.debug.bind(console),
+      };
+
+      const formatArgs = (args: any[]): string => {
+        try {
+          return require("util").format(...args);
+        } catch {
+          return args
+            .map((a: any) => (typeof a === "string" ? a : String(a)))
+            .join(" ");
+        }
+      };
+
+      const hookMethod = (origFn: Function) =>
+        function (...args: any[]) {
+          if (
+            Progress.activeBars.length > 0 &&
+            Progress.lastLineCount > 0 &&
+            !Progress.isRendering
+          ) {
+            Progress.isRendering = true;
+            let output = `\x1b[${Progress.lastLineCount}A\x1b[0J`;
+            output += formatArgs(args) + "\n";
+            output += "\x1b[?7l";
+            for (const bar of Progress.activeBars) {
+              output += bar.getRenderedLine() + "\n";
+            }
+            output += "\x1b[?7h";
+            Progress.directWrite(output);
+            Progress.isRendering = false;
+          } else {
+            origFn(...args);
+          }
+        };
+
+      console.log = hookMethod(Progress.originalConsole.log);
+      console.info = hookMethod(Progress.originalConsole.info);
+      console.debug = hookMethod(Progress.originalConsole.debug);
+      console.warn = hookMethod(Progress.originalConsole.warn);
+      console.error = hookMethod(Progress.originalConsole.error);
+    }
   }
 
   private static unhookStdout() {
     if (Progress.originalStdoutWrite) {
       process.stdout.write = Progress.originalStdoutWrite;
       Progress.originalStdoutWrite = undefined;
+    }
+    if (Progress.originalConsole) {
+      console.log = Progress.originalConsole.log;
+      console.warn = Progress.originalConsole.warn;
+      console.error = Progress.originalConsole.error;
+      console.info = Progress.originalConsole.info;
+      console.debug = Progress.originalConsole.debug;
+      Progress.originalConsole = undefined;
     }
   }
 
@@ -146,22 +226,25 @@ class Progress extends EventEmitter {
 
   private static renderAll() {
     if (Progress.activeBars.length === 0 || Progress.isRendering) return;
+    Progress.isRendering = true;
 
     let output = "";
-    if (Progress.cursorSaved) {
-      output += "\x1b[u\x1b[0J";
-    } else {
-      output += "\x1b[s";
-      Progress.cursorSaved = true;
+
+    // Move cursor up to the start of progress bars and clear to end of screen
+    if (Progress.lastLineCount > 0) {
+      output += `\x1b[${Progress.lastLineCount}A\x1b[0J`;
     }
 
+    // Disable line wrapping to prevent long lines from breaking cursor position
+    output += "\x1b[?7l";
     for (const bar of Progress.activeBars) {
       bar.tickFrame();
       output += bar.getRenderedLine() + "\n";
     }
+    output += "\x1b[?7h";
 
-    Progress.isRendering = true;
-    process.stdout.write(output);
+    Progress.lastLineCount = Progress.activeBars.length;
+    Progress.directWrite(output);
     Progress.isRendering = false;
   }
 
@@ -181,17 +264,22 @@ class Progress extends EventEmitter {
       Progress.renderTimer = undefined;
     }
 
+    Progress.isRendering = true;
     let output = "";
-    if (Progress.cursorSaved) output += "\x1b[u\x1b[0J";
+    if (Progress.lastLineCount > 0) {
+      output += `\x1b[${Progress.lastLineCount}A\x1b[0J`;
+    }
+    // Disable line wrapping for final render
+    output += "\x1b[?7l";
     for (const bar of Progress.activeBars) {
       output += bar.getRenderedLine() + "\n";
     }
-    Progress.isRendering = true;
-    process.stdout.write(output);
+    output += "\x1b[?7h";
+    Progress.directWrite(output);
     Progress.isRendering = false;
 
     Progress.activeBars = [];
-    Progress.cursorSaved = false;
+    Progress.lastLineCount = 0;
     Progress.unhookStdout();
 
     for (const { level, msg } of Progress.queuedMessages) {
@@ -281,7 +369,13 @@ class Progress extends EventEmitter {
         empty: this.resolveColor(bc.empty),
       });
       return cs(
-        [s("✓", { color: "green" }), this.label.past, this.title, "[" + bar + "]", pct],
+        [
+          s("✓", { color: "green" }),
+          this.label.past,
+          this.title,
+          "[" + bar + "]",
+          pct,
+        ],
         " ",
       );
     }
@@ -295,7 +389,14 @@ class Progress extends EventEmitter {
         empty: this.resolveColor(bc.empty),
       });
       return cs(
-        [s("✕", { color }), this.label.while, this.title, "[" + bar + "]", pct, s("cancelled", { color })],
+        [
+          s("✕", { color }),
+          this.label.while,
+          this.title,
+          "[" + bar + "]",
+          pct,
+          s("cancelled", { color }),
+        ],
         " ",
       );
     }
@@ -309,7 +410,14 @@ class Progress extends EventEmitter {
         empty: this.resolveColor(bc.empty),
       });
       return cs(
-        [s("✕", { color }), this.label.while, this.title, "[" + bar + "]", pct, s("errored", { color })],
+        [
+          s("✕", { color }),
+          this.label.while,
+          this.title,
+          "[" + bar + "]",
+          pct,
+          s("errored", { color }),
+        ],
         " ",
       );
     }
@@ -320,7 +428,13 @@ class Progress extends EventEmitter {
       empty: this.resolveColor(bc.empty),
     });
     return cs(
-      [this.spinner.getCurrentFrame(), this.label.while, this.title, "[" + bar + "]", pct],
+      [
+        this.spinner.getCurrentFrame(),
+        this.label.while,
+        this.title,
+        "[" + bar + "]",
+        pct,
+      ],
       " ",
     );
   }
@@ -343,8 +457,8 @@ class Progress extends EventEmitter {
       msg: s(cs(["✕  Error:", ...args]), { color: "red" }),
     });
     this.spinner.stop();
-    this.emit("error", ...args);
     Progress.checkAllDone();
+    this.emit("error", ...args);
   }
 
   public update(current: number, buffer?: number) {

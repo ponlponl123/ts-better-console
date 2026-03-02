@@ -1,4 +1,4 @@
-type SpinnerStyle = "dots" | "line" | "bounce" | "arrow";
+type SpinnerStyle = "dots" | "line" | "bounce" | "arrow" | "moon";
 
 type SpinnerOptions = {
   style?: SpinnerStyle;

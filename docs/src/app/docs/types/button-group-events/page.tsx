@@ -68,15 +68,15 @@ function Page() {
               code: (
                 <div>
                   <i className="text-purple-400">import</i> {"{"}{" "}
-                  <i className="text-blue-400">button</i> {"}"}{" "}
+                  <i className="text-blue-400">ButtonGroup</i> {"}"}{" "}
                   <i className="text-purple-400">from</i>{" "}
                   <i className="text-orange-400">"ts-better-console"</i>;
                   <br />
                   <br />
                   <i className="text-purple-400">const</i>{" "}
                   <i className="text-blue-400">group</i> ={" "}
-                  <i className="text-emerald-400">button</i>.
-                  <i className="text-yellow-400">group</i>([
+                  <i className="text-purple-400">new</i>{" "}
+                  <i className="text-blue-400">ButtonGroup</i>([
                   <br />
                   <div className="ml-4">
                     {"{"} <i className="text-blue-400">label</i>:{" "}
@@ -107,6 +107,10 @@ function Page() {
                     </i>
                     );
                   </div>
+                  <div className="ml-4">
+                    <i className="text-emerald-400">group</i>.
+                    <i className="text-yellow-400">destroy</i>();
+                  </div>
                   {"}"});
                   <br />
                   <br />
@@ -120,22 +124,29 @@ function Page() {
                     <i className="text-orange-400">"Exited button group"</i>);
                   </div>
                   {"}"});
+                  <br />
+                  <br />
+                  <i className="text-emerald-400">group</i>.
+                  <i className="text-yellow-400">show</i>();
                 </div>
               ),
-              snippet: `import { button } from "ts-better-console";
+              snippet: `import { ButtonGroup } from "ts-better-console";
 
-const group = button.group([
+const group = new ButtonGroup([
   { label: "Option A", onClick: () => {} },
   { label: "Option B", onClick: () => {} },
 ]);
 
 group.on("click", (label, index) => {
   console.log(\`Clicked: \${label} at index \${index}\`);
+  group.destroy();
 });
 
 group.on("exit", () => {
   console.log("Exited button group");
-});`,
+});
+
+group.show();`,
             },
           ]}
         />

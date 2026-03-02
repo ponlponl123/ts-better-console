@@ -62,27 +62,31 @@ function Page() {
                     // Fixed width of 40 characters
                   </span>
                   <br />
+                  <i className="text-emerald-400">console</i>.
+                  <i className="text-yellow-400">log</i>(
                   <i className="text-emerald-400">createCard</i>(
                   <i className="text-orange-400">"Content"</i>,{" "}
-                  <i className="text-orange-400">40</i>, {"{"} {"}"});
+                  <i className="text-orange-400">40</i>, {"{"} {"}"}));
                   <br />
                   <br />
                   <span className="text-zinc-500">
                     // Auto width based on content
                   </span>
                   <br />
+                  <i className="text-emerald-400">console</i>.
+                  <i className="text-yellow-400">log</i>(
                   <i className="text-emerald-400">createCard</i>(
                   <i className="text-orange-400">"Content"</i>,{" "}
-                  <i className="text-orange-400">"auto"</i>, {"{"} {"}"});
+                  <i className="text-orange-400">"auto"</i>, {"{"} {"}"}));
                 </div>
               ),
               snippet: `import { createCard } from "ts-better-console";
 
 // Fixed width of 40 characters
-createCard("Content", 40, {});
+console.log(createCard("Content", 40, {}));
 
 // Auto width based on content
-createCard("Content", "auto", {});`,
+console.log(createCard("Content", "auto", {}));`,
             },
           ]}
         />

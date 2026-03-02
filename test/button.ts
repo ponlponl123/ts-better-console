@@ -1,4 +1,4 @@
-import { ButtonGroup } from "../src";
+import { ButtonGroup } from "../dist";
 
 const buttons = new ButtonGroup([
   { label: "OK", onClick: () => console.log("\nOK clicked!") },
