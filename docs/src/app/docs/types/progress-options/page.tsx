@@ -9,8 +9,8 @@ function Page() {
         <p>
           The <code>ProgressOptions</code> interface defines the configuration
           options for a progress bar in <strong>ts-better-console</strong>.
-          These options allow you to customize the label, callout message, and
-          the visual length of the progress bar.
+          These options allow you to customize the labels and the bar appearance
+          including length, symbols, animation, and colors.
         </p>
         <h2 className="mt-8">Type Definition</h2>
         <p>
@@ -24,13 +24,9 @@ function Page() {
             active and another after completion.
           </li>
           <li>
-            <code>callout</code>: An optional string or <code>false</code>. When
-            a string is provided, it displays a callout message alongside the
-            progress bar. Set to <code>false</code> to disable the callout.
-          </li>
-          <li>
-            <code>barLength</code>: An optional number that sets the visual
-            length (in characters) of the progress bar.
+            <code>bar</code>: An optional <code>ProgressBarOptions</code>{" "}
+            object that configures the bar length, symbols, animation, and
+            per-state colors.
           </li>
         </ul>
         <Code
@@ -45,20 +41,15 @@ function Page() {
                   &nbsp;&nbsp;<i className="text-cyan-600">label</i>?:{" "}
                   <span className="text-cyan-400">ProgressLabelPair</span>;
                   <br />
-                  &nbsp;&nbsp;<i className="text-cyan-600">callout</i>?:{" "}
-                  <span className="text-orange-400">string</span> |{" "}
-                  <span className="text-purple-500">false</span>;
-                  <br />
-                  &nbsp;&nbsp;<i className="text-cyan-600">barLength</i>?:{" "}
-                  <span className="text-orange-400">number</span>;
+                  &nbsp;&nbsp;<i className="text-cyan-600">bar</i>?:{" "}
+                  <span className="text-cyan-400">ProgressBarOptions</span>;
                   <br />
                   {"}"}
                 </div>
               ),
               snippet: `interface ProgressOptions {
   label?: ProgressLabelPair;
-  callout?: string | false;
-  barLength?: number;
+  bar?: ProgressBarOptions;
 }`,
             },
           ]}
@@ -77,14 +68,14 @@ function Page() {
                   <i className="text-purple-400">import</i> {"{"}{" "}
                   <i className="text-blue-400">Progress</i> {"}"}{" "}
                   <i className="text-purple-400">from</i>{" "}
-                  <i className="text-orange-400">"ts-better-console"</i>;
+                  <i className="text-orange-400">&quot;ts-better-console&quot;</i>;
                   <br />
                   <br />
                   <i className="text-purple-400">const</i>{" "}
                   <i className="text-blue-400">bar</i> ={" "}
                   <i className="text-purple-400">new</i>{" "}
                   <i className="text-emerald-400">Progress</i>(
-                  <i className="text-orange-400">"Files"</i>,{" "}
+                  <i className="text-orange-400">&quot;Files&quot;</i>,{" "}
                   <i className="text-orange-400">100</i>, {"{"}
                   <br />
                   <div className="ml-4">
@@ -92,21 +83,32 @@ function Page() {
                     <br />
                     <div className="ml-4">
                       <i className="text-blue-400">while</i>:{" "}
-                      <i className="text-orange-400">"Installing"</i>,
+                      <i className="text-orange-400">&quot;Installing&quot;</i>,
                     </div>
                     <div className="ml-4">
                       <i className="text-blue-400">past</i>:{" "}
-                      <i className="text-orange-400">"Installed"</i>,
+                      <i className="text-orange-400">&quot;Installed&quot;</i>,
                     </div>
                     {"}"},
                   </div>
                   <div className="ml-4">
-                    <i className="text-blue-400">callout</i>:{" "}
-                    <i className="text-orange-400">"Please wait..."</i>,
-                  </div>
-                  <div className="ml-4">
-                    <i className="text-blue-400">barLength</i>:{" "}
-                    <i className="text-orange-400">30</i>,
+                    <i className="text-blue-400">bar</i>: {"{"}
+                    <br />
+                    <div className="ml-4">
+                      <i className="text-blue-400">length</i>:{" "}
+                      <i className="text-orange-400">30</i>,
+                    </div>
+                    <div className="ml-4">
+                      <i className="text-blue-400">animation</i>:{" "}
+                      <i className="text-orange-400">&quot;rainbow&quot;</i>,
+                    </div>
+                    <div className="ml-4">
+                      <i className="text-blue-400">color</i>: {"{"}{" "}
+                      <i className="text-blue-400">completed</i>:{" "}
+                      <i className="text-orange-400">&quot;green&quot;</i>{" "}
+                      {"}"},
+                    </div>
+                    {"}"},
                   </div>
                   {"}"});
                 </div>
@@ -118,8 +120,11 @@ const bar = new Progress("Files", 100, {
     while: "Installing",
     past: "Installed",
   },
-  callout: "Please wait...",
-  barLength: 30,
+  bar: {
+    length: 30,
+    animation: "rainbow",
+    color: { completed: "green" },
+  },
 });`,
             },
           ]}

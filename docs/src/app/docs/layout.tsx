@@ -4,6 +4,7 @@ import Sidebar from "@/src/components/sidebar";
 import { StarIcon } from "@phosphor-icons/react/dist/icons/Star";
 import Link from "next/link";
 import { CoffeeIcon, GithubLogoIcon } from "@phosphor-icons/react/dist/ssr";
+import Footer from "./footer";
 
 function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -62,7 +63,10 @@ function Layout({ children }: { children: React.ReactNode }) {
           </div>
         </div>
       </div>
-      <main className="flex-1 w-full min-w-0 p-4">{children}</main>
+      <main className="flex-1 w-full min-w-0 p-4">
+        {children}
+        <Footer />
+      </main>
       <div className="absolute w-full h-full top-0 left-0 overflow-hidden pointer-events-none">
         <div className="absolute bottom-1/2 right-1/4 -translate-x-1/2 w-[1000px] h-[1000px] opacity-40 bg-[radial-gradient(circle,_rgb(59,130,246,0.4)_0%,_rgb(168,85,247,0.2)_50%,_transparent_100%)] rounded-full blur-3xl pointer-events-none"></div>
         <div className="fixed top-1/2 left-1/4 translate-y-1/3 translate-x-1/2 w-[1000px] h-[1000px] opacity-30 bg-[radial-gradient(circle,_rgb(59,130,246,0.4)_0%,_rgb(168,85,247,0.2)_50%,_transparent_100%)] rounded-full blur-3xl pointer-events-none"></div>

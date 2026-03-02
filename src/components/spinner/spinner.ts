@@ -1,4 +1,4 @@
-import type { SpinnerOptions, SpinnerStyle } from "../types/spinner";
+import type { SpinnerOptions, SpinnerStyle } from "./spinner.types";
 
 class Spinner {
   private style: SpinnerStyle = "dots";
@@ -53,4 +53,3 @@ class Spinner {
 }
 
 export { Spinner };
-export type { SpinnerOptions, SpinnerStyle };

@@ -1,4 +1,4 @@
-import type { StyleOptions } from "./style";
+import type { StyleOptions } from "../../types/style.types";
 
 type cardWidth = number | "auto";
 type sectionOptions = { content: string; style?: StyleOptions };
@@ -9,4 +9,4 @@ type cardOptions = {
   borderStyle?: StyleOptions;
 };
 
-export type { cardWidth, cardOptions };
+export type { cardWidth, cardOptions, sectionOptions };

@@ -1,4 +1,4 @@
-import type { StyleOptions } from "./style";
+import type { StyleOptions } from "../../types/style.types";
 
 type MenuItemOptions = {
   label: string;

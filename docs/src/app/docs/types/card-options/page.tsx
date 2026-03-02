@@ -135,7 +135,7 @@ function Page() {
               ),
               snippet: `import { createCard } from "ts-better-console";
 
-createCard("Hello World", {
+createCard("Hello World", 50, {
   title: {
     content: "My Card",
     style: { color: "cyan", styles: ["bold"] },

@@ -8,10 +8,12 @@ function Page() {
         <h1>Progress</h1>
         <p>
           The <code>Progress</code> component creates animated progress bars in
-          the terminal with spinner indicators, buffered progress support, and
-          multi-bar rendering. It extends <code>EventEmitter</code> for
-          type-safe event handling and supports completion, cancellation, and
-          error states.
+          the terminal with spinner indicators, buffered progress support,
+          rainbow animation, configurable symbols and colors, and multi-bar
+          rendering. It extends <code>EventEmitter</code> for type-safe event
+          handling and supports completion, cancellation, and error states.
+          External <code>console.log</code> calls are automatically printed
+          above the progress block without disrupting the display.
         </p>
         <h2 className="mt-8">Constructor</h2>
         <Code
@@ -53,7 +55,8 @@ function Page() {
           </li>
           <li>
             <code>options</code>: An optional <code>ProgressOptions</code>{" "}
-            object to configure bar length, callout, and labels.
+            object to configure labels and bar appearance (length, symbols,
+            animation, and colors).
           </li>
         </ul>
         <h2 className="mt-8">Methods</h2>
@@ -76,6 +79,10 @@ function Page() {
             the <code>&quot;error&quot;</code> event with the provided
             arguments.
           </li>
+          <li>
+            <code>getIsExited()</code>: Returns <code>true</code> if the
+            progress bar has been cancelled or errored.
+          </li>
         </ul>
         <h2 className="mt-8">Events</h2>
         <ul className="list-disc list-inside">
@@ -93,6 +100,37 @@ function Page() {
           <li>
             <code>&quot;error&quot;</code>: Emitted on error with the error
             arguments.
+          </li>
+        </ul>
+        <h2 className="mt-8">Features</h2>
+        <ul className="list-disc list-inside">
+          <li>
+            <strong>Multi-bar rendering</strong>: Multiple progress bars render
+            together and finish as a group.
+          </li>
+          <li>
+            <strong>Rainbow animation</strong>: Set{" "}
+            <code>bar.animation</code> to <code>&quot;rainbow&quot;</code> for a
+            scrolling parallax rainbow effect across the bar.
+          </li>
+          <li>
+            <strong>Custom symbols</strong>: Configure{" "}
+            <code>loadedSymbol</code>, <code>bufferedSymbol</code>, and{" "}
+            <code>emptySymbol</code> to change the bar characters.
+          </li>
+          <li>
+            <strong>State colors</strong>: Customize colors for loaded,
+            buffered, empty, completed, cancelled, and errored states via{" "}
+            <code>bar.color</code>.
+          </li>
+          <li>
+            <strong>Full-width mode</strong>: Set <code>bar.length</code> to{" "}
+            <code>&quot;full-width&quot;</code> to fill the terminal width.
+          </li>
+          <li>
+            <strong>Safe stdout interception</strong>: External{" "}
+            <code>console.log</code> calls are printed above the progress block
+            without duplication.
           </li>
         </ul>
         <h2 className="mt-8">Usage</h2>
@@ -121,10 +159,6 @@ function Page() {
                   <i className="text-blue-400">bar</i>.
                   <i className="text-yellow-400">init</i>();
                   <br />
-                  <br />
-                  <span className="text-zinc-500">
-                    // Simulate progress updates
-                  </span>
                   <br />
                   <i className="text-purple-400">let</i>{" "}
                   <i className="text-blue-400">i</i> ={" "}
@@ -156,7 +190,6 @@ function Page() {
 const bar = new Progress("Downloading", 100);
 bar.init();
 
-// Simulate progress updates
 let i = 0;
 const timer = setInterval(() => {
   i += 10;
@@ -185,15 +218,31 @@ const timer = setInterval(() => {
                   <i className="text-orange-400">50</i>, {"{"}
                   <br />
                   <div className="ml-4">
-                    <i className="text-blue-400">barLength</i>:{" "}
-                    <i className="text-orange-400">30</i>,
-                  </div>
-                  <div className="ml-4">
                     <i className="text-blue-400">label</i>: {"{"}{" "}
                     <i className="text-blue-400">while</i>:{" "}
                     <i className="text-orange-400">&quot;Installing&quot;</i>,{" "}
                     <i className="text-blue-400">past</i>:{" "}
                     <i className="text-orange-400">&quot;Installed&quot;</i>{" "}
+                    {"}"},
+                  </div>
+                  <div className="ml-4">
+                    <i className="text-blue-400">bar</i>: {"{"}
+                    <br />
+                    <div className="ml-4">
+                      <i className="text-blue-400">length</i>:{" "}
+                      <i className="text-orange-400">30</i>,
+                      <br />
+                      <i className="text-blue-400">animation</i>:{" "}
+                      <i className="text-orange-400">
+                        &quot;rainbow&quot;
+                      </i>
+                      ,
+                      <br />
+                      <i className="text-blue-400">color</i>: {"{"}{" "}
+                      <i className="text-blue-400">completed</i>:{" "}
+                      <i className="text-orange-400">&quot;cyan&quot;</i>{" "}
+                      {"}"},
+                    </div>
                     {"}"},
                   </div>
                   {"}"});
@@ -222,8 +271,12 @@ const timer = setInterval(() => {
               snippet: `import { Progress } from "ts-better-console";
 
 const bar = new Progress("Installing", 50, {
-  barLength: 30,
   label: { while: "Installing", past: "Installed" },
+  bar: {
+    length: 30,
+    animation: "rainbow",
+    color: { completed: "cyan" },
+  },
 });
 
 bar.on("complete", (total) => {
@@ -231,6 +284,80 @@ bar.on("complete", (total) => {
 });
 
 bar.init();`,
+            },
+            {
+              title: "Custom Symbols and Colors",
+              code: (
+                <div>
+                  <i className="text-purple-400">import</i> {"{"}{" "}
+                  <i className="text-blue-400">Progress</i> {"}"}{" "}
+                  <i className="text-purple-400">from</i>{" "}
+                  <i className="text-orange-400">
+                    &quot;ts-better-console&quot;
+                  </i>
+                  ;
+                  <br />
+                  <br />
+                  <i className="text-purple-400">const</i>{" "}
+                  <i className="text-blue-400">bar</i> ={" "}
+                  <i className="text-purple-400">new</i>{" "}
+                  <i className="text-blue-400">Progress</i>(
+                  <i className="text-orange-400">&quot;Uploading&quot;</i>,{" "}
+                  <i className="text-orange-400">100</i>, {"{"}
+                  <br />
+                  <div className="ml-4">
+                    <i className="text-blue-400">bar</i>: {"{"}
+                    <br />
+                    <div className="ml-4">
+                      <i className="text-blue-400">loadedSymbol</i>:{" "}
+                      <i className="text-orange-400">&quot;#&quot;</i>,
+                      <br />
+                      <i className="text-blue-400">bufferedSymbol</i>:{" "}
+                      <i className="text-orange-400">&quot;=&quot;</i>,
+                      <br />
+                      <i className="text-blue-400">emptySymbol</i>:{" "}
+                      <i className="text-orange-400">&quot;.&quot;</i>,
+                      <br />
+                      <i className="text-blue-400">length</i>:{" "}
+                      <i className="text-orange-400">
+                        &quot;full-width&quot;
+                      </i>
+                      ,
+                      <br />
+                      <i className="text-blue-400">color</i>: {"{"}
+                      <br />
+                      <div className="ml-4">
+                        <i className="text-blue-400">loaded</i>:{" "}
+                        <i className="text-orange-400">&quot;cyan&quot;</i>,
+                        <br />
+                        <i className="text-blue-400">completed</i>:{" "}
+                        <i className="text-orange-400">&quot;green&quot;</i>,
+                        <br />
+                        <i className="text-blue-400">errored</i>:{" "}
+                        <i className="text-orange-400">&quot;red&quot;</i>,
+                      </div>
+                      {"}"},
+                    </div>
+                    {"}"},
+                  </div>
+                  {"}"});
+                </div>
+              ),
+              snippet: `import { Progress } from "ts-better-console";
+
+const bar = new Progress("Uploading", 100, {
+  bar: {
+    loadedSymbol: "#",
+    bufferedSymbol: "=",
+    emptySymbol: ".",
+    length: "full-width",
+    color: {
+      loaded: "cyan",
+      completed: "green",
+      errored: "red",
+    },
+  },
+});`,
             },
           ]}
         />

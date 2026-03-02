@@ -1,4 +1,4 @@
-import type { DebugLevel } from "../types/line";
+import type { DebugLevel } from "../types/line.types";
 
 const debugLevels: Record<DebugLevel, string> = {
   debug: "\x1b[36mDEBUG\x1b[0m",

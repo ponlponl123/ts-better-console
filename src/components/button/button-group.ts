@@ -1,12 +1,12 @@
 import { EventEmitter } from "events";
-import type { StyleOptions } from "./types/style";
+import type { StyleOptions } from "../../types/style.types";
 import type {
   ButtonOptions,
   ButtonGroupOptions,
   ButtonGroupEvents,
-} from "./types/button";
-import { s } from "./utils/style";
-import { cs } from "./utils/line";
+} from "./button.types";
+import { s } from "../../core/style";
+import { cs } from "../../core/line";
 
 class ButtonGroup extends EventEmitter {
   private buttons: ButtonOptions[];
@@ -205,4 +205,3 @@ class ButtonGroup extends EventEmitter {
 }
 
 export { ButtonGroup };
-export type { ButtonOptions, ButtonGroupOptions, ButtonGroupEvents };

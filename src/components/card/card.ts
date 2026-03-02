@@ -1,7 +1,7 @@
-import { getProcessSize } from "./utils/terminal";
-import { cs, toMaxLinesLength } from "./utils/line";
-import { applyUndefinedStyles } from "./utils/style";
-import type { cardWidth, cardOptions } from "./types/card";
+import { getProcessSize } from "../../core/terminal";
+import { cs, toMaxLinesLength } from "../../core/line";
+import { applyUndefinedStyles } from "../../core/style";
+import type { cardWidth, cardOptions } from "./card.types";
 
 function createCard(
   content: string,
@@ -89,4 +89,3 @@ function createCard(
 }
 
 export { createCard };
-export type { cardWidth, cardOptions };

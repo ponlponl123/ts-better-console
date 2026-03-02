@@ -1,74 +1,133 @@
-import { describe, it } from "bun:test";
-import betterConsole, { cs, flag, s } from ".";
-import { clearStyle } from "./utils/style";
+import { describe, it, expect } from "bun:test";
 
-const { w, d } = { w: process.stdout.columns, d: process.stdout.rows };
+/**
+ * Barrel-export smoke tests.
+ *
+ * These verify that every public symbol is reachable through the
+ * root `src/index.ts` entry point — which is what library consumers import.
+ */
 
-describe("ts-better-console", () => {
-  it("should display json card", () => {
-    const obj = { name: "Alice", age: 30, city: "New York" };
-    betterConsole.json(obj);
+// Default + named exports
+import betterConsole, {
+  // core / style
+  s,
+  applyUndefinedStyles,
+  clearStyle,
+  rainbow,
+  Colors,
+  BackgroundColors,
+  Styles,
+  cls,
+  // core / line
+  cs,
+  ts,
+  flag,
+  tsflag,
+  toMaxLineLength,
+  toMaxLinesLength,
+  // core / terminal
+  getProcessSize,
+  // components
+  ButtonGroup,
+  createCard,
+  link,
+  Menu,
+  Progress,
+  Spinner,
+} from ".";
+
+// Type-only imports (compile-time check — if these break, tsc fails)
+import type {
+  StyleOptions,
+  DebugLevel,
+  ButtonOptions,
+  ButtonGroupOptions,
+  ButtonGroupEvents,
+  cardWidth,
+  cardOptions,
+  sectionOptions,
+  MenuItemOptions,
+  MenuOptions,
+  MenuEvents,
+  ProgressOptions,
+  ProgressLabelPair,
+  ProgressEvents,
+  ProgressStatus,
+  SpinnerOptions,
+  SpinnerStyle,
+} from ".";
+
+describe("Public API — barrel exports", () => {
+  it("should export betterConsole as default", () => {
+    expect(betterConsole).toBeDefined();
+    expect(typeof betterConsole.log).toBe("function");
+    expect(typeof betterConsole.warn).toBe("function");
+    expect(typeof betterConsole.error).toBe("function");
+    expect(typeof betterConsole.info).toBe("function");
+    expect(typeof betterConsole.debug).toBe("function");
+    expect(typeof betterConsole.json).toBe("function");
+    expect(typeof betterConsole.skip).toBe("function");
+    expect(typeof betterConsole.clearLine).toBe("function");
+    expect(typeof betterConsole.clear).toBe("function");
   });
 
-  it("should log messages with different levels", () => {
-    betterConsole.log(cs([s("This is a debug message", { color: "cyan" })]));
-    betterConsole.warn(
-      cs([s("This is a warning message", { color: "yellow" })]),
-    );
-    betterConsole.error(cs([s("This is an error message", { color: "red" })]));
-    betterConsole.info(
-      cs([s("This is an info message", { color: "magenta" })]),
-    );
+  it("should export style utilities", () => {
+    expect(typeof s).toBe("function");
+    expect(typeof applyUndefinedStyles).toBe("function");
+    expect(typeof clearStyle).toBe("function");
+    expect(typeof rainbow).toBe("function");
+    expect(typeof cls).toBe("string");
+    expect(Colors).toBeDefined();
+    expect(BackgroundColors).toBeDefined();
+    expect(Styles).toBeDefined();
   });
 
-  it("should marked with flag", () => {
-    betterConsole.log(flag("warn"), "Hello, World!");
+  it("should export line utilities", () => {
+    expect(typeof cs).toBe("function");
+    expect(typeof ts).toBe("function");
+    expect(typeof flag).toBe("function");
+    expect(typeof tsflag).toBe("function");
+    expect(typeof toMaxLineLength).toBe("function");
+    expect(typeof toMaxLinesLength).toBe("function");
   });
 
-  it("should display simple short json card", () => {
-    const obj = { name: "Bob", age: 25, city: "Los Angeles" };
-    betterConsole.json(obj);
+  it("should export terminal utilities", () => {
+    expect(typeof getProcessSize).toBe("function");
   });
 
-  it("should display short json card", () => {
-    const obj = { name: "Bob", age: 25, city: "Los Angeles" };
-    betterConsole.json(obj, "auto", {
-      title: { content: "User Info" },
-      body: { color: "blue" },
-      borderStyle: { color: "gray", styles: ["italic"] },
-    });
+  it("should export component constructors / factories", () => {
+    expect(typeof ButtonGroup).toBe("function");
+    expect(typeof createCard).toBe("function");
+    expect(typeof link).toBe("function");
+    expect(typeof Menu).toBe("function");
+    expect(typeof Progress).toBe("function");
+    expect(typeof Spinner).toBe("function");
+  });
+});
+
+describe("Quick integration sanity checks", () => {
+  it("s() + cs() + flag() compose correctly", () => {
+    const result = cs([flag("info"), s("hello", { color: "green" })]);
+    expect(result).toContain("INFO");
+    expect(result).toContain("hello");
+    expect(result).toContain("\x1b[32m"); // green
   });
 
-  it("should display long json card", () => {
-    const obj = {
-      name: "Alice",
-      age: 30,
-      city: "New York",
-      hobbies: ["reading", "traveling", "coding"],
-      education: {
-        degree: "Bachelor's",
-        major: "Computer Science",
-        university: "Example University",
-      },
-      something_long:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    };
-    betterConsole.json(obj, "auto", {
-      title: {
-        content: "userinfo.json",
-        style: {
-          backgroundColor: "white",
-          color: "black",
-        },
-      },
-      body: {
-        color: "gray",
-        styles: ["italic"],
-      },
-      borderStyle: {
-        color: "gray",
-        styles: ["italic"],
-      },
-    });
+  it("createCard() returns a string with borders", () => {
+    const card = createCard("content", 20);
+    expect(card).toContain("┌");
+    expect(card).toContain("└");
+    expect(card).toContain("content");
+  });
+
+  it("link() produces an OSC 8 string", () => {
+    const result = link("text", "https://example.com");
+    expect(result).toContain("https://example.com");
+    expect(result).toContain("text");
+  });
+
+  it("Spinner can be created and returns a frame", () => {
+    const spinner = new Spinner({ style: "dots" });
+    expect(spinner.getCurrentFrame()).toBe("⣾");
   });
 });

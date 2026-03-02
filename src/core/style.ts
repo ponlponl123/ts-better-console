@@ -1,4 +1,4 @@
-import type { StyleOptions } from "../types/style";
+import type { Color, StyleOptions } from "../types/style.types";
 import { cs } from "./line";
 
 enum Colors {
@@ -32,7 +32,16 @@ enum Styles {
   strikethrough = "\x1b[9m",
 }
 
-function getColorCode(
+const rainbowColors: Color[] = [
+  "red",
+  "yellow",
+  "green",
+  "cyan",
+  "blue",
+  "magenta",
+];
+
+export function getColorCode(
   color: string | undefined,
   isBackground: boolean,
 ): string {
@@ -92,15 +101,16 @@ const cls = "\x1b[0m";
 
 // rainbow colors
 function rainbow(str: string): string {
-  const colors = ["red", "yellow", "green", "cyan", "blue", "magenta"] as const;
   return cs(
     str
       .split("")
-      .map((char, i) => s(char, { color: colors[i % colors.length] })),
+      .map((char, i) =>
+        s(char, { color: rainbowColors[i % rainbowColors.length] }),
+      ),
     false,
   );
 }
 
 export { s, applyUndefinedStyles, clearStyle, rainbow };
 // export const
-export { Colors, BackgroundColors, Styles, cls };
+export { Colors, BackgroundColors, Styles, cls, rainbowColors };

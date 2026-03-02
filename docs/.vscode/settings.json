@@ -1,0 +1,8 @@
+{
+    "editor.quickSuggestions": {
+        "strings": true
+    },
+    "css.validate": false, // Disable default CSS validation to prevent conflicts
+    "tailwindCSS.emmetCompletions": true, // Optional: enable Emmet support for Tailwind
+    "editor.inlineSuggest.enabled": true // Optional: enables inline suggestions
+}

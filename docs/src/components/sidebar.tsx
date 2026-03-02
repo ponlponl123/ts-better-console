@@ -176,9 +176,9 @@ function Sidebar({
               <CardsIcon weight="bold" size={16} />
               <div className="flex flex-wrap items-center gap-1">
                 {" "}
-                card{" "}
-                <span className="text-xs text-foreground/50 px-2 py-0.5 bg-foreground/10 rounded-full">
-                  soon
+                card
+                <span className="text-xs text-amber-500/50 px-2 py-0.5 bg-amber-500/10 rounded-full">
+                  beta
                 </span>
               </div>
             </DocsActiveLink>
@@ -446,6 +446,30 @@ function Sidebar({
               <div className="flex flex-wrap items-center gap-1">
                 {" "}
                 ProgressOptions
+                <span className="text-xs text-cyan-500/50 px-2 py-0.5 bg-cyan-500/10 rounded-full">
+                  types
+                </span>
+              </div>
+            </DocsActiveLink>
+          </li>
+          <li>
+            <DocsActiveLink href="/docs/types/progress-bar-options">
+              <HourglassMediumIcon weight="bold" size={16} />
+              <div className="flex flex-wrap items-center gap-1">
+                {" "}
+                ProgressBarOptions
+                <span className="text-xs text-cyan-500/50 px-2 py-0.5 bg-cyan-500/10 rounded-full">
+                  types
+                </span>
+              </div>
+            </DocsActiveLink>
+          </li>
+          <li>
+            <DocsActiveLink href="/docs/types/progress-bar-state-color">
+              <PaletteIcon weight="bold" size={16} />
+              <div className="flex flex-wrap items-center gap-1">
+                {" "}
+                ProgressBarStateColor
                 <span className="text-xs text-cyan-500/50 px-2 py-0.5 bg-cyan-500/10 rounded-full">
                   types
                 </span>

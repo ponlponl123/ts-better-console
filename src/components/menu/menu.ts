@@ -1,7 +1,7 @@
 import { EventEmitter } from "events";
-import type { MenuEvents, MenuItemOptions, MenuOptions } from "./types/menu";
-import type { StyleOptions } from "./types/style";
-import { s } from "./utils/style";
+import type { MenuEvents, MenuItemOptions, MenuOptions } from "./menu.types";
+import type { StyleOptions } from "../../types/style.types";
+import { s } from "../../core/style";
 
 class Menu extends EventEmitter {
   private items: MenuItemOptions[];
@@ -204,4 +204,3 @@ class Menu extends EventEmitter {
 }
 
 export { Menu };
-export type { MenuItemOptions, MenuOptions, MenuEvents };
