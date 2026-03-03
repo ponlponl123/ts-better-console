@@ -2,10 +2,13 @@
 import Accordion from "./accordion";
 import {
   AlarmIcon,
+  ArticleIcon,
   BookOpenIcon,
   BracketsCurlyIcon,
   BroomIcon,
+  TextIndentIcon,
   CardsIcon,
+  ChatCenteredDotsIcon,
   ClockIcon,
   ClockUserIcon,
   CodeSimpleIcon,
@@ -135,23 +138,35 @@ function Sidebar({
               <WrenchIcon weight="bold" size={16} /> debug
             </DocsActiveLink>
           </li>
+          <li>
+            <DocsActiveLink href="/docs/logging/code">
+              <BracketsCurlyIcon weight="bold" size={16} />
+              <div className="flex flex-wrap items-center gap-1">
+                {" "}
+                code{" "}
+                <span className="text-xs text-foreground/50 px-2 py-0.5 bg-foreground/10 rounded-full">
+                  soon
+                </span>
+              </div>
+            </DocsActiveLink>
+          </li>
         </ul>
       </Accordion>
       <Accordion title="Components" classNames={accordionClassNames}>
         <ul className="flex flex-col gap-1">
           <li>
             <DocsActiveLink href="/docs/components/button">
-              <CursorClickIcon weight="bold" size={16} /> button
+              <CursorClickIcon weight="bold" size={16} /> Button
             </DocsActiveLink>
           </li>
           <li>
             <DocsActiveLink href="/docs/components/menu">
-              <ListBulletsIcon weight="bold" size={16} /> menu
+              <ListBulletsIcon weight="bold" size={16} /> Menu
             </DocsActiveLink>
           </li>
           <li>
             <DocsActiveLink href="/docs/components/link">
-              <LinkIcon weight="bold" size={16} /> link
+              <LinkIcon weight="bold" size={16} /> Link
             </DocsActiveLink>
           </li>
           <li>
@@ -162,19 +177,13 @@ function Sidebar({
           <li>
             <DocsActiveLink href="/docs/components/spinner">
               <SpinnerIcon weight="bold" size={16} />
-              <div className="flex flex-wrap items-center gap-1"> spinner</div>
+              <div className="flex flex-wrap items-center gap-1"> Spinner</div>
             </DocsActiveLink>
           </li>
           <li>
             <DocsActiveLink href="/docs/components/card">
               <CardsIcon weight="bold" size={16} />
-              <div className="flex flex-wrap items-center gap-1">
-                {" "}
-                card
-                <span className="text-xs text-amber-500/50 px-2 py-0.5 bg-amber-500/10 rounded-full">
-                  beta
-                </span>
-              </div>
+              <div className="flex flex-wrap items-center gap-1"> Card</div>
             </DocsActiveLink>
           </li>
           <li>
@@ -182,7 +191,60 @@ function Sidebar({
               <TableIcon weight="bold" size={16} />
               <div className="flex flex-wrap items-center gap-1">
                 {" "}
-                table{" "}
+                Table{" "}
+                <span className="text-xs text-foreground/50 px-2 py-0.5 bg-foreground/10 rounded-full">
+                  soon
+                </span>
+              </div>
+            </DocsActiveLink>
+          </li>
+          <li>
+            <DocsActiveLink href="/docs/components/alertbox">
+              <WarningDiamondIcon weight="bold" size={16} />
+              <div className="flex flex-wrap items-center gap-1">
+                {" "}
+                Alertbox{" "}
+                <span className="text-xs text-foreground/50 px-2 py-0.5 bg-foreground/10 rounded-full">
+                  soon
+                </span>
+              </div>
+            </DocsActiveLink>
+          </li>
+          <li>
+            <DocsActiveLink href="/docs/components/modal">
+              <ArticleIcon weight="bold" size={16} />
+              <div className="flex flex-wrap items-center gap-1">
+                {" "}
+                Modal{" "}
+                <span className="text-xs text-foreground/50 px-2 py-0.5 bg-foreground/10 rounded-full">
+                  soon
+                </span>
+              </div>
+            </DocsActiveLink>
+          </li>
+          <li>
+            <DocsActiveLink href="/docs/components/temporary-message">
+              <ChatCenteredDotsIcon weight="bold" size={16} />
+              <div className="flex flex-wrap items-center gap-1">
+                {" "}
+                TemporaryMessage{" "}
+                <span className="text-xs text-foreground/50 px-2 py-0.5 bg-foreground/10 rounded-full">
+                  soon
+                </span>
+              </div>
+            </DocsActiveLink>
+          </li>
+          <li>
+            <DocsActiveLink href="/docs/components/input">
+              <TerminalIcon weight="bold" size={16} /> Input
+            </DocsActiveLink>
+          </li>
+          <li>
+            <DocsActiveLink href="/docs/components/textarea-input">
+              <TextIndentIcon weight="bold" size={16} />
+              <div className="flex flex-wrap items-center gap-1">
+                {" "}
+                Textarea Input{" "}
                 <span className="text-xs text-foreground/50 px-2 py-0.5 bg-foreground/10 rounded-full">
                   soon
                 </span>
@@ -196,6 +258,11 @@ function Sidebar({
           <li>
             <DocsActiveLink href="/docs/functions/style">
               <PaletteIcon weight="bold" size={16} /> s
+            </DocsActiveLink>
+          </li>
+          <li>
+            <DocsActiveLink href="/docs/functions/us">
+              <PaintBrushIcon weight="bold" size={16} /> us
             </DocsActiveLink>
           </li>
           <li>
@@ -238,15 +305,33 @@ function Sidebar({
       <Accordion title="Utilities" classNames={accordionClassNames}>
         <ul className="flex flex-col gap-1">
           <li>
-            <DocsActiveLink href="/docs/utilities/createCard">
-              <CardsIcon weight="bold" size={16} />
-              <div className="flex flex-wrap items-center gap-1">
-                {" "}
-                createCard
-                <span className="text-xs text-amber-500/50 px-2 py-0.5 bg-amber-500/10 rounded-full">
-                  beta
-                </span>
-              </div>
+            <DocsActiveLink href="/docs/functions/rainbow">
+              <PaletteIcon weight="bold" size={16} /> rainbow
+            </DocsActiveLink>
+          </li>
+          <li>
+            <DocsActiveLink href="/docs/functions/get-color-code">
+              <PaletteIcon weight="bold" size={16} /> getColorCode
+            </DocsActiveLink>
+          </li>
+          <li>
+            <DocsActiveLink href="/docs/functions/to-max-line-length">
+              <TerminalIcon weight="bold" size={16} /> toMaxLineLength
+            </DocsActiveLink>
+          </li>
+          <li>
+            <DocsActiveLink href="/docs/functions/get-process-size">
+              <TerminalIcon weight="bold" size={16} /> getProcessSize
+            </DocsActiveLink>
+          </li>
+          <li>
+            <DocsActiveLink href="/docs/functions/alias-alignment">
+              <TerminalIcon weight="bold" size={16} /> aliasAlignment
+            </DocsActiveLink>
+          </li>
+          <li>
+            <DocsActiveLink href="/docs/functions/ratio">
+              <TerminalIcon weight="bold" size={16} /> ratio
             </DocsActiveLink>
           </li>
         </ul>
@@ -292,6 +377,28 @@ function Sidebar({
               <div className="flex flex-wrap items-center gap-1">
                 {" "}
                 cls
+                <span className="text-xs text-blue-500/50 px-2 py-0.5 bg-blue-500/10 rounded-full">
+                  const
+                </span>
+              </div>
+            </DocsActiveLink>
+          </li>
+          <li>
+            <DocsActiveLink href="/docs/constants/rainbow-colors">
+              <PaletteIcon weight="bold" size={16} />
+              <div className="flex flex-wrap items-center gap-1">
+                rainbowColors
+                <span className="text-xs text-blue-500/50 px-2 py-0.5 bg-blue-500/10 rounded-full">
+                  const
+                </span>
+              </div>
+            </DocsActiveLink>
+          </li>
+          <li>
+            <DocsActiveLink href="/docs/constants/ansi">
+              <CodeSimpleIcon weight="bold" size={16} />
+              <div className="flex flex-wrap items-center gap-1">
+                ANSI
                 <span className="text-xs text-blue-500/50 px-2 py-0.5 bg-blue-500/10 rounded-full">
                   const
                 </span>
@@ -368,6 +475,54 @@ function Sidebar({
               <div className="flex flex-wrap items-center gap-1">
                 {" "}
                 DebugLevel
+                <span className="text-xs text-cyan-500/50 px-2 py-0.5 bg-cyan-500/10 rounded-full">
+                  types
+                </span>
+              </div>
+            </DocsActiveLink>
+          </li>
+          <li>
+            <DocsActiveLink href="/docs/types/input-events">
+              <TerminalIcon weight="bold" size={16} />
+              <div className="flex flex-wrap items-center gap-1">
+                {" "}
+                InputEvents
+                <span className="text-xs text-cyan-500/50 px-2 py-0.5 bg-cyan-500/10 rounded-full">
+                  types
+                </span>
+              </div>
+            </DocsActiveLink>
+          </li>
+          <li>
+            <DocsActiveLink href="/docs/types/input-options">
+              <TerminalIcon weight="bold" size={16} />
+              <div className="flex flex-wrap items-center gap-1">
+                {" "}
+                InputOptions
+                <span className="text-xs text-cyan-500/50 px-2 py-0.5 bg-cyan-500/10 rounded-full">
+                  types
+                </span>
+              </div>
+            </DocsActiveLink>
+          </li>
+          <li>
+            <DocsActiveLink href="/docs/types/input-style-options">
+              <TerminalIcon weight="bold" size={16} />
+              <div className="flex flex-wrap items-center gap-1">
+                {" "}
+                InputStyleOptions
+                <span className="text-xs text-cyan-500/50 px-2 py-0.5 bg-cyan-500/10 rounded-full">
+                  types
+                </span>
+              </div>
+            </DocsActiveLink>
+          </li>
+          <li>
+            <DocsActiveLink href="/docs/types/input-type">
+              <TerminalIcon weight="bold" size={16} />
+              <div className="flex flex-wrap items-center gap-1">
+                {" "}
+                InputType
                 <span className="text-xs text-cyan-500/50 px-2 py-0.5 bg-cyan-500/10 rounded-full">
                   types
                 </span>
@@ -536,6 +691,116 @@ function Sidebar({
               <div className="flex flex-wrap items-center gap-1">
                 {" "}
                 UnSpecifiedColor
+                <span className="text-xs text-cyan-500/50 px-2 py-0.5 bg-cyan-500/10 rounded-full">
+                  types
+                </span>
+              </div>
+            </DocsActiveLink>
+          </li>
+          <li>
+            <DocsActiveLink href="/docs/types/alignment">
+              <TerminalIcon weight="bold" size={16} />
+              <div className="flex flex-wrap items-center gap-1">
+                Alignment
+                <span className="text-xs text-cyan-500/50 px-2 py-0.5 bg-cyan-500/10 rounded-full">
+                  types
+                </span>
+              </div>
+            </DocsActiveLink>
+          </li>
+          <li>
+            <DocsActiveLink href="/docs/types/body-options">
+              <CardsIcon weight="bold" size={16} />
+              <div className="flex flex-wrap items-center gap-1">
+                BodyOptions
+                <span className="text-xs text-cyan-500/50 px-2 py-0.5 bg-cyan-500/10 rounded-full">
+                  types
+                </span>
+              </div>
+            </DocsActiveLink>
+          </li>
+          <li>
+            <DocsActiveLink href="/docs/types/border-options">
+              <CardsIcon weight="bold" size={16} />
+              <div className="flex flex-wrap items-center gap-1">
+                BorderOptions
+                <span className="text-xs text-cyan-500/50 px-2 py-0.5 bg-cyan-500/10 rounded-full">
+                  types
+                </span>
+              </div>
+            </DocsActiveLink>
+          </li>
+          <li>
+            <DocsActiveLink href="/docs/types/border-style">
+              <CardsIcon weight="bold" size={16} />
+              <div className="flex flex-wrap items-center gap-1">
+                BorderStyle
+                <span className="text-xs text-cyan-500/50 px-2 py-0.5 bg-cyan-500/10 rounded-full">
+                  types
+                </span>
+              </div>
+            </DocsActiveLink>
+          </li>
+          <li>
+            <DocsActiveLink href="/docs/types/border-symbol-style">
+              <CardsIcon weight="bold" size={16} />
+              <div className="flex flex-wrap items-center gap-1">
+                BorderSymbolStyle
+                <span className="text-xs text-cyan-500/50 px-2 py-0.5 bg-cyan-500/10 rounded-full">
+                  types
+                </span>
+              </div>
+            </DocsActiveLink>
+          </li>
+          <li>
+            <DocsActiveLink href="/docs/types/card-border-symbols">
+              <CardsIcon weight="bold" size={16} />
+              <div className="flex flex-wrap items-center gap-1">
+                CardBorderSymbols
+                <span className="text-xs text-cyan-500/50 px-2 py-0.5 bg-cyan-500/10 rounded-full">
+                  types
+                </span>
+              </div>
+            </DocsActiveLink>
+          </li>
+          <li>
+            <DocsActiveLink href="/docs/types/fixed-position">
+              <TerminalIcon weight="bold" size={16} />
+              <div className="flex flex-wrap items-center gap-1">
+                FixedPosition
+                <span className="text-xs text-cyan-500/50 px-2 py-0.5 bg-cyan-500/10 rounded-full">
+                  types
+                </span>
+              </div>
+            </DocsActiveLink>
+          </li>
+          <li>
+            <DocsActiveLink href="/docs/types/progress-update-options">
+              <HourglassMediumIcon weight="bold" size={16} />
+              <div className="flex flex-wrap items-center gap-1">
+                ProgressUpdateOptions
+                <span className="text-xs text-cyan-500/50 px-2 py-0.5 bg-cyan-500/10 rounded-full">
+                  types
+                </span>
+              </div>
+            </DocsActiveLink>
+          </li>
+          <li>
+            <DocsActiveLink href="/docs/types/ratio">
+              <TerminalIcon weight="bold" size={16} />
+              <div className="flex flex-wrap items-center gap-1">
+                Ratio
+                <span className="text-xs text-cyan-500/50 px-2 py-0.5 bg-cyan-500/10 rounded-full">
+                  types
+                </span>
+              </div>
+            </DocsActiveLink>
+          </li>
+          <li>
+            <DocsActiveLink href="/docs/types/terminal-dimensions">
+              <TerminalIcon weight="bold" size={16} />
+              <div className="flex flex-wrap items-center gap-1">
+                TerminalDimensions
                 <span className="text-xs text-cyan-500/50 px-2 py-0.5 bg-cyan-500/10 rounded-full">
                   types
                 </span>

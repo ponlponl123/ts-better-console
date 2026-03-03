@@ -24,13 +24,13 @@ function Page() {
                   <i className="text-cyan-600">obj</i>:{" "}
                   <span className="text-orange-400">any</span>,{" "}
                   <i className="text-cyan-600">width</i>?:{" "}
-                  <span className="text-cyan-400">cardWidth</span>,{" "}
-                  <i className="text-cyan-600">cardOptions</i>?:{" "}
-                  <span className="text-cyan-400">cardOptions</span>):{" "}
+                  <span className="text-cyan-400">CardWidth</span>,{" "}
+                  <i className="text-cyan-600">CardOptions</i>?:{" "}
+                  <span className="text-cyan-400">CardOptions</span>):{" "}
                   <span className="text-purple-500">void</span>
                 </div>
               ),
-              snippet: `betterConsole.json(obj: any, width?: cardWidth, cardOptions?: cardOptions): void`,
+              snippet: `betterConsole.json(obj: any, width?: CardWidth, CardOptions?: CardOptions): void`,
             },
           ]}
         />
@@ -41,12 +41,14 @@ function Page() {
             formatted JSON.
           </li>
           <li>
-            <code>width</code>: An optional <code>cardWidth</code> value (number
-            or <code>&quot;auto&quot;</code>) to control the card width.
+            <code>width</code>: An optional <code>CardWidth</code> value — a
+            number, a ratio string (<code>&quot;1/2&quot;</code>,{" "}
+            <code>&quot;1/3&quot;</code>, <code>&quot;2/3&quot;</code>,{" "}
+            <code>&quot;full&quot;</code>), or <code>&quot;auto&quot;</code>.
             Defaults to <code>&quot;auto&quot;</code>.
           </li>
           <li>
-            <code>cardOptions</code>: An optional <code>cardOptions</code>{" "}
+            <code>CardOptions</code>: An optional <code>CardOptions</code>{" "}
             object to customize the card&apos;s appearance. Defaults to a gray
             italic border style.
           </li>
@@ -128,9 +130,11 @@ betterConsole.json({ name: "Alice", age: 30 });`,
                   <i className="text-orange-400">&quot;auto&quot;</i>, {"{"}
                   <br />
                   <div className="ml-4">
-                    <i className="text-blue-400">borderStyle</i>: {"{"}{" "}
+                    <i className="text-blue-400">border</i>: {"{"}{" "}
+                    <i className="text-blue-400">style</i>: {"{"}{" "}
                     <i className="text-blue-400">color</i>:{" "}
-                    <i className="text-orange-400">&quot;cyan&quot;</i> {"}"},
+                    <i className="text-orange-400">&quot;cyan&quot;</i> {"}"}{" "}
+                    {"}"},
                   </div>
                   <div className="ml-4">
                     <i className="text-blue-400">title</i>: {"{"}
@@ -164,7 +168,7 @@ betterConsole.json(data, 60);
 
 // With custom card styling
 betterConsole.json(data, "auto", {
-  borderStyle: { color: "cyan" },
+  border: { style: { color: "cyan" } },
   title: {
     content: "User Data",
     style: { color: "cyan", styles: ["bold"] },

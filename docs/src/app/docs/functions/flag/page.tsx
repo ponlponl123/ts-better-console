@@ -9,7 +9,7 @@ function Page() {
         <p>
           The <code>flag</code> function prepends a colored debug level flag to
           the provided arguments. The flag is wrapped in brackets and colored
-          based on the level: <span className="text-violet-400">DEBUG</span>,{" "}
+          based on the level: <span className="text-cyan-400">DEBUG</span>,{" "}
           <span className="text-blue-400">INFO</span>,{" "}
           <span className="text-yellow-400">WARN</span>, or{" "}
           <span className="text-red-400">ERROR</span>.

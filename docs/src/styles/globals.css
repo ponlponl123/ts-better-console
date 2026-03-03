@@ -1,6 +1,8 @@
 @import "tailwindcss";
 @import "./docs.css";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -15,13 +17,11 @@
   --font-mono: var(--font-jetbrains-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-    --scorllbar-background: #1a1a1a;
-    --scrollbar-thumb: #646464;
-  }
+.dark {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+  --scorllbar-background: #1a1a1a;
+  --scrollbar-thumb: #646464;
 }
 
 body {

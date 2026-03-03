@@ -1,0 +1,158 @@
+[
+  {
+    "msg": "[    3.124000] IPv6: ADDRCONF(NETDEV_UP): eth0: link is not ready",
+    "delay": 25
+  },
+  {
+    "msg": "[    3.160000] e1000: eth0 NIC Link is Up 1000 Mbps Full Duplex",
+    "delay": 30
+  },
+  {
+    "msg": "[    3.196000] IPv6: ADDRCONF(NETDEV_CHANGE): eth0: link becomes ready",
+    "delay": 25
+  },
+  {
+    "msg": "[    3.232000] NetworkManager[892]: <info>  NetworkManager (version 1.30.6) is starting...",
+    "delay": 30
+  },
+  {
+    "msg": "[    3.268000] NetworkManager[892]: <info>  dhcp-init: Using DHCP client 'internal'",
+    "delay": 25
+  },
+  {
+    "msg": "[    3.304000] NetworkManager[892]: <info>  manager: WiFi enabled by radio killswitch",
+    "delay": 20
+  },
+  {
+    "msg": "[    3.340000] NetworkManager[892]: <info>  manager: WWAN enabled by radio killswitch",
+    "delay": 20
+  },
+  {
+    "msg": "[    3.376000] NetworkManager[892]: <info>  Loaded device plugin: NMAtmManager",
+    "delay": 25
+  },
+  {
+    "msg": "[    3.412000] NetworkManager[892]: <info>  Loaded device plugin: NMTeamFactory",
+    "delay": 20
+  },
+  {
+    "msg": "[    3.448000] NetworkManager[892]: <info>  Loaded device plugin: NMWifiFactory",
+    "delay": 20
+  },
+  {
+    "msg": "[    3.484000] NetworkManager[892]: <info>  Loaded device plugin: NMWwanFactory",
+    "delay": 20
+  },
+  {
+    "msg": "[    3.520000] NetworkManager[892]: <info>  Loaded device plugin: NMBluezManager",
+    "delay": 20
+  },
+  {
+    "msg": "[    3.556000] NetworkManager[892]: <info>  device (eth0): carrier now ON",
+    "delay": 25
+  },
+  {
+    "msg": "[    3.592000] NetworkManager[892]: <info>  device (eth0): state change: unavailable -> disconnected",
+    "delay": 25
+  },
+  {
+    "msg": "[    3.628000] NetworkManager[892]: <info>  Auto-activating connection 'Wired connection 1'",
+    "delay": 30
+  },
+  {
+    "msg": "[    3.664000] NetworkManager[892]: <info>  device (eth0): Activation: starting connection",
+    "delay": 25
+  },
+  {
+    "msg": "[    3.700000] NetworkManager[892]: <info>  device (eth0): state change: disconnected -> prepare",
+    "delay": 25
+  },
+  {
+    "msg": "[    3.736000] NetworkManager[892]: <info>  device (eth0): state change: prepare -> config",
+    "delay": 25
+  },
+  {
+    "msg": "[    3.772000] NetworkManager[892]: <info>  device (eth0): state change: config -> ip-config",
+    "delay": 25
+  },
+  {
+    "msg": "[    3.808000] NetworkManager[892]: <info>  dhcp4 (eth0): activation: beginning transaction",
+    "delay": 30
+  },
+  {
+    "msg": "[    3.844000] NetworkManager[892]: <info>  dhcp4 (eth0): dhclient started with pid 1247",
+    "delay": 25
+  },
+  {
+    "msg": "[    3.964000] dhclient[1247]: DHCPDISCOVER on eth0 to 255.255.255.255 port 67 interval 3",
+    "delay": 40
+  },
+  {
+    "msg": "[    4.128000] dhclient[1247]: DHCPOFFER of 10.0.2.15 from 10.0.2.2",
+    "delay": 35
+  },
+  {
+    "msg": "[    4.164000] dhclient[1247]: DHCPREQUEST for 10.0.2.15 on eth0 to 255.255.255.255 port 67",
+    "delay": 30
+  },
+  {
+    "msg": "[    4.200000] dhclient[1247]: DHCPACK of 10.0.2.15 from 10.0.2.2",
+    "delay": 30
+  },
+  {
+    "msg": "[    4.236000] dhclient[1247]: bound to 10.0.2.15 -- renewal in 41520 seconds.",
+    "delay": 30
+  },
+  {
+    "msg": "[    4.272000] NetworkManager[892]: <info>  dhcp4 (eth0): address 10.0.2.15",
+    "delay": 25
+  },
+  {
+    "msg": "[    4.308000] NetworkManager[892]: <info>  dhcp4 (eth0): plen 24 (255.255.255.0)",
+    "delay": 20
+  },
+  {
+    "msg": "[    4.344000] NetworkManager[892]: <info>  dhcp4 (eth0): gateway 10.0.2.2",
+    "delay": 20
+  },
+  {
+    "msg": "[    4.380000] NetworkManager[892]: <info>  dhcp4 (eth0): lease time 86400",
+    "delay": 20
+  },
+  {
+    "msg": "[    4.416000] NetworkManager[892]: <info>  dhcp4 (eth0): nameserver '10.0.2.3'",
+    "delay": 20
+  },
+  {
+    "msg": "[    4.452000] NetworkManager[892]: <info>  dhcp4 (eth0): domain name 'ponlponl123.local'",
+    "delay": 25
+  },
+  {
+    "msg": "[    4.488000] NetworkManager[892]: <info>  dhcp4 (eth0): state changed bound -> bound",
+    "delay": 25
+  },
+  {
+    "msg": "[    4.524000] NetworkManager[892]: <info>  device (eth0): state change: ip-config -> ip-check",
+    "delay": 25
+  },
+  {
+    "msg": "[    4.596000] NetworkManager[892]: <info>  device (eth0): state change: ip-check -> secondaries",
+    "delay": 25
+  },
+  {
+    "msg": "[    4.632000] NetworkManager[892]: <info>  device (eth0): state change: secondaries -> activated",
+    "delay": 25
+  },
+  {
+    "msg": "[    4.668000] NetworkManager[892]: <info>  device (eth0): Activation: successful, device activated.",
+    "delay": 30
+  },
+  {
+    "msg": "[    4.704000] NetworkManager[892]: <info>  manager: NetworkManager state is now CONNECTED_GLOBAL",
+    "delay": 25
+  },
+  {
+    "msg": "[    4.740000] NetworkManager[892]: <info>  policy: set 'Wired connection 1' (eth0) as default",
+    "delay": 25
+  }
+]

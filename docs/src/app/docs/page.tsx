@@ -13,28 +13,49 @@ function Page() {
         <span>
           Welcome to the documentation for <strong>ts-better-console</strong>
         </span>
-        <h3 className="mt-8">What is ts-better-console?</h3>
+        <h2 className="mt-8 border-none">What is ts-better-console?</h2>
         <p>
           <strong>ts-better-console</strong> is a{" "}
           <span className="text-blue-600 dark:text-blue-400">TypeScript</span>{" "}
-          library that provides an enhanced console logging experience. It
-          offers features such as styled logs, log levels, and more, making it
-          easier to debug and visualize your logs in the console.
+          library for building rich terminal interfaces. Beyond styled logging,
+          it ships with interactive components — buttons, menus, progress bars,
+          spinners, cards, inputs — plus helpers for timestamps, debug flags,
+          clickable links, and more.
         </p>
         <h3 className="mt-8">Why use ts-better-console?</h3>
         <p>
-          Traditional console logging can be limited and difficult to read,
-          especially when dealing with complex data structures.{" "}
-          <strong>ts-better-console</strong> addresses these issues by providing
-          a more structured and visually appealing logging experience, allowing
-          developers to quickly identify and understand their logs.
+          Plain <code>console.log</code> works fine for quick debugging, but it
+          falls flat when you need structured output, colored log levels, or
+          anything interactive. <strong>ts-better-console</strong> gives you all
+          of that without pulling in a dozen separate packages. Everything is
+          typed, tree-shakable, and works with both Node and Bun.
         </p>
+        <h3 className="mt-8">Highlights</h3>
+        <ul className="list-disc list-inside">
+          <li>
+            Styled logging with <code>log</code>, <code>warn</code>,{" "}
+            <code>error</code>, <code>info</code>, <code>debug</code>, and{" "}
+            <code>json</code>
+          </li>
+          <li>
+            Interactive components: <code>ButtonGroup</code>, <code>Menu</code>,{" "}
+            <code>Progress</code>, <code>Spinner</code>, <code>Input</code>
+          </li>
+          <li>
+            Visual components: <code>Card</code> with border styles,{" "}
+            <code>link</code> for clickable URLs
+          </li>
+          <li>
+            Utility functions: <code>s</code> for styling, <code>cs</code> for
+            joining strings, <code>ts</code> / <code>flag</code> /{" "}
+            <code>tsflag</code> for timestamps and log levels
+          </li>
+          <li>Works with Node.js and Bun out of the box</li>
+        </ul>
         <h3 className="mt-8">Getting Started</h3>
         <p>
-          To get started with <strong>ts-better-console</strong>, you can follow
-          the installation instructions in the next section. Once installed, you
-          can start using the enhanced logging features in your TypeScript
-          projects.
+          Head over to the quick start guide to install the package and write
+          your first styled log in under a minute.
         </p>
         <div className="flex items-center gap-4">
           <Link href="/docs/quick-start" className="no-underline!">

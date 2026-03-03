@@ -15,7 +15,7 @@ class Spinner {
   }
 
   start(silent: boolean = false) {
-    if (this.timer) return; // Already spinning
+    if (this.timer) return;
     this.silent = silent;
     this.timer = setInterval(() => {
       if (!silent) {
@@ -31,7 +31,7 @@ class Spinner {
       clearInterval(this.timer);
       this.timer = undefined;
       if (!this.silent) {
-        process.stdout.write("\r"); // Clear the spinner line
+        process.stdout.write("\r");
       }
     }
   }

@@ -5,7 +5,9 @@ function Page() {
   return (
     <div className="docs flex flex-col gap-12 min-h-screen bg-background text-foreground">
       <section>
-        <h1>cls</h1>
+        <h1>
+          cls (similar to <code>clearStyles</code>)
+        </h1>
         <p>
           The <code>cls</code> constant is the ANSI reset escape code used to
           clear all active styles in terminal output. When appended to a styled

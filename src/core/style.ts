@@ -1,5 +1,6 @@
 import type { Color, StyleOptions } from "../types/style.types";
 import { cs } from "./line";
+import { CSI, RESET } from "./ansi";
 
 enum Colors {
   black = "\x1b[30m",
@@ -41,6 +42,8 @@ const rainbowColors: Color[] = [
   "magenta",
 ];
 
+const rainbowASCIICodes = rainbowColors.map((c) => Colors[c]);
+
 export function getColorCode(
   color: string | undefined,
   isBackground: boolean,
@@ -61,7 +64,7 @@ export function getColorCode(
     white: 7,
     gray: 0,
   };
-  return `\x1b[${base + (colors[color] || 0)}m`;
+  return `${CSI}${base + (colors[color] || 0)}m`;
 }
 
 function getStyleCodes(styles: string[] | undefined): string {
@@ -72,7 +75,7 @@ function getStyleCodes(styles: string[] | undefined): string {
     underline: 4,
     strikethrough: 9,
   };
-  return styles.map((s) => `\x1b[${styleCodes[s] || ""}m`).join("");
+  return styles.map((s) => `${CSI}${styleCodes[s] || ""}m`).join("");
 }
 
 // styles the string
@@ -82,7 +85,7 @@ function s(str: string, style: StyleOptions): string {
       `${getColorCode(style.color, false)}`,
       `${getColorCode(style.backgroundColor, true)}`,
       `${getStyleCodes(style.styles)}${str}`,
-      style.endless ? "" : "\x1b[0m",
+      style.endless ? "" : RESET,
     ],
     false,
   );
@@ -95,9 +98,9 @@ function applyUndefinedStyles(str: string, style?: StyleOptions): string {
 
 // clearStyle clears the styles by appending the reset code at the end of the string
 function clearStyle(str: string): string {
-  return `${str}\x1b[0m`;
+  return `${str}${RESET}`;
 }
-const cls = "\x1b[0m";
+const cls = RESET;
 
 // rainbow colors
 function rainbow(str: string): string {
@@ -113,4 +116,11 @@ function rainbow(str: string): string {
 
 export { s, applyUndefinedStyles, clearStyle, rainbow };
 // export const
-export { Colors, BackgroundColors, Styles, cls, rainbowColors };
+export {
+  Colors,
+  BackgroundColors,
+  Styles,
+  cls,
+  rainbowColors,
+  rainbowASCIICodes,
+};

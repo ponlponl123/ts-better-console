@@ -1,0 +1,50 @@
+[
+  {
+    "msg": "         Stopping Docker Application Container Engine...",
+    "delay": 40
+  },
+  {
+    "msg": "[  OK  ] Stopped Docker Application Container Engine.",
+    "delay": 40
+  },
+  { "msg": "         Stopping containerd container runtime...", "delay": 35 },
+  { "msg": "[  OK  ] Stopped containerd container runtime.", "delay": 35 },
+  { "msg": "         Stopping OpenBSD Secure Shell server...", "delay": 30 },
+  { "msg": "[  OK  ] Stopped OpenBSD Secure Shell server.", "delay": 30 },
+  { "msg": "         Stopping GNOME Display Manager...", "delay": 45 },
+  { "msg": "[  OK  ] Stopped GNOME Display Manager.", "delay": 45 },
+  { "msg": "         Stopping Network Manager...", "delay": 35 },
+  { "msg": "[  OK  ] Stopped Network Manager.", "delay": 35 },
+  { "msg": "         Stopping Network Manager Wait Online...", "delay": 25 },
+  { "msg": "[  OK  ] Network Manager Wait Online not running.", "delay": 20 },
+  { "msg": "         Stopping WPA supplicant...", "delay": 30 },
+  { "msg": "[  OK  ] Stopped WPA supplicant.", "delay": 30 },
+  { "msg": "         Stopping Authorization Manager...", "delay": 25 },
+  { "msg": "[  OK  ] Stopped Authorization Manager.", "delay": 25 },
+  { "msg": "         Stopping Login Service...", "delay": 25 },
+  { "msg": "[  OK  ] Stopped Login Service.", "delay": 25 },
+  { "msg": "         Stopping Disk Manager...", "delay": 25 },
+  { "msg": "[  OK  ] Stopped Disk Manager.", "delay": 25 },
+  { "msg": "         Stopping System Logging Service...", "delay": 20 },
+  { "msg": "[  OK  ] Stopped System Logging Service.", "delay": 20 },
+  { "msg": "         Stopping Modem Manager...", "delay": 25 },
+  { "msg": "[  OK  ] Stopped Modem Manager.", "delay": 25 },
+  { "msg": "         Stopping Daemon for power management...", "delay": 30 },
+  { "msg": "[  OK  ] Stopped Daemon for power management.", "delay": 30 },
+  { "msg": "         Stopping Accounts Service...", "delay": 25 },
+  { "msg": "[  OK  ] Stopped Accounts Service.", "delay": 25 },
+  {
+    "msg": "         Stopping Regular background program processing daemon...",
+    "delay": 25
+  },
+  {
+    "msg": "[  OK  ] Stopped Regular background program processing daemon.",
+    "delay": 25
+  },
+  { "msg": "         Stopping D-Bus System Message Bus...", "delay": 25 },
+  { "msg": "[  OK  ] Stopped D-Bus System Message Bus.", "delay": 25 },
+  { "msg": "         Stopping Permit User Sessions...", "delay": 20 },
+  { "msg": "[  OK  ] Stopped Permit User Sessions.", "delay": 20 },
+  { "msg": "         Stopping System Logging Service...", "delay": 20 },
+  { "msg": "[  OK  ] Stopped System Logging Service.", "delay": 20 }
+]

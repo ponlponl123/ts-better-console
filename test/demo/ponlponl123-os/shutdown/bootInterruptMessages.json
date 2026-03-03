@@ -1,0 +1,13 @@
+[
+  { "msg": "", "delay": 30 },
+  { "msg": "BOOT PROCESS INTERRUPTED", "delay": 100 },
+  { "msg": "", "delay": 50 },
+  { "msg": "Signal received. Halting boot sequence...", "delay": 100 },
+  { "msg": "", "delay": 30 },
+  { "msg": "Cleaning up temporary boot files...", "delay": 80 },
+  { "msg": "Releasing boot memory...", "delay": 60 },
+  { "msg": "Closing file descriptors...", "delay": 50 },
+  { "msg": "", "delay": 50 },
+  { "msg": "Boot sequence aborted.", "delay": 100 },
+  { "msg": "", "delay": 100 }
+]

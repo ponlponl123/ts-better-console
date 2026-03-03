@@ -1,0 +1,14 @@
+[
+  { "msg": "[  OK  ] Terminating user sessions...", "delay": 25 },
+  {
+    "msg": "         Closing graphical session for user 'ponlponl'...",
+    "delay": 30
+  },
+  { "msg": "[  OK  ] User 'ponlponl' session closed.", "delay": 30 },
+  { "msg": "         Saving user configuration...", "delay": 25 },
+  { "msg": "[  OK  ] User configuration saved.", "delay": 25 },
+  { "msg": "         Clearing user cache...", "delay": 20 },
+  { "msg": "[  OK  ] User cache cleared.", "delay": 20 },
+  { "msg": "         Terminating all user processes...", "delay": 30 },
+  { "msg": "[  OK  ] All user processes terminated.", "delay": 30 }
+]

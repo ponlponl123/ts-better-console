@@ -44,6 +44,12 @@ function Page() {
             <code>color</code>: A <code>ProgressBarStateColor</code> object to
             customize colors for each bar segment and state.
           </li>
+          <li>
+            <code>position</code>: Where to render the bar —{" "}
+            <code>&quot;inline&quot;</code>, <code>&quot;top&quot;</code>, or{" "}
+            <code>&quot;bottom&quot;</code>. Defaults to{" "}
+            <code>&quot;inline&quot;</code>.
+          </li>
         </ul>
         <Code
           codesnippets={[
@@ -81,6 +87,9 @@ function Page() {
                   &nbsp;&nbsp;<i className="text-cyan-600">color</i>?:{" "}
                   <span className="text-cyan-400">ProgressBarStateColor</span>;
                   <br />
+                  &nbsp;&nbsp;<i className="text-cyan-600">position</i>?:{" "}
+                  <span className="text-cyan-400">FixedPosition</span>;
+                  <br />
                   {"}"}
                 </div>
               ),
@@ -91,6 +100,7 @@ function Page() {
   length?: number | "full-width";
   animation?: false | "rainbow";
   color?: ProgressBarStateColor;
+  position?: FixedPosition;
 }`,
             },
           ]}

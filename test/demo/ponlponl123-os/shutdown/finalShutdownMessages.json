@@ -1,0 +1,24 @@
+[
+  { "msg": "", "delay": 30 },
+  {
+    "msg": "[ TIME: 2026.03.03 12:45:30 ] System shutdown initiated",
+    "delay": 50
+  },
+  { "msg": "", "delay": 20 },
+  { "msg": "Shutting down Ponlponl123 OS v6.5.0-ponlponl...", "delay": 40 },
+  { "msg": "Please stand by...", "delay": 50 },
+  { "msg": "", "delay": 30 },
+  { "msg": "Sending SIGTERM to all processes...", "delay": 35 },
+  { "msg": "Sending SIGKILL to remaining processes...", "delay": 35 },
+  { "msg": "", "delay": 25 },
+  { "msg": "Saving system state...", "delay": 40 },
+  { "msg": "Closing all file descriptors...", "delay": 30 },
+  { "msg": "Terminating all user processes...", "delay": 35 },
+  { "msg": "", "delay": 30 },
+  { "msg": "System clock suspended.", "delay": 50 },
+  { "msg": "Memory protection disabled.", "delay": 30 },
+  { "msg": "Turning off CPU caches...", "delay": 35 },
+  { "msg": "", "delay": 40 },
+  { "msg": "Power down.", "delay": 100 },
+  { "msg": "", "delay": 50 }
+]

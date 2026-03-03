@@ -4,34 +4,61 @@ export { default } from "./core/console";
 // ── Core utilities ───────────────────────────────────────────
 export {
   s,
+  applyUndefinedStyles as us,
   applyUndefinedStyles,
   clearStyle,
+  rainbow as rb,
   rainbow,
+  getColorCode,
   Colors,
   BackgroundColors,
   Styles,
   cls,
+  rainbowColors,
+  rainbowASCIICodes,
 } from "./core/style";
 export {
   cs,
   ts,
+  flag as fg,
   flag,
+  tsflag as tsfg,
   tsflag,
   toMaxLineLength,
   toMaxLinesLength,
 } from "./core/line";
-export { getProcessSize } from "./core/terminal";
+export { getProcessSize as ps, getProcessSize, size } from "./core/terminal";
+
+// ── Layout utilities ──────────────────────────────────────────
+export { aliasAlignment as aa, aliasAlignment, ratio } from "./utils/layout";
 
 // ── Components ───────────────────────────────────────────────
 export { ButtonGroup } from "./components/button";
-export { createCard } from "./components/card";
+export { Card } from "./components/card";
+export { Input, prompt } from "./components/input";
 export { link } from "./components/link";
 export { Menu } from "./components/menu";
 export { Progress } from "./components/progress";
 export { Spinner } from "./components/spinner";
 
 // ── Shared types ─────────────────────────────────────────────
-export type { StyleOptions, Color, Style } from "./types/style.types";
+export type {
+  StyleOptions,
+  Color,
+  Style,
+  UnSpecifiedColor,
+} from "./types/style.types";
+export type {
+  TerminalDimensions,
+  TerminalSize,
+  FixedPosition,
+} from "./types/terminal.types";
+export type {
+  Ratio,
+  Alignment,
+  AlignmentAlias,
+  Align,
+} from "./types/layout.types";
 export type { DebugLevel } from "./types/line.types";
 
 // ── Component types ──────────────────────────────────────────
@@ -40,7 +67,21 @@ export type {
   ButtonGroupOptions,
   ButtonGroupEvents,
 } from "./components/button";
-export type { cardWidth, cardOptions, sectionOptions } from "./components/card";
+export type {
+  CardWidth,
+  CardOptions,
+  SectionOptions,
+  BodyOptions,
+  BorderStyle,
+  BorderSymbolStyle,
+  CardBorderSymbols,
+} from "./components/card";
+export type {
+  InputType,
+  InputOptions,
+  InputEvents,
+  InputStyleOptions,
+} from "./components/input";
 export type {
   MenuItemOptions,
   MenuOptions,
@@ -53,5 +94,6 @@ export type {
   ProgressStatus,
   ProgressBarOptions,
   ProgressBarStateColor,
+  ProgressUpdateOptions,
 } from "./components/progress";
 export type { SpinnerOptions, SpinnerStyle } from "./components/spinner";

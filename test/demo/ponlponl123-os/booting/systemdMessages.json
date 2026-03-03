@@ -1,0 +1,81 @@
+[
+  { "msg": "[  OK  ] Started Show Plymouth Boot Screen.", "delay": 25 },
+  {
+    "msg": "[  OK  ] Started Forward Password Requests to Plymouth.",
+    "delay": 20
+  },
+  { "msg": "[  OK  ] Reached target Paths.", "delay": 15 },
+  { "msg": "[  OK  ] Reached target Basic System.", "delay": 20 },
+  { "msg": "         Starting System Logging Service...", "delay": 30 },
+  { "msg": "         Starting Permit User Sessions...", "delay": 25 },
+  { "msg": "[  OK  ] Started System Logging Service.", "delay": 25 },
+  { "msg": "[  OK  ] Started Permit User Sessions.", "delay": 20 },
+  { "msg": "         Starting GNOME Display Manager...", "delay": 40 },
+  {
+    "msg": "         Starting Hold until boot process finishes...",
+    "delay": 30
+  },
+  { "msg": "         Starting Terminate Plymouth Boot Screen...", "delay": 25 },
+  { "msg": "         Starting Set console scheme...", "delay": 20 },
+  { "msg": "[  OK  ] Started D-Bus System Message Bus.", "delay": 25 },
+  {
+    "msg": "[  OK  ] Started Regular background program processing daemon.",
+    "delay": 25
+  },
+  { "msg": "         Starting Accounts Service...", "delay": 25 },
+  { "msg": "         Starting Daemon for power management...", "delay": 30 },
+  { "msg": "         Starting Modem Manager...", "delay": 25 },
+  { "msg": "         Starting Network Manager...", "delay": 30 },
+  { "msg": "         Starting System Logging Service...", "delay": 20 },
+  { "msg": "         Starting Disk Manager...", "delay": 25 },
+  { "msg": "         Starting Login Service...", "delay": 25 },
+  { "msg": "[  OK  ] Started Accounts Service.", "delay": 25 },
+  { "msg": "[  OK  ] Started Daemon for power management.", "delay": 25 },
+  { "msg": "[  OK  ] Started Modem Manager.", "delay": 20 },
+  { "msg": "[  OK  ] Started irqbalance daemon.", "delay": 20 },
+  { "msg": "[  OK  ] Started System Logging Service.", "delay": 20 },
+  { "msg": "[  OK  ] Started Disk Manager.", "delay": 20 },
+  { "msg": "[  OK  ] Started Login Service.", "delay": 25 },
+  { "msg": "         Starting Authorization Manager...", "delay": 25 },
+  { "msg": "[  OK  ] Started Authorization Manager.", "delay": 25 },
+  { "msg": "         Starting WPA supplicant...", "delay": 30 },
+  { "msg": "[  OK  ] Started WPA supplicant.", "delay": 25 },
+  { "msg": "[  OK  ] Started Network Manager.", "delay": 30 },
+  { "msg": "         Starting Network Manager Wait Online...", "delay": 25 },
+  {
+    "msg": "         Starting Network Manager Script Dispatcher Service...",
+    "delay": 25
+  },
+  {
+    "msg": "[  OK  ] Started Network Manager Script Dispatcher Service.",
+    "delay": 25
+  },
+  { "msg": "[  OK  ] Reached target Network.", "delay": 20 },
+  { "msg": "         Starting containerd container runtime...", "delay": 30 },
+  { "msg": "         Starting OpenBSD Secure Shell server...", "delay": 25 },
+  { "msg": "[  OK  ] Started OpenBSD Secure Shell server.", "delay": 25 },
+  { "msg": "[  OK  ] Started containerd container runtime.", "delay": 30 },
+  {
+    "msg": "         Starting Docker Application Container Engine...",
+    "delay": 35
+  },
+  {
+    "msg": "[  OK  ] Started Docker Application Container Engine.",
+    "delay": 35
+  },
+  { "msg": "[  OK  ] Reached target Multi-User System.", "delay": 25 },
+  {
+    "msg": "         Starting Update UTMP about System Runlevel Changes...",
+    "delay": 25
+  },
+  {
+    "msg": "[  OK  ] Started Update UTMP about System Runlevel Changes.",
+    "delay": 20
+  },
+  { "msg": "[  OK  ] Started GNOME Display Manager.", "delay": 30 },
+  { "msg": "[  OK  ] Started Session c1 of user gdm.", "delay": 25 },
+  { "msg": "[  OK  ] Reached target Graphical Interface.", "delay": 25 },
+  { "msg": "[  OK  ] Started Hold until boot process finishes.", "delay": 20 },
+  { "msg": "[  OK  ] Started Terminate Plymouth Boot Screen.", "delay": 20 },
+  { "msg": "[  OK  ] Started Set console scheme.", "delay": 15 }
+]

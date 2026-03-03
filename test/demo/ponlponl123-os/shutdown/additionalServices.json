@@ -1,0 +1,18 @@
+[
+  { "msg": "[  OK  ] Stopping user session manager...", "delay": 25 },
+  { "msg": "[  OK  ] Stopped user session manager.", "delay": 25 },
+  { "msg": "         Stopping keyboard layout service...", "delay": 20 },
+  { "msg": "[  OK  ] Stopped keyboard layout service.", "delay": 20 },
+  { "msg": "         Stopping PulseAudio daemon...", "delay": 25 },
+  { "msg": "[  OK  ] Stopped PulseAudio daemon.", "delay": 25 },
+  { "msg": "         Stopping Bluetooth service...", "delay": 25 },
+  { "msg": "[  OK  ] Stopped Bluetooth service.", "delay": 25 },
+  { "msg": "         Stopping Avahi mDNS daemon...", "delay": 20 },
+  { "msg": "[  OK  ] Stopped Avahi mDNS daemon.", "delay": 20 },
+  { "msg": "         Stopping CUPS Print Server...", "delay": 25 },
+  { "msg": "[  OK  ] Stopped CUPS Print Server.", "delay": 25 },
+  { "msg": "         Stopping Samba/CIFS daemon...", "delay": 25 },
+  { "msg": "[  OK  ] Stopped Samba/CIFS daemon.", "delay": 25 },
+  { "msg": "         Stopping NFS daemon...", "delay": 20 },
+  { "msg": "[  OK  ] Stopped NFS daemon.", "delay": 20 }
+]

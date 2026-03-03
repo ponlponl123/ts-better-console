@@ -1,0 +1,26 @@
+[
+  { "msg": "[  OK  ] Reached target Power-Off.", "delay": 20 },
+  { "msg": "         Deactivating swap...", "delay": 20 },
+  { "msg": "[  OK  ] Deactivated swap.", "delay": 20 },
+  { "msg": "         Stopping Device-Mapper service...", "delay": 25 },
+  { "msg": "[  OK  ] Stopped Device-Mapper service.", "delay": 25 },
+  { "msg": "         Scanning for LVM logical volumes...", "delay": 30 },
+  { "msg": "[  OK  ] LVM logical volumes scanned.", "delay": 30 },
+  { "msg": "         Stopping udev daemon...", "delay": 25 },
+  { "msg": "[  OK  ] Stopped udev daemon.", "delay": 25 },
+  { "msg": "         Stopping Kernel Crypto API daemon...", "delay": 20 },
+  { "msg": "[  OK  ] Stopped Kernel Crypto API daemon.", "delay": 20 },
+  {
+    "msg": "         Stopping kernel message brokering service...",
+    "delay": 20
+  },
+  { "msg": "[  OK  ] Stopped kernel message brokering service.", "delay": 20 },
+  { "msg": "         Powering off serial console...", "delay": 20 },
+  { "msg": "[  OK  ] Serial console powered off.", "delay": 20 },
+  { "msg": "         Flushing file system buffers...", "delay": 30 },
+  { "msg": "[  OK  ] File system buffers flushed.", "delay": 30 },
+  { "msg": "         Syncing disks...", "delay": 35 },
+  { "msg": "[  OK  ] Disks synced.", "delay": 35 },
+  { "msg": "         Shutting down ACPI...", "delay": 25 },
+  { "msg": "[  OK  ] ACPI shut down.", "delay": 25 }
+]

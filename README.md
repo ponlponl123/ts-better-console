@@ -21,14 +21,7 @@ bun add ts-better-console
 ## Quick look
 
 ```ts
-import betterConsole, {
-  s,
-  cs,
-  flag,
-  ts,
-  link,
-  createCard,
-} from "ts-better-console";
+import betterConsole, { s, cs, flag, ts, link, Card } from "ts-better-console";
 
 // basic logging — strings get styled automatically
 betterConsole.log("plain text");
@@ -74,16 +67,16 @@ Available styles: `bold`, `italic`, `underline`, `strikethrough`
 
 ## Cards
 
-`createCard()` wraps text in a bordered box. Works well for displaying structured output like JSON.
+`Card` wraps text in a bordered box. Works well for displaying structured output like JSON.
 
 ```ts
-import { createCard } from "ts-better-console";
+import { Card } from "ts-better-console";
 
-const card = createCard("Hello from inside a card!", "auto", {
+const card = new Card("Hello from inside a card!", "auto", {
   title: { content: "Greetings", style: { color: "cyan", styles: ["bold"] } },
   footer: { content: "v0.1.0", style: { color: "gray" } },
   borderStyle: { color: "green" },
-});
+}).render();
 
 console.log(card);
 ```
@@ -182,15 +175,15 @@ new Spinner({
 
 ## Utility helpers
 
-| Function                                | What it does                                                        |
-| --------------------------------------- | ------------------------------------------------------------------- |
-| `cs(strings, join?)`                    | Combine strings with a separator (default: space, `false` for none) |
-| `ts(date?, ...args)`                    | Prepend a `[YYYY-MM-DD - HH:MM:SS]` timestamp                       |
-| `flag(level, ...args)`                  | Prepend a colored `[INFO]`, `[WARN]`, `[ERROR]`, or `[DEBUG]` badge |
-| `tsflag(level, date?, ...args)`         | Timestamp + flag combined                                           |
-| `clearStyle(str)`                       | Append the ANSI reset code to a string                              |
-| `link(text, url)`                       | Create a clickable hyperlink (OSC 8)                                |
-| `createCard(content, width?, options?)` | Render a bordered card                                              |
+| Function                                       | What it does                                                        |
+| ---------------------------------------------- | ------------------------------------------------------------------- |
+| `cs(strings, join?)`                           | Combine strings with a separator (default: space, `false` for none) |
+| `ts(date?, ...args)`                           | Prepend a `[YYYY-MM-DD - HH:MM:SS]` timestamp                       |
+| `flag(level, ...args)`                         | Prepend a colored `[INFO]`, `[WARN]`, `[ERROR]`, or `[DEBUG]` badge |
+| `tsflag(level, date?, ...args)`                | Timestamp + flag combined                                           |
+| `clearStyle(str)`                              | Append the ANSI reset code to a string                              |
+| `link(text, url)`                              | Create a clickable hyperlink (OSC 8)                                |
+| `new Card(content, width?, options?).render()` | Render a bordered card                                              |
 
 ## Enums and constants
 

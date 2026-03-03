@@ -48,7 +48,12 @@ function Page() {
           <li>
             <code>options</code>: An optional <code>ButtonGroupOptions</code>{" "}
             object to configure the gap between buttons (defaults to{" "}
-            <code>2</code>).
+            <code>2</code>), border style, alignment (
+            <code>&quot;left&quot;</code>, <code>&quot;center&quot;</code>,{" "}
+            <code>&quot;right&quot;</code>, <code>&quot;start&quot;</code>,{" "}
+            <code>&quot;end&quot;</code>), and position (
+            <code>&quot;inline&quot;</code>, <code>&quot;top&quot;</code>,{" "}
+            <code>&quot;bottom&quot;</code>).
           </li>
         </ul>
         <h2 className="mt-8">Methods</h2>

@@ -101,8 +101,7 @@ betterConsole.log("Hello, World!", { foo: "bar" });`,
                   <i className="text-orange-400">"ts-better-console"</i>;<br />
                   <br />
                   <i className="text-emerald-400">betterConsole</i>.<Json />(
-                  <i className="text-orange-400">"User Data"</i>, {"{"}{" "}
-                  <i className="text-blue-400">name</i>:{" "}
+                  {"{"} <i className="text-blue-400">name</i>:{" "}
                   <i className="text-orange-400">"Alice"</i>,<br />
                   <div className="ml-4">
                     <i className="text-blue-400">age</i>:{" "}

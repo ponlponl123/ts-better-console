@@ -5,9 +5,18 @@ export type {
   ButtonGroupEvents,
 } from "./button";
 
-export { createCard } from "./card";
-export type { cardWidth, cardOptions, sectionOptions } from "./card";
+export { Card } from "./card";
+export type {
+  CardWidth,
+  CardOptions,
+  SectionOptions,
+  BodyOptions,
+  BorderStyle,
+  BorderSymbolStyle,
+  CardBorderSymbols,
+} from "./card";
 
+export { prompt } from "./input";
 export { link } from "./link";
 
 export { Menu } from "./menu";
@@ -19,6 +28,9 @@ export type {
   ProgressLabelPair,
   ProgressEvents,
   ProgressStatus,
+  ProgressBarOptions,
+  ProgressBarStateColor,
+  ProgressUpdateOptions,
 } from "./progress";
 
 export { Spinner } from "./spinner";

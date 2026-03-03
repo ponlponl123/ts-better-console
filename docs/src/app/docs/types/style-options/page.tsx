@@ -75,19 +75,19 @@ function Page() {
                   {"}"}
                 </div>
               ),
-              snippet: `type StyleOptions = {
-  color?: colors;
-  backgroundColor?: colors;
-  styles?: style[];
+              snippet: `interface StyleOptions {
+  color?: Color;
+  backgroundColor?: Color;
+  styles?: Style[];
   endless?: boolean;
 };`,
             },
             {
-              title: "Colors and Styles",
+              title: "Color and Style",
               code: (
                 <div>
                   <i className="text-purple-400">type</i>{" "}
-                  <i className="text-blue-400">colors</i> ={" "}
+                  <i className="text-blue-400">Color</i> ={" "}
                   <span className="text-orange-400">
                     "black" | "red" | "green" | "yellow" | "blue" | "magenta" |
                     "cyan" | "white" | "gray"
@@ -95,15 +95,15 @@ function Page() {
                   ;
                   <br />
                   <i className="text-purple-400">type</i>{" "}
-                  <i className="text-blue-400">style</i> ={" "}
+                  <i className="text-blue-400">Style</i> ={" "}
                   <span className="text-orange-400">
                     "bold" | "italic" | "underline" | "strikethrough"
                   </span>
                   ;
                 </div>
               ),
-              snippet: `type colors = "black" | "red" | "green" | "yellow" | "blue" | "magenta" | "cyan" | "white" | "gray";
-type style = "bold" | "italic" | "underline" | "strikethrough";`,
+              snippet: `type Color = "black" | "red" | "green" | "yellow" | "blue" | "magenta" | "cyan" | "white" | "gray";
+type Style = "bold" | "italic" | "underline" | "strikethrough";`,
             },
           ]}
         />

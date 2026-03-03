@@ -1,0 +1,30 @@
+[
+  { "msg": "[    0.000000] Kernel shutdown initiated by pid 1", "delay": 20 },
+  {
+    "msg": "[    0.001000] Shutdown: Power-off with sync to all buffers",
+    "delay": 25
+  },
+  { "msg": "[    0.002000] Syncing mounted filesystems...", "delay": 30 },
+  {
+    "msg": "[    0.005000] [   OK   ] EXT4-fs (sda1): 50,234 blocks written",
+    "delay": 20
+  },
+  {
+    "msg": "[    0.007000] [   OK   ] EXT4-fs (sda2): 102,456 blocks written",
+    "delay": 20
+  },
+  {
+    "msg": "[    0.009000] Notifying all processes of shutdown...",
+    "delay": 25
+  },
+  { "msg": "[    0.010000] Terminated 47 active processes", "delay": 20 },
+  { "msg": "[    0.011000] Unmounting rootfs", "delay": 25 },
+  { "msg": "[    0.012000] Shutting down ACPI power management", "delay": 25 },
+  { "msg": "[    0.013000] Disabling IRQ and device interrupts", "delay": 20 },
+  { "msg": "[    0.014000] Halting CPU", "delay": 30 },
+  {
+    "msg": "[    0.015000] Calling machine shutdown handler via ACPI",
+    "delay": 25
+  },
+  { "msg": "", "delay": 100 }
+]

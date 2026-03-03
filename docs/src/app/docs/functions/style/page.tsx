@@ -5,7 +5,9 @@ function Page() {
   return (
     <div className="docs flex flex-col gap-12 min-h-screen bg-background text-foreground">
       <section>
-        <h1>s</h1>
+        <h1>
+          s (similar to <code>style</code>)
+        </h1>
         <p>
           The <code>s</code> function applies ANSI styles to a string for
           terminal output. It supports text color, background color, and text

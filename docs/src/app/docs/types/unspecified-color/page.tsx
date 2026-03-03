@@ -138,11 +138,11 @@ type UnSpecifiedColor = Color | "inherit";`,
                   {"}"});
                 </div>
               ),
-              snippet: `import { createProgress } from "ts-better-console";
+              snippet: `import { Progress } from "ts-better-console";
 
 const progress = new Progress("Loading", 100, {
   bar: {
-    colors: {
+    color: {
       loaded: "cyan",
       buffered: "blue",
       empty: "gray",
@@ -182,7 +182,7 @@ const progress = new Progress("Loading", 100, {
                     <i className="text-blue-400">bar</i>: {"{"}
                     <br />
                     <div className="ml-4">
-                      <i className="text-blue-400">colors</i>: {"{"}
+                      <i className="text-blue-400">color</i>: {"{"}
                       <br />
                       <div className="ml-4">
                         <i className="text-blue-400">loaded</i>:{" "}
@@ -204,12 +204,12 @@ const progress = new Progress("Loading", 100, {
               snippet: `import { Progress } from "ts-better-console";
 
 const progress = new Progress("Processing", 100, {
-    bar: {
-        colors: {
-        loaded: "inherit",
-        empty: "inherit",
-        },
+  bar: {
+    color: {
+      loaded: "inherit",
+      empty: "inherit",
     },
+  },
 });`,
             },
           ]}

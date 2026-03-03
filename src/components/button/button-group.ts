@@ -7,75 +7,91 @@ import type {
 } from "./button.types";
 import { s } from "../../core/style";
 import { cs } from "../../core/line";
+import type { Alignment } from "../../types";
+import { aliasAlignment } from "../../utils";
+import type { FixedPosition } from "../../types/terminal.types";
+import {
+  getProcessSize,
+  setupScrollRegion,
+  resetScrollRegion,
+  wrapFixed,
+  clearFixed,
+  enableInteractiveMode,
+  disableInteractiveMode,
+  parseMouseEvent,
+} from "../../core";
+import { CTRL_C, ERASE_TO_EOL, KEY_LEFT, KEY_RIGHT } from "../../core/ansi";
 
 class ButtonGroup extends EventEmitter {
   private buttons: ButtonOptions[];
   private options: ButtonGroupOptions;
   private buttonPositions: { start: number; end: number }[] = [];
+  private alignment: Alignment = "left";
+  private position: FixedPosition = "inline";
   private isActive: boolean = false;
   private focusedIndex: number = -1;
-  private renderRow: number = -1;
 
   constructor(buttons: ButtonOptions[], options: ButtonGroupOptions = {}) {
     super();
     this.buttons = buttons;
     this.options = { gap: 2, ...options };
+    this.alignment = aliasAlignment(this.options.align ?? "left");
+    this.position = this.options.position ?? "inline";
   }
 
   public show(): void {
     if (this.isActive) return;
     this.isActive = true;
 
-    // Save cursor row so we know which row the buttons are on
-    this.renderRow = -1; // will be resolved from mouse events relative to render
+    if (this.position !== "inline") {
+      process.stdout.write(setupScrollRegion(this.position, 1));
+    }
 
     this.render();
 
-    // Enable mouse tracking (X10 normal tracking – reports button presses)
-    process.stdout.write("\x1b[?1000h");
-
-    // Hide cursor while interactive
-    process.stdout.write("\x1b[?25l");
-
-    if (process.stdin.isTTY) {
-      process.stdin.setRawMode(true);
-    }
-    process.stdin.resume();
+    enableInteractiveMode();
     process.stdin.on("data", this.onData);
   }
 
-  /**
-   * Stop listening and restore terminal state.
-   */
   public destroy(): void {
     if (!this.isActive) return;
     this.isActive = false;
 
-    // Disable mouse tracking
-    process.stdout.write("\x1b[?1000l");
-    // Show cursor
-    process.stdout.write("\x1b[?25h");
-
+    disableInteractiveMode();
     process.stdin.removeListener("data", this.onData);
-    if (process.stdin.isTTY) {
-      process.stdin.setRawMode(false);
+
+    if (this.position !== "inline") {
+      process.stdout.write(clearFixed(this.position));
+      process.stdout.write(resetScrollRegion());
+    } else {
+      process.stdout.write("\n");
     }
-    process.stdin.pause();
-    process.stdout.write("\n");
+
     this.emit("exit");
   }
 
-  // ── Rendering ──────────────────────────────────────────────
-
   private render(): void {
+    const terminalWidth = getProcessSize().width.full;
+    const totalButtonWidth = this.buttons.reduce(
+      (sum, btn) => sum + btn.label.length + 2,
+      0,
+    );
+    const totalGapWidth = (this.buttons.length - 1) * (this.options.gap ?? 2);
+    const contentWidth = totalButtonWidth + totalGapWidth;
     const gap = " ".repeat(this.options.gap ?? 2);
     const parts: string[] = [];
     this.buttonPositions = [];
-    let col = 0;
+    let leftPadding = 0;
+    if (this.alignment === "center") {
+      leftPadding = Math.max(0, Math.floor((terminalWidth - contentWidth) / 2));
+    } else if (this.alignment === "right") {
+      leftPadding = Math.max(0, terminalWidth - contentWidth);
+    }
+    let col = leftPadding;
 
     for (let i = 0; i < this.buttons.length; i++) {
       const btn = this.buttons[i]!;
-      const label = ` ${btn.label} `; // padding around label
+      const label = ` ${btn.label} `;
       const start = col;
       const end = col + label.length - 1;
       this.buttonPositions.push({ start, end });
@@ -103,55 +119,35 @@ class ButtonGroup extends EventEmitter {
       }
     }
 
-    // Clear current line and write buttons
-    process.stdout.write("\r\x1b[K" + cs(parts, false));
+    const line =
+      "\r" + ERASE_TO_EOL + " ".repeat(leftPadding) + cs(parts, false);
+    process.stdout.write(wrapFixed(this.position, line));
   }
 
-  // ── Input handling ─────────────────────────────────────────
-
   private onData = (data: Buffer): void => {
-    // ── Mouse events (X10 normal tracking) ──
-    // Format: \x1b [ M <button> <col+32> <row+32>
-    if (
-      data.length >= 6 &&
-      data[0] === 0x1b &&
-      data[1] === 0x5b &&
-      data[2] === 0x4d
-    ) {
-      const button = data[3]! - 32;
-      const col = data[4]! - 32 - 1; // 0-indexed
-      // const row = data[5]! - 32 - 1;
-
-      // Button 0 = left click press
-      if (button === 0) {
-        this.handleClick(col);
-      }
+    const mouse = parseMouseEvent(data);
+    if (mouse) {
+      if (mouse.button === 0) this.handleClick(mouse.col);
       return;
     }
 
-    // ── Keyboard fallback ──
     const key = data.toString();
 
-    // q or Ctrl-C to exit
-    if (key === "q" || key === "Q" || key === "\x03") {
+    if (key === "q" || key === "Q" || key === CTRL_C) {
       this.destroy();
       return;
     }
 
-    // Arrow keys to navigate and Enter to activate
-    if (key === "\x1b[D") {
-      // Left arrow
+    if (key === KEY_LEFT) {
       this.focusedIndex = Math.max(0, this.focusedIndex - 1);
       this.render();
-    } else if (key === "\x1b[C") {
-      // Right arrow
+    } else if (key === KEY_RIGHT) {
       this.focusedIndex = Math.min(
         this.buttons.length - 1,
         this.focusedIndex + 1,
       );
       this.render();
     } else if (key === "\r" || key === "\n") {
-      // Enter key
       if (this.focusedIndex >= 0 && this.focusedIndex < this.buttons.length) {
         const btn = this.buttons[this.focusedIndex]!;
         btn.onClick();
@@ -173,8 +169,6 @@ class ButtonGroup extends EventEmitter {
       }
     }
   }
-
-  // ── Type-safe event overloads ──────────────────────────────
 
   public override on<K extends keyof ButtonGroupEvents>(
     event: K,

@@ -16,6 +16,33 @@ const sono = Sono({
   subsets: ["latin"],
 });
 
+const themeInitScript = `
+(() => {
+  try {
+    const match = document.cookie.match(/(?:^|; )theme=([^;]*)/);
+    const cookieTheme = match ? decodeURIComponent(match[1]) : null;
+    const savedTheme = localStorage.getItem("theme");
+    const themePreference = cookieTheme || savedTheme || "system";
+    
+    let shouldBeDark = false;
+    if (themePreference === "dark") {
+      shouldBeDark = true;
+    } else if (themePreference === "light") {
+      shouldBeDark = false;
+    } else {
+      // system
+      shouldBeDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    }
+
+    if (shouldBeDark) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  } catch {}
+})();
+`;
+
 export const metadata: Metadata = {
   title: "ts-better-console",
   description: "A better console for TypeScript projects.",
@@ -51,7 +78,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="apply-transition">
+    <html lang="en" className="apply-transition" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+      </head>
       <body
         className={`${sono.variable} ${jetbrainsMono.variable} antialiased apply-transition`}
       >

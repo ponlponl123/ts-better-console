@@ -5,7 +5,9 @@ function Page() {
   return (
     <div className="docs flex flex-col gap-12 min-h-screen bg-background text-foreground">
       <section>
-        <h1>tsflag</h1>
+        <h1>
+          tsflag (similar to <code>timestampWithFlag</code>)
+        </h1>
         <p>
           The <code>tsflag</code> function combines a timestamp and a debug
           level flag into a single formatted string. It calls <code>ts</code>{" "}

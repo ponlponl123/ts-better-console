@@ -5,7 +5,9 @@ function Page() {
   return (
     <div className="docs flex flex-col gap-12 min-h-screen bg-background text-foreground">
       <section>
-        <h1>ts</h1>
+        <h1>
+          ts (similar to <code>timestamp</code>)
+        </h1>
         <p>
           The <code>ts</code> (timestamp) function prepends a formatted
           timestamp to the provided arguments. It wraps the current date and

@@ -9,6 +9,8 @@ export {
   BackgroundColors,
   Styles,
   cls,
+  rainbowColors,
+  rainbowASCIICodes,
 } from "./style";
 export {
   cs,
@@ -18,4 +20,49 @@ export {
   toMaxLineLength,
   toMaxLinesLength,
 } from "./line";
-export { getProcessSize } from "./terminal";
+export { getProcessSize, size } from "./terminal";
+export {
+  setupScrollRegion,
+  resetScrollRegion,
+  moveToFixed,
+  wrapFixed,
+  clearFixed,
+  termHeight,
+} from "./fixed-position";
+export {
+  enableInteractiveMode,
+  disableInteractiveMode,
+  parseMouseEvent,
+  MOUSE_ON,
+  MOUSE_OFF,
+  CURSOR_HIDE,
+  CURSOR_SHOW,
+} from "./interactive";
+export {
+  Byte,
+  CTRL_C,
+  BACKSPACE,
+  ESC,
+  CSI,
+  CURSOR_SAVE,
+  CURSOR_RESTORE,
+  ERASE_LINE,
+  ERASE_TO_EOL,
+  ERASE_BELOW,
+  ERASE_TO_END,
+  INSERT_LINE,
+  SCROLL_RESET,
+  scrollRegion,
+  WRAP_ON,
+  WRAP_OFF,
+  RESET,
+  DIM,
+  DIM_OFF,
+  KEY_UP,
+  KEY_DOWN,
+  KEY_LEFT,
+  KEY_RIGHT,
+  cursorUp,
+  cursorDown,
+  cursorTo,
+} from "./ansi";

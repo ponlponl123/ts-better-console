@@ -5,7 +5,9 @@ function Page() {
   return (
     <div className="docs flex flex-col gap-12 min-h-screen bg-background text-foreground">
       <section>
-        <h1>cs</h1>
+        <h1>
+          cs (similar to <code>combineStrings</code>)
+        </h1>
         <p>
           The <code>cs</code> (combine strings) function joins an array of
           strings with a configurable separator. By default it joins with a

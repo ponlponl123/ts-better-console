@@ -6,11 +6,28 @@ import type {
   ProgressEvents,
   ProgressStatus,
   ProgressBarOptions,
+  ProgressUpdateOptions,
 } from "./progress.types";
 import betterConsole from "../../core/console";
-import { getColorCode, s } from "../../core/style";
+import { getColorCode, rainbowASCIICodes, s } from "../../core/style";
 import { cs } from "../../core/line";
-import { getProcessSize } from "../../core";
+import {
+  getProcessSize,
+  setupScrollRegion,
+  resetScrollRegion,
+  wrapFixed,
+} from "../../core";
+import {
+  cursorUp,
+  ERASE_BELOW,
+  ERASE_LINE,
+  WRAP_OFF,
+  WRAP_ON,
+  RESET,
+  DIM,
+  DIM_OFF,
+} from "../../core/ansi";
+import type { FixedPosition } from "../../types";
 
 class Progress extends EventEmitter {
   public title: string;
@@ -22,8 +39,6 @@ class Progress extends EventEmitter {
   private spinner = new Spinner({ style: "line" });
   private static readonly DEFAULT_BAR_LENGTH = 40;
   private static readonly MIN_BAR_LENGTH = 10;
-  private static readonly MIN_ANIMATION_INTERVAL = 20;
-  private static readonly MAX_ANIMATION_INTERVAL = 1000;
   private static readonly DEFAULT_ANIMATION_INTERVAL = 80;
   private loadedSymbol: string = "█";
   private bufferedSymbol: string = "▒";
@@ -31,6 +46,7 @@ class Progress extends EventEmitter {
   private barLength: ProgressBarOptions["length"];
   private barAnimation: ProgressBarOptions["animation"];
   private barColor: ProgressBarOptions["color"];
+  private position: FixedPosition;
   private label: ProgressLabelPair;
   private isExited: boolean = false;
   private status: ProgressStatus = "active";
@@ -51,15 +67,7 @@ class Progress extends EventEmitter {
   };
   private static isRendering: boolean = false;
   private static lastLineCount: number = 0;
-
-  private static readonly RAINBOW_COLORS = [
-    "\x1b[31m",
-    "\x1b[33m",
-    "\x1b[32m",
-    "\x1b[36m",
-    "\x1b[34m",
-    "\x1b[35m",
-  ];
+  private static currentScrollRegionSize: number = 0;
 
   constructor(
     title: string,
@@ -91,6 +99,7 @@ class Progress extends EventEmitter {
       errored: "red",
       ...options.bar?.color,
     };
+    this.position = options.bar?.position || "inline";
     this.label = options.label || { while: "Loading", past: "Loaded" };
   }
 
@@ -107,7 +116,6 @@ class Progress extends EventEmitter {
     try {
       require("fs").writeSync(1, data);
     } catch {
-      // Fallback if writeSync is unavailable
       const write =
         Progress.originalStdoutWrite ||
         process.stdout.write.bind(process.stdout);
@@ -122,15 +130,15 @@ class Progress extends EventEmitter {
       process.stdout.write = function (...args: any[]) {
         if (!Progress.isRendering && Progress.lastLineCount > 0) {
           Progress.isRendering = true;
-          let output = `\x1b[${Progress.lastLineCount}A\x1b[0J`;
+          let output = `${cursorUp(Progress.lastLineCount)}${ERASE_BELOW}`;
           const content =
             typeof args[0] === "string" ? args[0] : String(args[0]);
           output += content;
-          output += "\x1b[?7l";
+          output += WRAP_OFF;
           for (const bar of Progress.activeBars) {
             output += bar.getRenderedLine() + "\n";
           }
-          output += "\x1b[?7h";
+          output += WRAP_ON;
           Progress.directWrite(output);
           Progress.isRendering = false;
           return true;
@@ -167,13 +175,13 @@ class Progress extends EventEmitter {
             !Progress.isRendering
           ) {
             Progress.isRendering = true;
-            let output = `\x1b[${Progress.lastLineCount}A\x1b[0J`;
+            let output = `${cursorUp(Progress.lastLineCount)}${ERASE_BELOW}`;
             output += formatArgs(args) + "\n";
-            output += "\x1b[?7l";
+            output += WRAP_OFF;
             for (const bar of Progress.activeBars) {
               output += bar.getRenderedLine() + "\n";
             }
-            output += "\x1b[?7h";
+            output += WRAP_ON;
             Progress.directWrite(output);
             Progress.isRendering = false;
           } else {
@@ -204,11 +212,40 @@ class Progress extends EventEmitter {
     }
   }
 
+  private static getPosition(): FixedPosition {
+    for (const bar of Progress.activeBars) {
+      if (bar.position !== "inline") return bar.position;
+    }
+    return "inline";
+  }
+
+  private static setupScrollRegion() {
+    const position = Progress.getPosition();
+    if (position === "inline") return;
+
+    const n = Progress.activeBars.length;
+    const prevN = Progress.currentScrollRegionSize;
+    const newBars = n - prevN;
+
+    if (newBars <= 0) return;
+
+    Progress.currentScrollRegionSize = n;
+    Progress.directWrite(setupScrollRegion(position, n, prevN));
+  }
+
   private static registerBar(bar: Progress) {
     if (!Progress.activeBars.includes(bar)) {
       Progress.activeBars.push(bar);
     }
-    Progress.hookStdout();
+    const position = Progress.getPosition();
+    if (position !== "inline") {
+      if (Progress.originalStdoutWrite) {
+        Progress.unhookStdout();
+      }
+      Progress.setupScrollRegion();
+    } else {
+      Progress.hookStdout();
+    }
     if (!Progress.renderTimer) {
       Progress.renderTimer = setInterval(
         () => Progress.renderAll(),
@@ -228,20 +265,34 @@ class Progress extends EventEmitter {
     if (Progress.activeBars.length === 0 || Progress.isRendering) return;
     Progress.isRendering = true;
 
-    let output = "";
+    const position = Progress.getPosition();
 
-    // Move cursor up to the start of progress bars and clear to end of screen
-    if (Progress.lastLineCount > 0) {
-      output += `\x1b[${Progress.lastLineCount}A\x1b[0J`;
+    if (position !== "inline") {
+      const n = Progress.activeBars.length;
+      let content = "";
+      for (const bar of Progress.activeBars) {
+        bar.tickFrame();
+        content += ERASE_LINE + bar.getRenderedLine() + "\n";
+      }
+
+      Progress.lastLineCount = n;
+      Progress.directWrite(wrapFixed(position, content, n));
+      Progress.isRendering = false;
+      return;
     }
 
-    // Disable line wrapping to prevent long lines from breaking cursor position
-    output += "\x1b[?7l";
+    let output = "";
+
+    if (Progress.lastLineCount > 0) {
+      output += `${cursorUp(Progress.lastLineCount)}${ERASE_BELOW}`;
+    }
+
+    output += WRAP_OFF;
     for (const bar of Progress.activeBars) {
       bar.tickFrame();
       output += bar.getRenderedLine() + "\n";
     }
-    output += "\x1b[?7h";
+    output += WRAP_ON;
 
     Progress.lastLineCount = Progress.activeBars.length;
     Progress.directWrite(output);
@@ -264,23 +315,39 @@ class Progress extends EventEmitter {
       Progress.renderTimer = undefined;
     }
 
+    const position = Progress.getPosition();
     Progress.isRendering = true;
     let output = "";
-    if (Progress.lastLineCount > 0) {
-      output += `\x1b[${Progress.lastLineCount}A\x1b[0J`;
+
+    if (position !== "inline") {
+      const n = Progress.activeBars.length;
+      let content = "";
+      for (const bar of Progress.activeBars) {
+        content += ERASE_LINE + bar.getRenderedLine() + "\n";
+      }
+      output += wrapFixed(position, content, n);
+      output += resetScrollRegion();
+    } else {
+      if (Progress.lastLineCount > 0) {
+        output += `${cursorUp(Progress.lastLineCount)}${ERASE_BELOW}`;
+      }
+      output += WRAP_OFF;
+      for (const bar of Progress.activeBars) {
+        output += bar.getRenderedLine() + "\n";
+      }
+      output += WRAP_ON;
     }
-    // Disable line wrapping for final render
-    output += "\x1b[?7l";
-    for (const bar of Progress.activeBars) {
-      output += bar.getRenderedLine() + "\n";
-    }
-    output += "\x1b[?7h";
+
     Progress.directWrite(output);
     Progress.isRendering = false;
 
     Progress.activeBars = [];
     Progress.lastLineCount = 0;
-    Progress.unhookStdout();
+    Progress.currentScrollRegionSize = 0;
+
+    if (position === "inline") {
+      Progress.unhookStdout();
+    }
 
     for (const { level, msg } of Progress.queuedMessages) {
       if (level === "warn") betterConsole.warn(msg);
@@ -302,7 +369,7 @@ class Progress extends EventEmitter {
     colors?: { loaded?: string; buffered?: string; empty?: string },
   ): string {
     if (this.barAnimation === "rainbow") {
-      const numColors = Progress.RAINBOW_COLORS.length;
+      const numColors = rainbowASCIICodes.length;
       const groupSize = 5;
       const cycle = numColors * groupSize;
       const frame = this.animationFrame % cycle;
@@ -311,32 +378,31 @@ class Progress extends EventEmitter {
       let bar = "";
       for (let i = 0; i < totalLength; i++) {
         const colorIdx = Math.floor(((i + frame) % cycle) / groupSize);
-        const fg = Progress.RAINBOW_COLORS[colorIdx % numColors];
+        const fg = rainbowASCIICodes[colorIdx % numColors];
         if (i < filledLength) {
           bar += (loadedFg || fg) + this.loadedSymbol;
         } else if (i < filledLength + bufferedLength) {
           bar += fg + this.bufferedSymbol;
         } else {
-          bar += "\x1b[2m" + fg + this.emptySymbol + "\x1b[22m";
+          bar += DIM + fg + this.emptySymbol + DIM_OFF;
         }
       }
-      return bar + "\x1b[0m";
+      return bar + RESET;
     }
 
-    const reset = "\x1b[0m";
     const loaded = colors?.loaded
-      ? colors.loaded + this.loadedSymbol.repeat(filledLength) + reset
+      ? colors.loaded + this.loadedSymbol.repeat(filledLength) + RESET
       : this.loadedSymbol.repeat(filledLength);
     const buffered = this.buffer
       ? (colors?.buffered ?? "") +
         this.bufferedSymbol.repeat(bufferedLength) +
-        (colors?.buffered ? reset : "")
+        (colors?.buffered ? RESET : "")
       : "";
     const empty =
       emptyLength > 0
         ? (colors?.empty ?? "") +
           this.emptySymbol.repeat(emptyLength) +
-          (colors?.empty ? reset : "")
+          (colors?.empty ? RESET : "")
         : "";
     return loaded + buffered + empty;
   }
@@ -352,7 +418,7 @@ class Progress extends EventEmitter {
     const percentage = Math.min(this.current / this.total, 1);
     const dynamicBarLength =
       this.barLength === "full-width"
-        ? getProcessSize().width - this.title.length - 20
+        ? getProcessSize().width.full - this.title.length - 20
         : this.barLength || Progress.DEFAULT_BAR_LENGTH;
     const filledLength = Math.round(dynamicBarLength * percentage);
     const bufferedLength = Math.round(
@@ -461,8 +527,50 @@ class Progress extends EventEmitter {
     this.emit("error", ...args);
   }
 
-  public update(current: number, buffer?: number) {
+  private optionUpdate(options: ProgressOptions) {
+    if (options.bar) {
+      if (options.bar.loadedSymbol !== undefined) {
+        this.loadedSymbol = options.bar.loadedSymbol;
+      }
+      if (options.bar.bufferedSymbol !== undefined) {
+        this.bufferedSymbol = options.bar.bufferedSymbol;
+      }
+      if (options.bar.emptySymbol !== undefined) {
+        this.emptySymbol = options.bar.emptySymbol;
+      }
+      if (options.bar.length !== undefined) {
+        this.barLength =
+          options.bar.length === "full-width"
+            ? "full-width"
+            : Math.max(
+                options.bar.length ?? Progress.DEFAULT_BAR_LENGTH,
+                Progress.MIN_BAR_LENGTH,
+              );
+      }
+      if (options.bar.animation !== undefined) {
+        this.barAnimation = options.bar.animation;
+      }
+      if (options.bar.color) {
+        this.barColor = {
+          ...this.barColor,
+          ...options.bar.color,
+        };
+      }
+    }
+    if (options.label) {
+      this.label = options.label;
+    }
+  }
+
+  public update(
+    current: number,
+    buffer?: number,
+    options: ProgressUpdateOptions = {},
+  ) {
     if (this.status !== "active") return;
+
+    this.optionUpdate(options);
+    this.title = options.message || this.title;
 
     this.current = current;
     this.buffer = buffer || 0;

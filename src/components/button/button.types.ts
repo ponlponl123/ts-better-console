@@ -1,4 +1,6 @@
+import type { Align } from "../../types";
 import type { StyleOptions } from "../../types/style.types";
+import type { FixedPosition } from "../../types/terminal.types";
 
 type ButtonOptions = {
   label: string;
@@ -10,6 +12,8 @@ type ButtonOptions = {
 type ButtonGroupOptions = {
   gap?: number;
   borderStyle?: StyleOptions;
+  align?: Align;
+  position?: FixedPosition;
 };
 
 interface ButtonGroupEvents {

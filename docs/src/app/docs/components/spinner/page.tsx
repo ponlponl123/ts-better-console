@@ -37,8 +37,8 @@ function Page() {
               <li>
                 <code>style</code>: A <code>SpinnerStyle</code> preset —{" "}
                 <code>&quot;dots&quot;</code>, <code>&quot;line&quot;</code>,{" "}
-                <code>&quot;bounce&quot;</code>, or{" "}
-                <code>&quot;arrow&quot;</code>. Defaults to{" "}
+                <code>&quot;bounce&quot;</code>, <code>&quot;arrow&quot;</code>,
+                or <code>&quot;moon&quot;</code>. Defaults to{" "}
                 <code>&quot;dots&quot;</code>.
               </li>
               <li>
@@ -172,7 +172,7 @@ setTimeout(() => spinner.stop(), 3000);`,
 
 const spinner = new Spinner({
   frames: ["🧎  ", "🧍  ", "🚶  ", "🏃  ", "🏃💨", "🏃  ", "🚶  ", "🧍  "],
-  interval: 300,
+  interval: 150,
 });
 spinner.start();`,
             },

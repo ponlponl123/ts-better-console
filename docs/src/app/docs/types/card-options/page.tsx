@@ -7,148 +7,173 @@ function Page() {
       <section>
         <h1>CardOptions</h1>
         <p>
-          The <code>CardOptions</code> type defines the configuration for
-          creating a card component in <strong>ts-better-console</strong>. Cards
-          provide a structured way to display content in the terminal with a
-          title, body, footer, and border styling.
+          Configuration for the <code>Card</code> class. Controls the title,
+          body, footer, alignment on the terminal, and border appearance.
         </p>
         <h2 className="mt-8">Type Definition</h2>
-        <p>
-          The <code>CardOptions</code> type includes the following properties:
-        </p>
-        <ul className="list-disc list-inside">
-          <li>
-            <code>title</code>: An optional <code>SectionOptions</code> object
-            defining the card&apos;s title section, including its content and
-            style.
-          </li>
-          <li>
-            <code>body</code>: An optional <code>StyleOptions</code> object
-            defining the styling for the card&apos;s body area.
-          </li>
-          <li>
-            <code>footer</code>: An optional <code>SectionOptions</code> object
-            defining the card&apos;s footer section, including its content and
-            style.
-          </li>
-          <li>
-            <code>borderStyle</code>: An optional <code>StyleOptions</code>{" "}
-            object defining the styling for the card&apos;s border.
-          </li>
-        </ul>
         <Code
           codesnippets={[
             {
-              title: "CardOptions Type Definition",
+              title: "CardOptions",
               code: (
                 <div>
-                  <i className="text-purple-400">type</i>{" "}
-                  <i className="text-blue-400">cardOptions</i> = {"{"}
+                  <i className="text-purple-400">interface</i>{" "}
+                  <i className="text-blue-400">CardOptions</i> {"{"}
                   <br />
                   &nbsp;&nbsp;<i className="text-cyan-600">title</i>?:{" "}
-                  <span className="text-cyan-400">sectionOptions</span>;
+                  <span className="text-cyan-400">SectionOptions</span>;
                   <br />
                   &nbsp;&nbsp;<i className="text-cyan-600">body</i>?:{" "}
-                  <span className="text-cyan-400">StyleOptions</span>;
+                  <span className="text-cyan-400">BodyOptions</span>;
+                  <br />
+                  &nbsp;&nbsp;<i className="text-cyan-600">align</i>?:{" "}
+                  <span className="text-cyan-400">Alignment</span>;
                   <br />
                   &nbsp;&nbsp;<i className="text-cyan-600">footer</i>?:{" "}
-                  <span className="text-cyan-400">sectionOptions</span>;
+                  <span className="text-cyan-400">SectionOptions</span>;
                   <br />
-                  &nbsp;&nbsp;<i className="text-cyan-600">
-                    borderStyle
-                  </i>?: <span className="text-cyan-400">StyleOptions</span>;
+                  &nbsp;&nbsp;<i className="text-cyan-600">border</i>?:{" "}
+                  <span className="text-cyan-400">BorderOptions</span>;
                   <br />
                   {"}"}
                 </div>
               ),
-              snippet: `type cardOptions = {
-  title?: sectionOptions;
-  body?: StyleOptions;
-  footer?: sectionOptions;
-  borderStyle?: StyleOptions;
-};`,
+              snippet: `interface CardOptions {
+  title?: SectionOptions;
+  body?: BodyOptions;
+  align?: Alignment;
+  footer?: SectionOptions;
+  border?: BorderOptions;
+}`,
             },
           ]}
         />
+        <h2 className="mt-8">Properties</h2>
+        <ul className="list-disc list-inside">
+          <li>
+            <code>title</code> — a <code>SectionOptions</code> with{" "}
+            <code>content</code>, optional <code>align</code>, and optional{" "}
+            <code>style</code>. Renders a title row above the body with a
+            separator line.
+          </li>
+          <li>
+            <code>body</code> — a <code>BodyOptions</code> object with{" "}
+            <code>align</code> and <code>style</code> to control the main
+            content area.
+          </li>
+          <li>
+            <code>align</code> — positions the entire card on the terminal:{" "}
+            <code>&quot;left&quot;</code>, <code>&quot;center&quot;</code>, or{" "}
+            <code>&quot;right&quot;</code>.
+          </li>
+          <li>
+            <code>footer</code> — same shape as <code>title</code>. Renders a
+            footer row below the body with a separator line.
+          </li>
+          <li>
+            <code>border</code> — a <code>BorderOptions</code> object with:{" "}
+            <ul className="list-disc list-inside ml-4 mt-1">
+              <li>
+                <code>style</code> — a <code>StyleOptions</code> to color/style
+                the border characters.
+              </li>
+              <li>
+                <code>symbols</code> — pick a preset with{" "}
+                <code>symbols.style</code> (<code>&quot;single&quot;</code>,{" "}
+                <code>&quot;double&quot;</code>, <code>&quot;round&quot;</code>,{" "}
+                <code>&quot;bold&quot;</code>,{" "}
+                <code>&quot;singleDouble&quot;</code>,{" "}
+                <code>&quot;doubleSingle&quot;</code>) or supply your own with{" "}
+                <code>symbols.custom</code>.
+              </li>
+            </ul>
+          </li>
+        </ul>
         <h2 className="mt-8">Usage</h2>
-        <p>
-          You can use <code>CardOptions</code> when creating a card in the
-          terminal:
-        </p>
         <Code
           codesnippets={[
             {
-              title: "Using CardOptions",
+              title: "Example",
               code: (
                 <div>
                   <i className="text-purple-400">import</i> {"{"}{" "}
-                  <i className="text-blue-400">createCard</i> {"}"}{" "}
+                  <i className="text-blue-400">Card</i> {"}"}{" "}
                   <i className="text-purple-400">from</i>{" "}
-                  <i className="text-orange-400">"ts-better-console"</i>;
+                  <i className="text-orange-400">&quot;ts-better-console&quot;</i>;
                   <br />
                   <br />
-                  <i className="text-emerald-400">console</i>.
-                  <i className="text-yellow-400">log</i>(
-                  <i className="text-emerald-400">createCard</i>(
-                  <i className="text-orange-400">"Hello World"</i>, {"{"}
+                  <i className="text-purple-400">const</i>{" "}
+                  <i className="text-blue-400">card</i> ={" "}
+                  <i className="text-purple-400">new</i>{" "}
+                  <i className="text-yellow-400">Card</i>(
+                  <i className="text-orange-400">&quot;Hello World&quot;</i>,{" "}
+                  <i className="text-orange-400">50</i>, {"{"}
                   <br />
                   <div className="ml-4">
                     <i className="text-blue-400">title</i>: {"{"}
                     <br />
                     <div className="ml-4">
                       <i className="text-blue-400">content</i>:{" "}
-                      <i className="text-orange-400">"My Card"</i>,
+                      <i className="text-orange-400">&quot;My Card&quot;</i>,
                     </div>
                     <div className="ml-4">
                       <i className="text-blue-400">style</i>: {"{"}{" "}
                       <i className="text-blue-400">color</i>:{" "}
-                      <i className="text-orange-400">"cyan"</i>,{" "}
+                      <i className="text-orange-400">&quot;cyan&quot;</i>,{" "}
                       <i className="text-blue-400">styles</i>: [
-                      <i className="text-orange-400">"bold"</i>] {"}"},
+                      <i className="text-orange-400">&quot;bold&quot;</i>] {"}"},
                     </div>
                     {"}"},
                   </div>
                   <div className="ml-4">
                     <i className="text-blue-400">body</i>: {"{"}{" "}
+                    <i className="text-blue-400">style</i>: {"{"}{" "}
                     <i className="text-blue-400">color</i>:{" "}
-                    <i className="text-orange-400">"white"</i> {"}"},
-                  </div>
-                  <div className="ml-4">
-                    <i className="text-blue-400">footer</i>: {"{"}
-                    <br />
-                    <div className="ml-4">
-                      <i className="text-blue-400">content</i>:{" "}
-                      <i className="text-orange-400">"v1.0.0"</i>,
-                    </div>
-                    <div className="ml-4">
-                      <i className="text-blue-400">style</i>: {"{"}{" "}
-                      <i className="text-blue-400">color</i>:{" "}
-                      <i className="text-orange-400">"gray"</i> {"}"},
-                    </div>
+                    <i className="text-orange-400">&quot;white&quot;</i> {"}"}{" "}
                     {"}"},
                   </div>
                   <div className="ml-4">
-                    <i className="text-blue-400">borderStyle</i>: {"{"}{" "}
+                    <i className="text-blue-400">footer</i>: {"{"}{" "}
+                    <i className="text-blue-400">content</i>:{" "}
+                    <i className="text-orange-400">&quot;v1.0.0&quot;</i>,{" "}
+                    <i className="text-blue-400">style</i>: {"{"}{" "}
                     <i className="text-blue-400">color</i>:{" "}
-                    <i className="text-orange-400">"blue"</i> {"}"},
+                    <i className="text-orange-400">&quot;gray&quot;</i> {"}"}{" "}
+                    {"}"},
                   </div>
-                  {"}"}));
+                  <div className="ml-4">
+                    <i className="text-blue-400">border</i>: {"{"}
+                    <br />
+                    <div className="ml-4">
+                      <i className="text-blue-400">style</i>: {"{"}{" "}
+                      <i className="text-blue-400">color</i>:{" "}
+                      <i className="text-orange-400">&quot;blue&quot;</i> {"}"},
+                    </div>
+                    <div className="ml-4">
+                      <i className="text-blue-400">symbols</i>: {"{"}{" "}
+                      <i className="text-blue-400">style</i>:{" "}
+                      <i className="text-orange-400">&quot;round&quot;</i> {"}"},
+                    </div>
+                    {"}"},
+                  </div>
+                  {"}"}).
+                  <i className="text-yellow-400">render</i>();
                 </div>
               ),
-              snippet: `import { createCard } from "ts-better-console";
+              snippet: `import { Card } from "ts-better-console";
 
-console.log(createCard("Hello World", 50, {
+const card = new Card("Hello World", 50, {
   title: {
     content: "My Card",
     style: { color: "cyan", styles: ["bold"] },
   },
-  body: { color: "white" },
-  footer: {
-    content: "v1.0.0",
-    style: { color: "gray" },
+  body: { style: { color: "white" } },
+  footer: { content: "v1.0.0", style: { color: "gray" } },
+  border: {
+    style: { color: "blue" },
+    symbols: { style: "round" },
   },
-  borderStyle: { color: "blue" },
-}));`,
+}).render();`,
             },
           ]}
         />

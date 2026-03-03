@@ -29,7 +29,7 @@ import betterConsole, {
   getProcessSize,
   // components
   ButtonGroup,
-  createCard,
+  Card,
   link,
   Menu,
   Progress,
@@ -43,9 +43,9 @@ import type {
   ButtonOptions,
   ButtonGroupOptions,
   ButtonGroupEvents,
-  cardWidth,
-  cardOptions,
-  sectionOptions,
+  CardWidth,
+  CardOptions,
+  SectionOptions,
   MenuItemOptions,
   MenuOptions,
   MenuEvents,
@@ -97,7 +97,7 @@ describe("Public API — barrel exports", () => {
 
   it("should export component constructors / factories", () => {
     expect(typeof ButtonGroup).toBe("function");
-    expect(typeof createCard).toBe("function");
+    expect(typeof Card).toBe("function");
     expect(typeof link).toBe("function");
     expect(typeof Menu).toBe("function");
     expect(typeof Progress).toBe("function");
@@ -113,8 +113,8 @@ describe("Quick integration sanity checks", () => {
     expect(result).toContain("\x1b[32m"); // green
   });
 
-  it("createCard() returns a string with borders", () => {
-    const card = createCard("content", 20);
+  it("Card renders a string with borders", () => {
+    const card = new Card("content", 20).render();
     expect(card).toContain("┌");
     expect(card).toContain("└");
     expect(card).toContain("content");

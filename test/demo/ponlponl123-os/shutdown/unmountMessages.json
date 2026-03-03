@@ -1,0 +1,31 @@
+[
+  { "msg": "[  OK  ] Reached target Unmount All Filesystems.", "delay": 20 },
+  { "msg": "         Unmounting /home filesystem...", "delay": 25 },
+  { "msg": "[  OK  ] Unmounted /home filesystem.", "delay": 25 },
+  { "msg": "         Unmounting /var filesystem...", "delay": 20 },
+  { "msg": "[  OK  ] Unmounted /var filesystem.", "delay": 20 },
+  { "msg": "         Unmounting /tmp filesystem...", "delay": 20 },
+  { "msg": "[  OK  ] Unmounted /tmp filesystem.", "delay": 20 },
+  { "msg": "         Unmounting /sys filesystem...", "delay": 25 },
+  { "msg": "[  OK  ] Unmounted /sys filesystem.", "delay": 25 },
+  { "msg": "         Unmounting /proc filesystem...", "delay": 20 },
+  { "msg": "[  OK  ] Unmounted /proc filesystem.", "delay": 20 },
+  { "msg": "         Remounting root filesystem read-only...", "delay": 30 },
+  { "msg": "[  OK  ] Remounted root filesystem read-only.", "delay": 30 },
+  { "msg": "[  OK  ] Reached target Swap.", "delay": 15 },
+  { "msg": "         Deactivating swap partitions...", "delay": 25 },
+  { "msg": "[  OK  ] Deactivated swap partitions.", "delay": 25 },
+  {
+    "msg": "         Stopping File System Check on Root Device...",
+    "delay": 20
+  },
+  { "msg": "[  OK  ] Stopped File System Check on Root Device.", "delay": 20 },
+  {
+    "msg": "         Stopping Create list of required static device nodes for the current kernel...",
+    "delay": 25
+  },
+  {
+    "msg": "[  OK  ] Stopped Create list of required static device nodes.",
+    "delay": 25
+  }
+]

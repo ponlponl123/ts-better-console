@@ -66,8 +66,10 @@ function Page() {
             multi-bar rendering, and starts the spinner.
           </li>
           <li>
-            <code>update(current: number, buffer?: number)</code>: Updates the
-            progress value and optional buffer. Automatically completes when{" "}
+            <code>update(current, buffer?, options?)</code>: Updates the
+            progress value and optional buffer. You can also pass{" "}
+            <code>ProgressUpdateOptions</code> to change the bar&apos;s message,
+            labels, symbols, or colors mid-flight. Automatically completes when{" "}
             <code>current</code> reaches <code>total</code>.
           </li>
           <li>

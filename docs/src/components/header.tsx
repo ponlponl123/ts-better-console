@@ -4,12 +4,17 @@ import {
   HeartIcon,
   ListIcon,
   MagicWandIcon,
+  MoonIcon,
+  SunHorizonIcon,
+  SunIcon,
 } from "@phosphor-icons/react/dist/ssr";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import clsx from "clsx";
 import Sidebar from "./sidebar";
+
+export type Theme = "dark" | "light" | "system";
 
 export function ActiveLink({
   href,
@@ -53,18 +58,68 @@ function Header() {
   const basePath = process.env.__NEXT_ROUTER_BASEPATH ?? "";
   const pathname = rawPathname.replace(new RegExp(`^${basePath}`), "") || "/";
   const [navOpen, setNavOpen] = useState(false);
+  const [currentTheme, setCurrentTheme] = useState<Theme>("system");
+
+  useEffect(() => {
+    const stored = localStorage.getItem("theme") || "system";
+    setCurrentTheme(stored as Theme);
+  }, []);
+
+  const setThemeCookie = (theme: Theme) => {
+    const expires = new Date();
+    expires.setDate(expires.getDate() + 365);
+    document.cookie = `theme=${theme}; expires=${expires.toUTCString()}; path=/; SameSite=Lax`;
+    localStorage.setItem("theme", theme);
+  };
+
+  const themeChanger = () => {
+    const html = document.documentElement;
+    const currentTheme = localStorage.getItem("theme") || "system";
+
+    let nextTheme: Theme;
+    if (currentTheme === "dark") {
+      nextTheme = "light";
+    } else if (currentTheme === "light") {
+      nextTheme = "system";
+    } else {
+      nextTheme = "dark";
+    }
+
+    // Apply theme visually
+    if (nextTheme === "dark") {
+      html.classList.add("dark");
+    } else if (nextTheme === "light") {
+      html.classList.remove("dark");
+    } else {
+      // system: apply based on preference
+      const prefersDark = window.matchMedia(
+        "(prefers-color-scheme: dark)",
+      ).matches;
+      if (prefersDark) {
+        html.classList.add("dark");
+      } else {
+        html.classList.remove("dark");
+      }
+    }
+
+    setThemeCookie(nextTheme);
+    setCurrentTheme(nextTheme);
+  };
 
   return (
     <>
       <div className="md:hidden h-20" />
       <header className="apply-transition w-full h-20 flex items-center justify-center border-b border-foreground/10 bg-zinc-50/80 dark:bg-zinc-900/80 backdrop-blur-sm relative max-md:fixed top-0 z-50">
-        <div className="w-full max-w-7xl px-4 flex items-center justify-between">
+        <div className="w-full max-w-384 px-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <Link href="/" className="flex items-center gap-4">
+            <Link
+              href="/"
+              className="flex items-center gap-4 group apply-transition active:scale-[0.99] active:opacity-90 active:duration-75!"
+            >
               <MagicWandIcon
                 weight="fill"
                 size={36}
-                className="p-2 bg-foreground text-background rounded-md"
+                className="p-2 bg-foreground text-background rounded-md group-hover:bg-foreground/90 apply-transition"
               />
               <div className="flex flex-col justify-center">
                 <h1 className="text-lg max-lg:text-base font-sans font-bold m-0 flex max-lg:flex-col max-lg:items-start items-center lg:gap-2">
@@ -98,14 +153,34 @@ function Header() {
                   Support
                 </button>
               </Link>
+              <button className="btn font-sans p-3!" onClick={themeChanger}>
+                {currentTheme === "light" && (
+                  <SunIcon size={18} weight="fill" />
+                )}
+                {currentTheme === "dark" && (
+                  <MoonIcon size={18} weight="fill" />
+                )}
+                {currentTheme === "system" && (
+                  <SunHorizonIcon size={18} weight="fill" />
+                )}
+              </button>
             </div>
           </div>
-          <button
-            className="btn font-sans md:hidden! p-3!"
-            onClick={() => setNavOpen((open) => !open)}
-          >
-            <ListIcon weight="bold" size={18} />
-          </button>
+          <div className="flex items-center gap-2 md:hidden!">
+            <button className="btn font-sans p-3!" onClick={themeChanger}>
+              {currentTheme === "light" && <SunIcon size={18} weight="fill" />}
+              {currentTheme === "dark" && <MoonIcon size={18} weight="fill" />}
+              {currentTheme === "system" && (
+                <SunHorizonIcon size={18} weight="fill" />
+              )}
+            </button>
+            <button
+              className="btn font-sans p-3! hover:bg-indigo-500/10 active:bg-indigo-500/20 dark:hover:bg-amber-400/10 dark:active:bg-amber-400/20"
+              onClick={() => setNavOpen((open) => !open)}
+            >
+              <ListIcon weight="bold" size={18} />
+            </button>
+          </div>
         </div>
       </header>
       <nav

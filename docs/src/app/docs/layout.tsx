@@ -5,10 +5,13 @@ import { StarIcon } from "@phosphor-icons/react/dist/icons/Star";
 import Link from "next/link";
 import { CoffeeIcon, GithubLogoIcon } from "@phosphor-icons/react/dist/ssr";
 import Footer from "./footer";
+import TOC from "@/src/components/toc";
 
 function Layout({ children }: { children: React.ReactNode }) {
+  const contentRef = React.useRef<HTMLElement>(null);
+
   return (
-    <div className="flex min-h-[calc(100dvh-5rem)] max-w-7xl mx-auto gap-8 border-b border-foreground/10">
+    <div className="flex min-h-[calc(100dvh-5rem)] max-w-384 mx-auto gap-8 border-b border-foreground/10">
       <div
         className="hidden md:flex flex-col w-64 h-screen overflow-y-auto shrink-0 sticky top-0 border-x border-foreground/10"
         style={{
@@ -63,10 +66,13 @@ function Layout({ children }: { children: React.ReactNode }) {
           </div>
         </div>
       </div>
-      <main className="flex-1 w-full min-w-0 p-4">
+      <main className="flex-1 w-full min-w-0 p-4" ref={contentRef}>
         {children}
         <Footer />
       </main>
+      <div className="hidden lg:flex flex-col w-64 h-screen overflow-y-auto shrink-0 sticky top-0">
+        <TOC contentRef={contentRef as React.RefObject<HTMLElement>} />
+      </div>
       <div className="absolute w-full h-full top-0 left-0 overflow-hidden pointer-events-none">
         <div className="absolute bottom-1/2 right-1/4 -translate-x-1/2 w-[1000px] h-[1000px] opacity-40 bg-[radial-gradient(circle,_rgb(59,130,246,0.4)_0%,_rgb(168,85,247,0.2)_50%,_transparent_100%)] rounded-full blur-3xl pointer-events-none"></div>
         <div className="fixed top-1/2 left-1/4 translate-y-1/3 translate-x-1/2 w-[1000px] h-[1000px] opacity-30 bg-[radial-gradient(circle,_rgb(59,130,246,0.4)_0%,_rgb(168,85,247,0.2)_50%,_transparent_100%)] rounded-full blur-3xl pointer-events-none"></div>

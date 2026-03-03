@@ -1,0 +1,17 @@
+[
+  { "msg": "[  OK  ] Reached target Network is Online.", "delay": 20 },
+  { "msg": "         Stopping DHCP Client...", "delay": 25 },
+  { "msg": "[  OK  ] Stopped DHCP Client.", "delay": 25 },
+  { "msg": "         Bringing down interface eth0...", "delay": 30 },
+  { "msg": "[  OK  ] Interface eth0 is down.", "delay": 30 },
+  { "msg": "         Clearing network routing table...", "delay": 20 },
+  { "msg": "[  OK  ] Network routing table cleared.", "delay": 20 },
+  { "msg": "         Stopping hostname service...", "delay": 20 },
+  { "msg": "[  OK  ] Stopped hostname service.", "delay": 20 },
+  { "msg": "         Stopping DNS resolver service...", "delay": 20 },
+  { "msg": "[  OK  ] Stopped DNS resolver service.", "delay": 20 },
+  { "msg": "         Stopping mDNS responder...", "delay": 25 },
+  { "msg": "[  OK  ] Stopped mDNS responder.", "delay": 25 },
+  { "msg": "         Stopping network configuration service...", "delay": 20 },
+  { "msg": "[  OK  ] Stopped network configuration service.", "delay": 20 }
+]

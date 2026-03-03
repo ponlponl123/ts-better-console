@@ -1,4 +1,5 @@
 import type { UnSpecifiedColor } from "../../types/style.types";
+import type { FixedPosition } from "../../types/terminal.types";
 
 interface ProgressLabelPair {
   while: string;
@@ -12,6 +13,7 @@ interface ProgressBarOptions {
   length?: number | "full-width";
   animation?: false | "rainbow";
   color?: ProgressBarStateColor;
+  position?: FixedPosition;
 }
 
 interface ProgressBarStateColor {
@@ -26,6 +28,10 @@ interface ProgressBarStateColor {
 interface ProgressOptions {
   label?: ProgressLabelPair;
   bar?: ProgressBarOptions;
+}
+
+interface ProgressUpdateOptions extends ProgressOptions {
+  message?: string;
 }
 
 interface ProgressEvents {
@@ -44,4 +50,5 @@ export type {
   ProgressStatus,
   ProgressBarOptions,
   ProgressBarStateColor,
+  ProgressUpdateOptions,
 };
