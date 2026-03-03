@@ -31,6 +31,7 @@ import {
   WarningDiamondIcon,
   WarningIcon,
   WrenchIcon,
+  ArrowSquareOutIcon,
 } from "@phosphor-icons/react/dist/ssr";
 import { ActiveLink } from "./header";
 import { twMerge } from "tailwind-merge";
@@ -167,6 +168,18 @@ function Sidebar({
           <li>
             <DocsActiveLink href="/docs/components/link">
               <LinkIcon weight="bold" size={16} /> Link
+            </DocsActiveLink>
+          </li>
+          <li>
+            <DocsActiveLink href="/docs/components/link-prompt">
+              <ArrowSquareOutIcon weight="bold" size={16} />
+              <div className="flex flex-wrap items-center gap-1">
+                {" "}
+                Link Prompt{" "}
+                <span className="text-xs text-foreground/50 px-2 py-0.5 bg-foreground/10 rounded-full">
+                  soon
+                </span>
+              </div>
             </DocsActiveLink>
           </li>
           <li>
