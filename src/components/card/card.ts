@@ -1,6 +1,6 @@
 import { getProcessSize } from "../../core/terminal";
 import { cs, toMaxLinesLength } from "../../core/line";
-import { applyUndefinedStyles } from "../../core/style";
+import { applyUndefinedStyles } from "../../core/style/style";
 import type { CardWidth, CardOptions, CardBorderSymbols } from "./card.types";
 import type { Alignment, Ratio, StyleOptions } from "../../types";
 import { ratio } from "../../utils";
@@ -70,6 +70,19 @@ const borderStyleMap: Record<string, CardBorderSymbols> = {
   },
 };
 
+/**
+ * Draws a text box with a decorative border right in your terminal.
+ *
+ * You give it some content and optionally a width, and it handles wrapping,
+ * alignment, padding, and border style. Good for highlighting output,
+ * displaying help text, or just making things look less sad.
+ *
+ * @example
+ * ```ts
+ * const card = new Card("hello world", "1/2", { border: { symbols: { style: "round" } } });
+ * console.log(card.render());
+ * ```
+ */
 class Card {
   private width: number = 50;
   private contentLines: string[];

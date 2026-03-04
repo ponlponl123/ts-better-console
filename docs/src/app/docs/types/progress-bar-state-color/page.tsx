@@ -10,7 +10,7 @@ function Page() {
           The <code>ProgressBarStateColor</code> interface defines per-state
           color overrides for a progress bar in{" "}
           <strong>ts-better-console</strong>. Each property accepts a color name
-          or <code>&quot;inherit&quot;</code> to use the default behavior.
+          or <code>&quot;foreground&quot;</code> to use the default behavior.
         </p>
         <h2 className="mt-8">Type Definition</h2>
         <p>
@@ -20,15 +20,15 @@ function Page() {
         <ul className="list-disc list-inside">
           <li>
             <code>loaded</code>: Color for the filled portion while active.
-            Defaults to <code>&quot;inherit&quot;</code>.
+            Defaults to <code>&quot;foreground&quot;</code>.
           </li>
           <li>
             <code>buffered</code>: Color for the buffered portion while active.
-            Defaults to <code>&quot;inherit&quot;</code>.
+            Defaults to <code>&quot;foreground&quot;</code>.
           </li>
           <li>
             <code>empty</code>: Color for the empty portion. Defaults to{" "}
-            <code>&quot;inherit&quot;</code>.
+            <code>&quot;foreground&quot;</code>.
           </li>
           <li>
             <code>completed</code>: Color applied to the bar when progress
@@ -74,7 +74,7 @@ function Page() {
                   <br />
                   <br />
                   <span className="text-zinc-500">
-                    // UnSpecifiedColor = Color | &quot;inherit&quot;
+                    // UnSpecifiedColor = Color | &quot;foreground&quot;
                   </span>
                   <br />
                   <span className="text-zinc-500">
@@ -94,7 +94,7 @@ function Page() {
   errored?: UnSpecifiedColor;
 }
 
-// UnSpecifiedColor = Color | "inherit"
+// UnSpecifiedColor = Color | "foreground"
 // Color = "black" | "red" | "green" | "yellow" | "blue" | "magenta" | "cyan" | "white" | "gray"`,
             },
           ]}

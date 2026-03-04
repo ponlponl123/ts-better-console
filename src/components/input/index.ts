@@ -1,10 +1,9 @@
-import { prompt, Input } from "./input";
-import type {
+export { prompt, Input } from "./input";
+export type {
   InputType,
   InputOptions,
   InputEvents,
   InputStyleOptions,
+  InputGroupEvents,
+  InputGroupOptions,
 } from "./input.types";
-
-export { prompt, Input };
-export type { InputType, InputOptions, InputEvents, InputStyleOptions };

@@ -7,7 +7,10 @@ const bar = new Progress("Files", 100, {
   },
   bar: {
     length: 30,
-    animation: "rainbow",
+    animation: {
+      type: "rainbow",
+      speed: 100,
+    },
     color: { completed: "green" },
   },
 });

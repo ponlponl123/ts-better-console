@@ -1,4 +1,5 @@
 import Code from "@/src/components/code";
+import Image from "@/src/components/image";
 import React from "react";
 
 function Page() {
@@ -13,6 +14,11 @@ function Page() {
           <code>.render()</code> and you get back a plain string — log it,
           compose it, do whatever you want with it.
         </p>
+        <Image
+          src="/previews/card.png"
+          alt="Example of ts-better-console card class in action"
+          className="w-full"
+        />
         <h2 className="mt-8">Constructor</h2>
         <Code
           codesnippets={[

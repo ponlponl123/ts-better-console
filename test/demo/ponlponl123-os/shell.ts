@@ -1,4 +1,11 @@
-import betterConsole, { cs, prompt, s } from "../../../src";
+import betterConsole, {
+  cs,
+  eightBit,
+  gradient,
+  prompt,
+  rainbowPastelColors,
+  s,
+} from "../../../src";
 import * as os from "os";
 
 function welcomeMessage() {
@@ -11,7 +18,10 @@ function welcomeMessage() {
 
   betterConsole.log(
     s(
-      `\nWelcome to ponlponl123-os (GNU/Linux ${os.release()} ${os.arch()})\n`,
+      gradient(
+        `\nWelcome to ponlponl123-os (GNU/Linux ${os.release()} ${os.arch()})\n`,
+        rainbowPastelColors.map((c) => eightBit(c), false),
+      ),
       {
         styles: ["bold"],
       },
@@ -43,6 +53,7 @@ async function main() {
         s("ponlponl123-os$ ", {}),
       ]),
       "text",
+      true, // Enable arrow key navigation for command history
     );
 
     const cmd = command.trim().toLowerCase();

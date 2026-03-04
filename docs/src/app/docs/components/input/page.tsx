@@ -1,4 +1,5 @@
 import Code from "@/src/components/code";
+import Image from "@/src/components/image";
 import React from "react";
 
 function Page() {
@@ -19,6 +20,11 @@ function Page() {
           A simple one-liner to ask the user something and get a string back.
           Supports plain text and password masking.
         </p>
+        <Image
+          src="/previews/prompt.png"
+          alt="Example of ts-better-console prompt function in action"
+          className="w-full"
+        />
         <Code
           codesnippets={[
             {
@@ -27,15 +33,26 @@ function Page() {
                 <div>
                   <i className="text-purple-400">function</i>{" "}
                   <i className="text-yellow-400">prompt</i>(
-                  <i className="text-cyan-600">question</i>?:{" "}
-                  <span className="text-orange-400">string</span>,{" "}
-                  <i className="text-cyan-600">type</i>?:{" "}
-                  <span className="text-cyan-400">InputType</span>
+                  <br />
+                  <div className="ml-4">
+                    <i className="text-cyan-600">question</i>?:{" "}
+                    <span className="text-orange-400">string</span>,
+                    <br />
+                    <i className="text-cyan-600">type</i>?:{" "}
+                    <span className="text-cyan-400">InputType</span>,
+                    <br />
+                    <i className="text-cyan-600">isArrowKeyNavigationEnabled</i>
+                    ?: <span className="text-orange-400">boolean</span>,
+                  </div>
                   ): <span className="text-cyan-400">Promise</span>&lt;
                   <span className="text-orange-400">string</span>&gt;
                 </div>
               ),
-              snippet: `function prompt(question?: string, type?: InputType): Promise<string>`,
+              snippet: `function prompt(
+  question?: string,
+  type?: InputType,
+  isArrowKeyNavigationEnabled?: boolean,
+): Promise<string>`,
             },
           ]}
         />
@@ -49,7 +66,21 @@ function Page() {
             <code>type</code> — <code>&quot;text&quot;</code> (default) or{" "}
             <code>&quot;password&quot;</code> (hides what the user types).
           </li>
+          <li>
+            <code>isArrowKeyNavigationEnabled</code> — when <code>true</code>,
+            enables command-history navigation with the ↑ / ↓ arrow keys (like a
+            shell). Each submitted value is pushed into an internal history
+            buffer. Defaults to <code>false</code>.
+          </li>
         </ul>
+        <p className="mt-4">
+          Cursor movement with ← / → is always active — you can navigate
+          anywhere inside the current input to insert or delete characters.
+          Backspace removes the character immediately to the left of the cursor,
+          not just the last character in the buffer. Control sequences and other
+          non-printable keys are silently ignored so they never corrupt the
+          input.
+        </p>
         <Code
           codesnippets={[
             {
@@ -90,6 +121,19 @@ function Page() {
                   <i className="text-yellow-400">prompt</i>(
                   <i className="text-orange-400">&quot;Password: &quot;</i>,{" "}
                   <i className="text-orange-400">&quot;password&quot;</i>);
+                  <br />
+                  <br />
+                  <span className="text-zinc-500">
+                    {"// Shell-like prompt with ↑/↓ history navigation"}
+                  </span>
+                  <br />
+                  <i className="text-purple-400">const</i>{" "}
+                  <i className="text-blue-400">cmd</i> ={" "}
+                  <i className="text-purple-400">await</i>{" "}
+                  <i className="text-yellow-400">prompt</i>(
+                  <i className="text-orange-400">&quot;$ &quot;</i>,{" "}
+                  <i className="text-orange-400">&quot;text&quot;</i>,{" "}
+                  <i className="text-orange-400">true</i>);
                 </div>
               ),
               snippet: `import { prompt } from "ts-better-console";
@@ -98,7 +142,10 @@ const name = await prompt("What's your name? ");
 console.log(\`Hello, \${name}!\`);
 
 // Password input
-const secret = await prompt("Password: ", "password");`,
+const secret = await prompt("Password: ", "password");
+
+// Shell-like prompt with ↑/↓ history navigation
+const cmd = await prompt("$ ", "text", true);`,
             },
           ]}
         />
@@ -109,6 +156,11 @@ const secret = await prompt("Password: ", "password");`,
           field with a label, supports password mode, custom width and styling,
           and emits events as the user types.
         </p>
+        <Image
+          src="/previews/input.png"
+          alt="Example of ts-better-console input class in action"
+          className="w-full"
+        />
         <Code
           codesnippets={[
             {

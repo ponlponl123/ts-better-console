@@ -4,7 +4,9 @@ const progress = new Progress("Something awesome", 100);
 const progress_withbuffer = new Progress("Awesome video", 100, {
   bar: {
     // length: "full-width",
-    animation: "rainbow",
+    animation: {
+      type: "rainbow",
+    },
   },
 });
 

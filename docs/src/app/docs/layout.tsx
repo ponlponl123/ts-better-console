@@ -70,12 +70,17 @@ function Layout({ children }: { children: React.ReactNode }) {
         {children}
         <Footer />
       </main>
-      <div className="hidden lg:flex flex-col w-64 h-screen overflow-y-auto shrink-0 sticky top-0">
+      <div className="hidden xl:flex flex-col w-64 h-screen overflow-y-auto shrink-0 sticky top-0">
         <TOC contentRef={contentRef as React.RefObject<HTMLElement>} />
       </div>
-      <div className="absolute w-full h-full top-0 left-0 overflow-hidden pointer-events-none">
-        <div className="absolute bottom-1/2 right-1/4 -translate-x-1/2 w-[1000px] h-[1000px] opacity-40 bg-[radial-gradient(circle,_rgb(59,130,246,0.4)_0%,_rgb(168,85,247,0.2)_50%,_transparent_100%)] rounded-full blur-3xl pointer-events-none"></div>
-        <div className="fixed top-1/2 left-1/4 translate-y-1/3 translate-x-1/2 w-[1000px] h-[1000px] opacity-30 bg-[radial-gradient(circle,_rgb(59,130,246,0.4)_0%,_rgb(168,85,247,0.2)_50%,_transparent_100%)] rounded-full blur-3xl pointer-events-none"></div>
+      <div className="fixed w-full left-0 h-full top-0 overflow-x-hidden overflow-y-visible pointer-events-none">
+        <div className="fixed top-0 right-0 -translate-y-1/3 translate-x-1/3 w-lg h-128 opacity-30 bg-[radial-gradient(circle,rgb(59,130,246,0.4)_0%,rgb(168,85,247,0.2)_50%,transparent_100%)] rounded-full blur-3xl pointer-events-none"></div>
+        <div className="absolute w-full max-w-384 left-1/2 -translate-x-1/2 h-full top-0 overflow-visible pointer-events-none">
+          <div className="absolute bottom-1/2 right-1/4 -translate-x-1/2 w-250 h-250 opacity-40 bg-[radial-gradient(circle,rgb(59,130,246,0.4)_0%,rgb(168,85,247,0.2)_50%,transparent_100%)] rounded-full blur-3xl pointer-events-none"></div>
+          <div className="absolute -top-12 right-0 translate-x-1/3 w-312 h-312 opacity-40 bg-[radial-gradient(circle,rgb(59,130,246,0.4)_0%,rgb(168,85,247,0.2)_50%,transparent_100%)] rounded-full blur-3xl pointer-events-none"></div>
+          <div className="fixed top-1/2 left-1/6 translate-y-1/3 translate-x-1/4 w-250 h-250 opacity-15 bg-[radial-gradient(circle,rgb(59,130,246,0.4)_0%,rgb(168,85,247,0.2)_50%,transparent_100%)] rounded-full blur-3xl pointer-events-none"></div>
+        </div>
+        <div className="fixed bottom-0 left-0 translate-y-1/2 -translate-x-1/3 w-196 h-196 opacity-30 bg-[radial-gradient(circle,rgb(59,130,246,0.4)_0%,rgb(168,85,247,0.2)_50%,transparent_100%)] rounded-full blur-3xl pointer-events-none"></div>
       </div>
     </div>
   );

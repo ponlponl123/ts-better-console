@@ -34,7 +34,9 @@ async function displayShutdownMessagesWithProgress(
   const total = messages.length;
   const progress = new Progress(progressLabel, total, {
     bar: {
-      animation: "rainbow",
+      animation: {
+        type: "rainbow",
+      },
       length: "full-width",
       position: "bottom",
     },

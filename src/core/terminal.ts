@@ -1,5 +1,20 @@
 import type { TerminalDimensions } from "../types/terminal.types";
 
+/**
+ * Returns the current terminal dimensions (columns × rows) with a bunch of
+ * pre-calculated fractions (half, third, two-thirds) for both width and height.
+ *
+ * Call this fresh each time you need it — terminal size can change if the user
+ * resizes the window.
+ *
+ * Aliased as `ps` in the main export.
+ *
+ * @example
+ * ```ts
+ * const { width, height } = getProcessSize();
+ * console.log(width.half); // half the terminal width
+ * ```
+ */
 function getProcessSize(): TerminalDimensions {
   const { stdout } = process;
   return {
@@ -20,6 +35,13 @@ function getProcessSize(): TerminalDimensions {
   };
 }
 
+/**
+ * A snapshot of the terminal size taken at import time.
+ *
+ * Cheaper than calling `getProcessSize()` repeatedly, but it won't update
+ * if the terminal gets resized after the module loads. Use `getProcessSize()`
+ * if you need a live reading.
+ */
 const size: TerminalDimensions = {
   width: {
     og: process.stdout.columns,

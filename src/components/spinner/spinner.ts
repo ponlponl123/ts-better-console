@@ -1,5 +1,19 @@
 import type { SpinnerOptions, SpinnerStyle } from "./spinner.types";
 
+/**
+ * A small animated spinner that spins in place while something is happening.
+ *
+ * Pick a built-in style (`dots`, `line`, `bounce`, `arrow`, `moon`) or pass
+ * your own frames. Call `.start()` to kick it off and `.stop()` when done.
+ *
+ * @example
+ * ```ts
+ * const spinner = new Spinner({ style: "dots" });
+ * spinner.start();
+ * await doSomethingAsync();
+ * spinner.stop();
+ * ```
+ */
 class Spinner {
   private style: SpinnerStyle = "dots";
   private frames: string[];

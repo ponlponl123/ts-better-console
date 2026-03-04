@@ -36,9 +36,9 @@ function Page() {
             to <code>40</code>. Minimum is <code>10</code>.
           </li>
           <li>
-            <code>animation</code>: Set to <code>&quot;rainbow&quot;</code> for
-            a scrolling parallax rainbow effect, or <code>false</code> to
-            disable. Defaults to <code>false</code>.
+            <code>animation</code>: A <code>ProgressAnimationOptions</code>{" "}
+            object to enable a rainbow animation (see below), or{" "}
+            <code>false</code> to disable. Defaults to <code>false</code>.
           </li>
           <li>
             <code>color</code>: A <code>ProgressBarStateColor</code> object to
@@ -81,7 +81,9 @@ function Page() {
                   <br />
                   &nbsp;&nbsp;<i className="text-cyan-600">animation</i>?:{" "}
                   <span className="text-purple-500">false</span> |{" "}
-                  <span className="text-orange-400">&quot;rainbow&quot;</span>
+                  <span className="text-cyan-400">
+                    ProgressAnimationOptions
+                  </span>
                   ;
                   <br />
                   &nbsp;&nbsp;<i className="text-cyan-600">color</i>?:{" "}
@@ -98,13 +100,76 @@ function Page() {
   bufferedSymbol?: string;
   emptySymbol?: string;
   length?: number | "full-width";
-  animation?: false | "rainbow";
+  animation?: false | ProgressAnimationOptions;
   color?: ProgressBarStateColor;
   position?: FixedPosition;
 }`,
             },
           ]}
         />
+
+        <h2 className="mt-8">ProgressAnimationOptions</h2>
+        <p>
+          When <code>animation</code> is not <code>false</code>, pass a{" "}
+          <code>ProgressAnimationOptions</code> object to configure the
+          animation:
+        </p>
+        <ul className="list-disc list-inside">
+          <li>
+            <code>type</code>: <code>&quot;rainbow&quot;</code> — a scrolling
+            parallax wave using the 6-color 4-bit palette; or{" "}
+            <code>&quot;rainbow-smooth&quot;</code> — a full-spectrum 8-bit
+            gradient.
+          </li>
+          <li>
+            <code>speed</code> (optional): Animation interval in milliseconds.
+            Defaults to <code>80</code>.
+          </li>
+          <li>
+            <code>size</code> (optional): Wave size of the animation. Defaults
+            to <code>0</code>.
+          </li>
+        </ul>
+        <Code
+          codesnippets={[
+            {
+              title: "ProgressAnimationOptions Type Definition",
+              code: (
+                <div>
+                  <i className="text-purple-400">interface</i>{" "}
+                  <i className="text-blue-400">ProgressAnimationOptions</i>{" "}
+                  {"{"}
+                  <br />
+                  &nbsp;&nbsp;<i className="text-cyan-600">type</i>:{" "}
+                  <span className="text-orange-400">&quot;rainbow&quot;</span> |{" "}
+                  <span className="text-orange-400">
+                    &quot;rainbow-smooth&quot;
+                  </span>
+                  ;
+                  <br />
+                  &nbsp;&nbsp;<i className="text-cyan-600">speed</i>?:{" "}
+                  <span className="text-orange-400">number</span>;
+                  <span className="text-zinc-500"> {"// ms, default 80"}</span>
+                  <br />
+                  &nbsp;&nbsp;<i className="text-cyan-600">size</i>?:{" "}
+                  <span className="text-orange-400">number</span>;
+                  <span className="text-zinc-500">
+                    {" "}
+                    {"// wave size, default 0"}
+                  </span>
+                  <br />
+                  {"}"}
+                </div>
+              ),
+              snippet: `interface ProgressAnimationOptions {
+  type: "rainbow" | "rainbow-smooth";
+  speed?: number; // ms, default 80
+  size?: number;  // wave size, default 0
+}`,
+            },
+          ]}
+        />
+
         <h2 className="mt-8">Usage</h2>
         <p>
           Pass <code>ProgressBarOptions</code> via the <code>bar</code> property
@@ -145,8 +210,10 @@ function Page() {
                       <i className="text-blue-400">length</i>:{" "}
                       <i className="text-orange-400">50</i>,
                       <br />
-                      <i className="text-blue-400">animation</i>:{" "}
+                      <i className="text-blue-400">animation</i>: {"{ "}
+                      <i className="text-blue-400">type</i>:{" "}
                       <i className="text-orange-400">&quot;rainbow&quot;</i>
+                      {" }"}
                       ,
                       <br />
                       <i className="text-blue-400">color</i>: {"{"}
@@ -172,7 +239,7 @@ const bar = new Progress("Building", 100, {
     loadedSymbol: "#",
     emptySymbol: ".",
     length: 50,
-    animation: "rainbow",
+    animation: { type: "rainbow" },
     color: {
       loaded: "cyan",
       completed: "green",

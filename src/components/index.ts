@@ -13,6 +13,7 @@ export type {
   BodyOptions,
   BorderStyle,
   BorderSymbolStyle,
+  BorderOptions,
   CardBorderSymbols,
 } from "./card";
 
@@ -31,6 +32,8 @@ export type {
   ProgressBarOptions,
   ProgressBarStateColor,
   ProgressUpdateOptions,
+  ProgressAnimation,
+  ProgressAnimationOptions,
 } from "./progress";
 
 export { Spinner } from "./spinner";

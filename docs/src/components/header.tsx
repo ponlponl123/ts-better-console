@@ -109,7 +109,7 @@ function Header() {
   return (
     <>
       <div className="md:hidden h-20" />
-      <header className="apply-transition w-full h-20 flex items-center justify-center border-b border-foreground/10 bg-zinc-50/80 dark:bg-zinc-900/80 backdrop-blur-sm relative max-md:fixed top-0 z-50">
+      <header className="apply-transition w-full h-20 flex items-center justify-center border-b border-foreground/10 bg-zinc-50/80 dark:bg-zinc-950/80 backdrop-blur-sm relative max-md:fixed top-0 z-50">
         <div className="w-full max-w-384 px-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Link

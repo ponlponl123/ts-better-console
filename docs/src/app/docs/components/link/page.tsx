@@ -1,4 +1,5 @@
 import Code from "@/src/components/code";
+import Image from "@/src/components/image";
 import React from "react";
 
 function Page() {
@@ -11,6 +12,11 @@ function Page() {
           terminal emulators that support the OSC 8 escape sequence. The link
           text is displayed in the terminal and opens the URL when clicked.
         </p>
+        <Image
+          src="/previews/link.png"
+          alt="Example of ts-better-console link function in action"
+          className="w-full"
+        />
         <h2 className="mt-8">Signature</h2>
         <Code
           codesnippets={[

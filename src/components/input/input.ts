@@ -1,15 +1,10 @@
 import { EventEmitter } from "events";
 import type { InputOptions, InputStyleOptions, InputType } from "./input.types";
 import type { CardBorderSymbols } from "../card";
-import { borderStyleMap, defaultBorderSymbols } from "../card/card";
+import { defaultBorderSymbols } from "../card/card";
 import { getProcessSize } from "../../core/terminal";
 import { ratio } from "../../utils/layout";
-import {
-  enableInteractiveMode,
-  disableInteractiveMode,
-  CURSOR_HIDE,
-  CURSOR_SHOW,
-} from "../../core";
+import { CURSOR_HIDE, CURSOR_SHOW } from "../../core";
 import {
   CTRL_C,
   BACKSPACE,
@@ -17,23 +12,66 @@ import {
   CURSOR_RESTORE,
   INSERT_LINE,
   ERASE_TO_END,
+  ERASE_TO_EOL,
   cursorTo,
   cursorUp,
   cursorDown,
+  cursorForward,
+  cursorBackward,
+  cursorToColumn,
+  KEY_UP,
+  KEY_DOWN,
+  KEY_LEFT,
+  KEY_RIGHT,
+  ESC,
+  stripAnsi,
 } from "../../core/ansi";
 import type { FixedPosition } from "../../types/terminal.types";
 import type { Alignment } from "../../types";
 
+const promptHistory: string[] = [];
+
+/**
+ * A simple inline prompt — shows a question, waits for the user to type
+ * something and press Enter, then resolves with whatever they typed.
+ *
+ * Supports `text` and `password` types (password hides the input).
+ * Pass `true` for `isArrowKeyNavigationEnabled` to get command history
+ * navigation with the up/down arrow keys.
+ *
+ * @example
+ * ```ts
+ * const name = await prompt("What's your name? ");
+ * const pass  = await prompt("Password: ", "password");
+ * ```
+ */
 function prompt(
   question: string = "> ",
   type: InputType = "text",
+  isArrowKeyNavigationEnabled: boolean = false,
 ): Promise<string> {
   return new Promise((resolve) => {
     let buffer = "";
+    let cursorPos = 0;
+    let historyIndex = promptHistory.length;
+    let savedInput = "";
+
     process.stdout.write(question);
 
     if (process.stdin.isTTY) process.stdin.setRawMode(true);
     process.stdin.resume();
+
+    const questionVisualLength = stripAnsi(question).length;
+
+    const redrawLine = () => {
+      if (type === "password") return;
+      const display = buffer;
+      process.stdout.write(
+        `\r${cursorForward(questionVisualLength)}${display}${ERASE_TO_EOL}`,
+      );
+      const targetColumn = questionVisualLength + cursorPos + 1;
+      process.stdout.write(cursorToColumn(targetColumn));
+    };
 
     const onData = (data: Buffer) => {
       const key = data.toString();
@@ -41,26 +79,84 @@ function prompt(
       if (key === "\r" || key === "\n") {
         process.stdout.write("\n");
         cleanup();
+        if (isArrowKeyNavigationEnabled && buffer.trim()) {
+          promptHistory.push(buffer);
+        }
         resolve(buffer);
         return;
       }
+
       if (key === CTRL_C) {
         cleanup();
         process.exit(130);
       }
+
       if (key === BACKSPACE) {
-        if (buffer.length) {
-          buffer = buffer.slice(0, -1);
+        if (cursorPos > 0) {
+          buffer = buffer.slice(0, cursorPos - 1) + buffer.slice(cursorPos);
+          cursorPos--;
           if (type !== "password") {
-            process.stdout.write("\b \b");
+            redrawLine();
           }
         }
         return;
       }
 
-      buffer += key;
+      if (key === KEY_UP) {
+        if (!isArrowKeyNavigationEnabled) return;
+        if (historyIndex > 0) {
+          if (historyIndex === promptHistory.length) {
+            savedInput = buffer;
+          }
+          historyIndex--;
+          buffer = promptHistory[historyIndex] ?? "";
+          cursorPos = buffer.length;
+          redrawLine();
+        }
+        return;
+      }
+
+      if (key === KEY_DOWN) {
+        if (!isArrowKeyNavigationEnabled) return;
+        if (historyIndex < promptHistory.length) {
+          historyIndex++;
+          buffer =
+            historyIndex === promptHistory.length
+              ? savedInput
+              : (promptHistory[historyIndex] ?? "");
+          cursorPos = buffer.length;
+          redrawLine();
+        }
+        return;
+      }
+
+      if (key === KEY_LEFT) {
+        if (cursorPos > 0) {
+          cursorPos--;
+          if (type !== "password") process.stdout.write(KEY_LEFT);
+        }
+        return;
+      }
+
+      if (key === KEY_RIGHT) {
+        if (cursorPos < buffer.length) {
+          cursorPos++;
+          if (type !== "password") process.stdout.write(KEY_RIGHT);
+        }
+        return;
+      }
+
+      if (key.startsWith(ESC) || key.charCodeAt(0) < 32) return;
+
+      buffer = buffer.slice(0, cursorPos) + key + buffer.slice(cursorPos);
+      cursorPos += key.length;
+
       if (type !== "password") {
-        process.stdout.write(key);
+        if (cursorPos === buffer.length) {
+          process.stdout.write(key);
+        } else {
+          redrawLine();
+        }
       }
     };
 
@@ -74,6 +170,22 @@ function prompt(
   });
 }
 
+/**
+ * A fancy bordered input field that you can embed in a terminal UI.
+ *
+ * Unlike the `prompt()` function, `Input` gives you a styled box with a label,
+ * supports different widths, alignment, and fixed positions in the terminal.
+ * It emits events too, so you can react to each keystroke if you need to.
+ *
+ * Call `.show()` to start capturing input and `.destroy()` to clean up.
+ *
+ * @example
+ * ```ts
+ * const input = new Input({ label: "Search:", width: "1/2" });
+ * input.on("submit", (value) => console.log(value));
+ * input.show();
+ * ```
+ */
 class Input extends EventEmitter {
   private label: string = "Type something";
   private type: InputType = "text";

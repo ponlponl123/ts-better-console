@@ -1,7 +1,7 @@
 {
   "name": "ts-better-console",
   "description": "A TypeScript library that provides enhanced console logging capabilities with improved type safety and formatting options.",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",

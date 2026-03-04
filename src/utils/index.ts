@@ -1,4 +1,2 @@
-import { aliasAlignment } from "./layout";
-import { ratio } from "./layout";
-
-export { aliasAlignment, ratio };
+export { aliasAlignment } from "./layout";
+export { ratio } from "./layout";

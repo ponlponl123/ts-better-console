@@ -1,5 +1,5 @@
 import Code from "@/src/components/code";
-import React from "react";
+import Image from "@/src/components/image";
 
 function Page() {
   return (
@@ -13,6 +13,11 @@ function Page() {
           effects. It extends <code>EventEmitter</code> for type-safe event
           handling.
         </p>
+        <Image
+          src="/previews/button.png"
+          alt="Example of ts-better-console buttons in action"
+          className="w-full"
+        />
         <h2 className="mt-8">Constructor</h2>
         <Code
           codesnippets={[

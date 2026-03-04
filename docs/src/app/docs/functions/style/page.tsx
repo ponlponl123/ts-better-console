@@ -43,12 +43,14 @@ function Page() {
             <code>style</code>: A <code>StyleOptions</code> object with:
             <ul className="list-disc list-inside ml-4 mt-1">
               <li>
-                <code>color</code>: Text color (e.g.{" "}
-                <code>&quot;red&quot;</code>, <code>&quot;cyan&quot;</code>,{" "}
-                <code>&quot;green&quot;</code>).
+                <code>color</code>: Text color — a named color string (e.g.{" "}
+                <code>&quot;red&quot;</code>), an 8-bit value via{" "}
+                <code>eightBit(n)</code>, or a 24-bit value via{" "}
+                <code>rgb(r,g,b)</code> / <code>hex(&quot;#...&quot;)</code>.
               </li>
               <li>
-                <code>backgroundColor</code>: Background color.
+                <code>backgroundColor</code>: Background color (same types as{" "}
+                <code>color</code>).
               </li>
               <li>
                 <code>styles</code>: Array of text styles —{" "}
@@ -146,6 +148,105 @@ console.log(s("Highlight", {
 
 // Endless mode (no reset at end)
 console.log(s("keeps going", { color: "green", endless: true }));`,
+            },
+          ]}
+        />
+      </section>
+
+      <section>
+        <h2>Extended Colors</h2>
+        <p>
+          In addition to named 4-bit colors, the <code>s</code> function
+          supports <strong>8-bit</strong> and <strong>24-bit</strong> colors via
+          the <code>eightBit</code>, <code>rgb</code>, and <code>hex</code>{" "}
+          helper functions.
+        </p>
+        <Code
+          codesnippets={[
+            {
+              title: "8-bit & 24-bit Colors",
+              code: (
+                <div>
+                  <i className="text-purple-400">import</i> {"{"}{" "}
+                  <i className="text-blue-400">s</i>,{" "}
+                  <i className="text-blue-400">eightBit</i>,{" "}
+                  <i className="text-blue-400">rgb</i>,{" "}
+                  <i className="text-blue-400">hex</i>,{" "}
+                  <i className="text-blue-400">EightBitColor</i> {"}"}{" "}
+                  <i className="text-purple-400">from</i>{" "}
+                  <i className="text-orange-400">
+                    &quot;ts-better-console&quot;
+                  </i>
+                  ;
+                  <br />
+                  <br />
+                  <span className="text-zinc-500">
+                    {"// "}8-bit color by code number
+                  </span>
+                  <br />
+                  <i className="text-emerald-400">console</i>.
+                  <i className="text-yellow-400">log</i>(
+                  <i className="text-yellow-400">s</i>(
+                  <i className="text-orange-400">&quot;Orange&quot;</i>, {"{"}{" "}
+                  <i className="text-blue-400">color</i>:{" "}
+                  <i className="text-yellow-400">eightBit</i>(
+                  <i className="text-purple-400">208</i>) {"}"}));
+                  <br />
+                  <br />
+                  <span className="text-zinc-500">
+                    {"// "}Using the EightBitColor enum
+                  </span>
+                  <br />
+                  <i className="text-emerald-400">console</i>.
+                  <i className="text-yellow-400">log</i>(
+                  <i className="text-yellow-400">s</i>(
+                  <i className="text-orange-400">&quot;Pink&quot;</i>, {"{"}{" "}
+                  <i className="text-blue-400">color</i>:{" "}
+                  <i className="text-yellow-400">eightBit</i>(
+                  <i className="text-emerald-400">EightBitColor</i>.
+                  <i className="text-blue-400">Pink</i>) {"}"}));
+                  <br />
+                  <br />
+                  <span className="text-zinc-500">{"// "}24-bit RGB color</span>
+                  <br />
+                  <i className="text-emerald-400">console</i>.
+                  <i className="text-yellow-400">log</i>(
+                  <i className="text-yellow-400">s</i>(
+                  <i className="text-orange-400">&quot;Teal&quot;</i>, {"{"}{" "}
+                  <i className="text-blue-400">color</i>:{" "}
+                  <i className="text-yellow-400">rgb</i>(
+                  <i className="text-purple-400">0</i>,{" "}
+                  <i className="text-purple-400">128</i>,{" "}
+                  <i className="text-purple-400">128</i>) {"}"}));
+                  <br />
+                  <br />
+                  <span className="text-zinc-500">
+                    {"// "}24-bit color from hex string
+                  </span>
+                  <br />
+                  <i className="text-emerald-400">console</i>.
+                  <i className="text-yellow-400">log</i>(
+                  <i className="text-yellow-400">s</i>(
+                  <i className="text-orange-400">&quot;Coral&quot;</i>, {"{"}{" "}
+                  <i className="text-blue-400">color</i>:{" "}
+                  <i className="text-yellow-400">hex</i>(
+                  <i className="text-orange-400">&quot;#FF7F50&quot;</i>) {"}"}
+                  ));
+                </div>
+              ),
+              snippet: `import { s, eightBit, rgb, hex, EightBitColor } from "ts-better-console";
+
+// 8-bit color by code number
+console.log(s("Orange", { color: eightBit(208) }));
+
+// Using the EightBitColor enum
+console.log(s("Pink", { color: eightBit(EightBitColor.Pink) }));
+
+// 24-bit RGB color
+console.log(s("Teal", { color: rgb(0, 128, 128) }));
+
+// 24-bit color from hex string
+console.log(s("Coral", { color: hex("#FF7F50") }));`,
             },
           ]}
         />

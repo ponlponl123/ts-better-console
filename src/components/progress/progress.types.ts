@@ -1,6 +1,14 @@
 import type { UnSpecifiedColor } from "../../types/style.types";
 import type { FixedPosition } from "../../types/terminal.types";
 
+type ProgressAnimation = "rainbow" | "rainbow-smooth";
+
+interface ProgressAnimationOptions {
+  type: ProgressAnimation;
+  speed?: number;
+  size?: number;
+}
+
 interface ProgressLabelPair {
   while: string;
   past: string;
@@ -11,7 +19,7 @@ interface ProgressBarOptions {
   bufferedSymbol?: string;
   emptySymbol?: string;
   length?: number | "full-width";
-  animation?: false | "rainbow";
+  animation?: false | ProgressAnimationOptions;
   color?: ProgressBarStateColor;
   position?: FixedPosition;
 }
@@ -51,4 +59,6 @@ export type {
   ProgressBarOptions,
   ProgressBarStateColor,
   ProgressUpdateOptions,
+  ProgressAnimation,
+  ProgressAnimationOptions,
 };

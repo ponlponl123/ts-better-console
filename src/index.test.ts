@@ -17,7 +17,14 @@ import betterConsole, {
   Colors,
   BackgroundColors,
   Styles,
-  cls,
+  EightBitColor,
+  eightBit,
+  rgb,
+  hex,
+  gradient,
+  namedColorToRgb,
+  eightBitToRgb,
+  colorToRgb,
   // core / line
   cs,
   ts,
@@ -76,10 +83,17 @@ describe("Public API — barrel exports", () => {
     expect(typeof applyUndefinedStyles).toBe("function");
     expect(typeof clearStyle).toBe("function");
     expect(typeof rainbow).toBe("function");
-    expect(typeof cls).toBe("string");
     expect(Colors).toBeDefined();
     expect(BackgroundColors).toBeDefined();
     expect(Styles).toBeDefined();
+    expect(EightBitColor).toBeDefined();
+    expect(typeof eightBit).toBe("function");
+    expect(typeof rgb).toBe("function");
+    expect(typeof hex).toBe("function");
+    expect(typeof gradient).toBe("function");
+    expect(typeof namedColorToRgb).toBe("function");
+    expect(typeof eightBitToRgb).toBe("function");
+    expect(typeof colorToRgb).toBe("function");
   });
 
   it("should export line utilities", () => {

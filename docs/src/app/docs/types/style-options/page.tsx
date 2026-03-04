@@ -29,11 +29,13 @@ function Page() {
         </p>
         <ul className="list-disc list-inside">
           <li>
-            <code>color</code>: A string representing the text color of the log.
+            <code>color</code>: The text color — a named color string, an 8-bit
+            color via <code>eightBit()</code>, or a 24-bit color via{" "}
+            <code>rgb()</code> / <code>hex()</code>.
           </li>
           <li>
-            <code>backgroundColor</code>: A string representing the background
-            color of the log.
+            <code>backgroundColor</code>: The background color (same types as{" "}
+            <code>color</code>).
           </li>
           <li>
             <code>styles</code>: An array of strings representing additional
@@ -61,10 +63,10 @@ function Page() {
                   <i className="text-blue-400">StyleOptions</i> = {"{"}
                   <br />
                   &nbsp;&nbsp;<i className="text-cyan-600">color</i>?:{" "}
-                  <span className="text-cyan-400">colors</span>;
+                  <span className="text-cyan-400">AnyColor</span>;
                   <br />
                   &nbsp;&nbsp;<i className="text-cyan-600">backgroundColor</i>
-                  ?: <span className="text-cyan-400">colors</span>;
+                  ?: <span className="text-cyan-400">AnyColor</span>;
                   <br />
                   &nbsp;&nbsp;<i className="text-cyan-600">styles</i>
                   ?: <span className="text-cyan-400">style</span>[];
@@ -76,33 +78,53 @@ function Page() {
                 </div>
               ),
               snippet: `interface StyleOptions {
-  color?: Color;
-  backgroundColor?: Color;
+  color?: AnyColor;
+  backgroundColor?: AnyColor;
   styles?: Style[];
   endless?: boolean;
-};`,
+};
+
+// AnyColor = Color | ExtendedColor
+type Color = "black" | "red" | "green" | "yellow" | "blue" | "magenta" | "cyan" | "white" | "gray";
+type ExtendedColor = EightBitColorValue | RGBColorValue;`,
             },
             {
-              title: "Color and Style",
+              title: "AnyColor & Style",
               code: (
                 <div>
                   <i className="text-purple-400">type</i>{" "}
+                  <i className="text-blue-400">AnyColor</i> ={" "}
+                  <span className="text-cyan-400">Color</span> |{" "}
+                  <span className="text-cyan-400">ExtendedColor</span>;
+                  <br />
+                  <br />
+                  <i className="text-purple-400">type</i>{" "}
                   <i className="text-blue-400">Color</i> ={" "}
                   <span className="text-orange-400">
-                    "black" | "red" | "green" | "yellow" | "blue" | "magenta" |
-                    "cyan" | "white" | "gray"
+                    &quot;black&quot; | &quot;red&quot; | &quot;green&quot; |
+                    &quot;yellow&quot; | &quot;blue&quot; | &quot;magenta&quot;
+                    | &quot;cyan&quot; | &quot;white&quot; | &quot;gray&quot;
                   </span>
                   ;
                   <br />
                   <i className="text-purple-400">type</i>{" "}
+                  <i className="text-blue-400">ExtendedColor</i> ={" "}
+                  <span className="text-cyan-400">EightBitColorValue</span> |{" "}
+                  <span className="text-cyan-400">RGBColorValue</span>;
+                  <br />
+                  <br />
+                  <i className="text-purple-400">type</i>{" "}
                   <i className="text-blue-400">Style</i> ={" "}
                   <span className="text-orange-400">
-                    "bold" | "italic" | "underline" | "strikethrough"
+                    &quot;bold&quot; | &quot;italic&quot; |
+                    &quot;underline&quot; | &quot;strikethrough&quot;
                   </span>
                   ;
                 </div>
               ),
-              snippet: `type Color = "black" | "red" | "green" | "yellow" | "blue" | "magenta" | "cyan" | "white" | "gray";
+              snippet: `type AnyColor = Color | ExtendedColor;
+type Color = "black" | "red" | "green" | "yellow" | "blue" | "magenta" | "cyan" | "white" | "gray";
+type ExtendedColor = EightBitColorValue | RGBColorValue;
 type Style = "bold" | "italic" | "underline" | "strikethrough";`,
             },
           ]}

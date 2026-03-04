@@ -1,4 +1,5 @@
 import Code from "@/src/components/code";
+import Image from "@/src/components/image";
 import React from "react";
 
 function Page() {
@@ -15,6 +16,11 @@ function Page() {
           External <code>console.log</code> calls are automatically printed
           above the progress block without disrupting the display.
         </p>
+        <Image
+          src="/previews/progress.png"
+          alt="Example of ts-better-console progress component in action"
+          className="w-full"
+        />
         <h2 className="mt-8">Constructor</h2>
         <Code
           codesnippets={[
@@ -112,8 +118,11 @@ function Page() {
           </li>
           <li>
             <strong>Rainbow animation</strong>: Set <code>bar.animation</code>{" "}
-            to <code>&quot;rainbow&quot;</code> for a scrolling parallax rainbow
-            effect across the bar.
+            to <code>&#123; type: &quot;rainbow&quot; &#125;</code> for a
+            scrolling parallax rainbow effect, or{" "}
+            <code>&#123; type: &quot;rainbow-smooth&quot; &#125;</code> for a
+            full-spectrum 8-bit gradient. Control speed and wave size with the
+            optional <code>speed</code> and <code>size</code> fields.
           </li>
           <li>
             <strong>Custom symbols</strong>: Configure <code>loadedSymbol</code>
@@ -234,8 +243,10 @@ const timer = setInterval(() => {
                       <i className="text-blue-400">length</i>:{" "}
                       <i className="text-orange-400">30</i>,
                       <br />
-                      <i className="text-blue-400">animation</i>:{" "}
+                      <i className="text-blue-400">animation</i>: {"{ "}
+                      <i className="text-blue-400">type</i>:{" "}
                       <i className="text-orange-400">&quot;rainbow&quot;</i>
+                      {" }"}
                       ,
                       <br />
                       <i className="text-blue-400">color</i>: {"{"}{" "}
@@ -298,7 +309,7 @@ const bar = new Progress("Installing", 50, {
   label: { while: "Installing", past: "Installed" },
   bar: {
     length: 30,
-    animation: "rainbow",
+    animation: { type: "rainbow" },
     color: { completed: "cyan" },
   },
 });

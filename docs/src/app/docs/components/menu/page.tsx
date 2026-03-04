@@ -1,4 +1,5 @@
 import Code from "@/src/components/code";
+import Image from "@/src/components/image";
 import React from "react";
 
 function Page() {
@@ -13,6 +14,11 @@ function Page() {
           selection. It extends <code>EventEmitter</code> for type-safe event
           handling.
         </p>
+        <Image
+          src="/previews/menu.png"
+          alt="Example of ts-better-console menu component in action"
+          className="w-full"
+        />
         <h2 className="mt-8">Constructor</h2>
         <Code
           codesnippets={[

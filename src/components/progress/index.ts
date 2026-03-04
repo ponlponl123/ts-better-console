@@ -7,4 +7,6 @@ export type {
   ProgressBarOptions,
   ProgressBarStateColor,
   ProgressUpdateOptions,
+  ProgressAnimation,
+  ProgressAnimationOptions,
 } from "./progress.types";

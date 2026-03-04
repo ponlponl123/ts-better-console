@@ -10,13 +10,12 @@ export {
   rainbow as rb,
   rainbow,
   getColorCode,
-  Colors,
-  BackgroundColors,
   Styles,
-  cls,
-  rainbowColors,
-  rainbowASCIICodes,
-} from "./core/style";
+  ClearStylesCode,
+  StylesCode,
+  resolveUnSpecifiedColor,
+} from "./core/style/style";
+export * from "./core/style/color";
 export {
   cs,
   ts,
@@ -47,6 +46,11 @@ export type {
   Color,
   Style,
   UnSpecifiedColor,
+  EightBitColorValue,
+  RGBColorValue,
+  ExtendedColor,
+  AnyColor,
+  ClearStyleOptions,
 } from "./types/style.types";
 export type {
   TerminalDimensions,
@@ -75,12 +79,15 @@ export type {
   BorderStyle,
   BorderSymbolStyle,
   CardBorderSymbols,
+  BorderOptions,
 } from "./components/card";
 export type {
   InputType,
   InputOptions,
   InputEvents,
   InputStyleOptions,
+  InputGroupEvents,
+  InputGroupOptions,
 } from "./components/input";
 export type {
   MenuItemOptions,
@@ -95,5 +102,7 @@ export type {
   ProgressBarOptions,
   ProgressBarStateColor,
   ProgressUpdateOptions,
+  ProgressAnimation,
+  ProgressAnimationOptions,
 } from "./components/progress";
 export type { SpinnerOptions, SpinnerStyle } from "./components/spinner";

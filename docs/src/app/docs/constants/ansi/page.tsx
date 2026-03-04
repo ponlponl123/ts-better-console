@@ -137,6 +137,18 @@ const CSI = "\\x1b[";`,
                   <span className="text-orange-400">`...B`</span>;
                   <br />
                   <i className="text-purple-400">const</i>{" "}
+                  <i className="text-yellow-400">cursorForward</i> = (
+                  <i className="text-cyan-600">n</i>:{" "}
+                  <span className="text-orange-400">number</span>) =&gt;{" "}
+                  <span className="text-orange-400">`...C`</span>;
+                  <br />
+                  <i className="text-purple-400">const</i>{" "}
+                  <i className="text-yellow-400">cursorBackward</i> = (
+                  <i className="text-cyan-600">n</i>:{" "}
+                  <span className="text-orange-400">number</span>) =&gt;{" "}
+                  <span className="text-orange-400">`...D`</span>;
+                  <br />
+                  <i className="text-purple-400">const</i>{" "}
                   <i className="text-yellow-400">cursorTo</i> = (
                   <i className="text-cyan-600">row</i>:{" "}
                   <span className="text-orange-400">number</span>,{" "}
@@ -144,6 +156,12 @@ const CSI = "\\x1b[";`,
                   <span className="text-orange-400">number</span> ={" "}
                   <i className="text-orange-400">1</i>) =&gt;{" "}
                   <span className="text-orange-400">`...H`</span>;
+                  <br />
+                  <i className="text-purple-400">const</i>{" "}
+                  <i className="text-yellow-400">cursorToColumn</i> = (
+                  <i className="text-cyan-600">col</i>:{" "}
+                  <span className="text-orange-400">number</span>) =&gt;{" "}
+                  <span className="text-orange-400">`...G`</span>;
                 </div>
               ),
               snippet: `const CURSOR_SAVE    = "\\x1b7";
@@ -151,9 +169,12 @@ const CURSOR_RESTORE = "\\x1b8";
 const CURSOR_HIDE    = "\\x1b[?25l";
 const CURSOR_SHOW    = "\\x1b[?25h";
 
-const cursorUp   = (n: number) => \`\${CSI}\${n}A\`;
-const cursorDown = (n: number) => \`\${CSI}\${n}B\`;
-const cursorTo   = (row: number, col: number = 1) => \`\${CSI}\${row};\${col}H\`;`,
+const cursorUp       = (n: number) => \`\${CSI}\${n}A\`;
+const cursorDown     = (n: number) => \`\${CSI}\${n}B\`;
+const cursorForward  = (n: number) => \`\${CSI}\${n}C\`;
+const cursorBackward = (n: number) => \`\${CSI}\${n}D\`;
+const cursorTo       = (row: number, col: number = 1) => \`\${CSI}\${row};\${col}H\`;
+const cursorToColumn = (col: number) => \`\${CSI}\${col}G\`;`,
             },
           ]}
         />
@@ -337,6 +358,45 @@ const DIM_OFF = "\\x1b[22m";`,
           ]}
         />
 
+        {/* stripAnsi */}
+        <h2 className="mt-8">Helpers</h2>
+        <p>Utility functions for working with ANSI-encoded strings.</p>
+        <Code
+          codesnippets={[
+            {
+              title: "stripAnsi",
+              code: (
+                <div>
+                  <i className="text-purple-400">const</i>{" "}
+                  <i className="text-yellow-400">stripAnsi</i> = (
+                  <i className="text-cyan-600">str</i>:{" "}
+                  <span className="text-orange-400">string</span>) =&gt;{" "}
+                  <span className="text-orange-400">string</span>;
+                  <br />
+                  <br />
+                  <span className="text-zinc-500">
+                    {
+                      "// Removes all ANSI escape sequences, returning only visible text"
+                    }
+                  </span>
+                  <br />
+                  <i className="text-purple-400">const</i>{" "}
+                  <i className="text-blue-400">visible</i> ={" "}
+                  <i className="text-yellow-400">stripAnsi</i>(
+                  <i className="text-orange-400">
+                    &quot;\x1b[31mred text\x1b[0m&quot;
+                  </i>
+                  ); <span className="text-zinc-500">{'// → "red text"'}</span>
+                </div>
+              ),
+              snippet: `const stripAnsi = (str: string) => string;
+
+// Removes all ANSI escape sequences, returning only visible text
+const visible = stripAnsi("\\x1b[31mred text\\x1b[0m"); // → "red text"`,
+            },
+          ]}
+        />
+
         <h2 className="mt-8">Import</h2>
         <Code
           codesnippets={[
@@ -349,11 +409,15 @@ const DIM_OFF = "\\x1b[22m";`,
                     <i className="text-blue-400">CURSOR_HIDE</i>,{" "}
                     <i className="text-blue-400">CURSOR_SHOW</i>,
                     <br />
-                    <i className="text-blue-400">cursorTo</i>,
+                    <i className="text-blue-400">cursorTo</i>,{" "}
+                    <i className="text-blue-400">cursorForward</i>,{" "}
+                    <i className="text-blue-400">cursorToColumn</i>,
                     <br />
                     <i className="text-blue-400">ERASE_LINE</i>,
                     <br />
                     <i className="text-blue-400">RESET</i>,
+                    <br />
+                    <i className="text-blue-400">stripAnsi</i>,
                   </div>
                   {"}"} <i className="text-purple-400">from</i>{" "}
                   <i className="text-orange-400">
@@ -364,9 +428,10 @@ const DIM_OFF = "\\x1b[22m";`,
               ),
               snippet: `import {
   CURSOR_HIDE, CURSOR_SHOW,
-  cursorTo,
+  cursorTo, cursorForward, cursorToColumn,
   ERASE_LINE,
   RESET,
+  stripAnsi,
 } from "ts-better-console";`,
             },
           ]}

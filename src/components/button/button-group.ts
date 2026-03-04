@@ -5,7 +5,7 @@ import type {
   ButtonGroupOptions,
   ButtonGroupEvents,
 } from "./button.types";
-import { s } from "../../core/style";
+import { s } from "../../core/style/style";
 import { cs } from "../../core/line";
 import type { Alignment } from "../../types";
 import { aliasAlignment } from "../../utils";
@@ -22,6 +22,25 @@ import {
 } from "../../core";
 import { CTRL_C, ERASE_TO_EOL, KEY_LEFT, KEY_RIGHT } from "../../core/ansi";
 
+/**
+ * A row of clickable buttons rendered in the terminal.
+ *
+ * The user navigates between buttons with left/right arrow keys and
+ * confirms with Enter. Emits events on focus changes and on press so
+ * you can wire up actions without any polling.
+ *
+ * Call `.show()` to render it and `.destroy()` to clean up.
+ *
+ * @example
+ * ```ts
+ * const group = new ButtonGroup(
+ *   [{ label: "Yes" }, { label: "No" }],
+ *   { align: "center" }
+ * );
+ * group.on("press", (btn) => console.log(btn.label));
+ * group.show();
+ * ```
+ */
 class ButtonGroup extends EventEmitter {
   private buttons: ButtonOptions[];
   private options: ButtonGroupOptions;

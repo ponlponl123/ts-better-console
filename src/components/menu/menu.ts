@@ -1,7 +1,7 @@
 import { EventEmitter } from "events";
 import type { MenuEvents, MenuItemOptions, MenuOptions } from "./menu.types";
 import type { StyleOptions } from "../../types/style.types";
-import { s } from "../../core/style";
+import { s } from "../../core/style/style";
 import {
   enableInteractiveMode,
   disableInteractiveMode,
@@ -17,6 +17,25 @@ import {
   cursorUp,
 } from "../../core/ansi";
 
+/**
+ * An interactive single-select menu rendered in the terminal.
+ *
+ * Shows a list of items the user can navigate with the arrow keys and
+ * select with Enter. Emits events so you can react to selection changes
+ * without polling.
+ *
+ * Call `.show()` to display it and `.destroy()` to clean up when done.
+ *
+ * @example
+ * ```ts
+ * const menu = new Menu(
+ *   [{ label: "Option A" }, { label: "Option B" }],
+ *   { title: "Pick one:" }
+ * );
+ * menu.on("select", (item) => console.log(item.label));
+ * menu.show();
+ * ```
+ */
 class Menu extends EventEmitter {
   private items: MenuItemOptions[];
   private options: MenuOptions;

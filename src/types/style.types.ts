@@ -9,13 +9,36 @@ export type Color =
   | "white"
   | "gray";
 
-export type UnSpecifiedColor = Color | "inherit";
+export interface EightBitColorValue {
+  __type: "8bit";
+  code: number;
+}
+
+export interface RGBColorValue {
+  __type: "rgb";
+  r: number;
+  g: number;
+  b: number;
+}
+
+export type ExtendedColor = EightBitColorValue | RGBColorValue;
+
+export type AnyColor = Color | ExtendedColor;
+
+export type UnSpecifiedColor = AnyColor | "foreground";
 
 export type Style = "bold" | "italic" | "underline" | "strikethrough";
 
 export interface StyleOptions {
-  color?: Color;
-  backgroundColor?: Color;
+  color?: AnyColor;
+  backgroundColor?: AnyColor;
   styles?: Style[];
+  endless?: boolean;
+}
+
+export interface ClearStyleOptions {
+  color?: boolean;
+  backgroundColor?: boolean;
+  style?: Style[];
   endless?: boolean;
 }

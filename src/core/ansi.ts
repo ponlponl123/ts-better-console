@@ -24,8 +24,11 @@ export const CURSOR_HIDE = "\x1b[?25l";
 export const CURSOR_SHOW = "\x1b[?25h";
 export const cursorUp = (n: number) => `${CSI}${n}A`;
 export const cursorDown = (n: number) => `${CSI}${n}B`;
+export const cursorForward = (n: number) => `${CSI}${n}C`;
+export const cursorBackward = (n: number) => `${CSI}${n}D`;
 export const cursorTo = (row: number, col: number = 1) =>
   `${CSI}${row};${col}H`;
+export const cursorToColumn = (col: number) => `${CSI}${col}G`;
 
 // ── Erase ────────────────────────────────────────────────────
 
@@ -63,3 +66,9 @@ export const KEY_LEFT = "\x1b[D";
 export const RESET = "\x1b[0m";
 export const DIM = "\x1b[2m";
 export const DIM_OFF = "\x1b[22m";
+
+// ── Helpers ──────────────────────────────────────────────────
+
+/** Strip all ANSI escape sequences and return the visible text. */
+export const stripAnsi = (str: string) =>
+  str.replace(/\x1b\[[0-9;]*[A-Za-z]/g, "");

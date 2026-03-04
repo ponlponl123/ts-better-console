@@ -7,9 +7,20 @@ import type {
   ProgressStatus,
   ProgressBarOptions,
   ProgressUpdateOptions,
+  ProgressAnimation,
 } from "./progress.types";
 import betterConsole from "../../core/console";
-import { getColorCode, rainbowASCIICodes, s } from "../../core/style";
+import {
+  getColorCode,
+  resolveUnSpecifiedColor,
+  s,
+} from "../../core/style/style";
+import {
+  DEFAULT_COLOR,
+  eightBit,
+  rainbowASCIICodes,
+  rainbowColorsExtended,
+} from "../../core/style/color";
 import { cs } from "../../core/line";
 import {
   getProcessSize,
@@ -29,6 +40,23 @@ import {
 } from "../../core/ansi";
 import type { FixedPosition } from "../../types";
 
+/**
+ * A live progress bar that renders and updates in-place in the terminal.
+ *
+ * Tracks a `current` value toward a `total`, and renders a filled bar,
+ * labels, and optional animations. Multiple `Progress` instances can
+ * stack together without overwriting each other.
+ *
+ * Emits events when progress updates, completes, or fails.
+ *
+ * @example
+ * ```ts
+ * const bar = new Progress("Downloading", 100);
+ * bar.show();
+ * bar.update(50); // 50%
+ * bar.success("Done!");
+ * ```
+ */
 class Progress extends EventEmitter {
   public title: string;
   public total: number;
@@ -44,7 +72,9 @@ class Progress extends EventEmitter {
   private bufferedSymbol: string = "▒";
   private emptySymbol: string = "-";
   private barLength: ProgressBarOptions["length"];
-  private barAnimation: ProgressBarOptions["animation"];
+  private barAnimation: ProgressAnimation | undefined = undefined;
+  private barAnimationSize: number = 0;
+  private barAnimationSpeed: number = Progress.DEFAULT_ANIMATION_INTERVAL;
   private barColor: ProgressBarOptions["color"];
   private position: FixedPosition;
   private label: ProgressLabelPair;
@@ -86,14 +116,19 @@ class Progress extends EventEmitter {
             options.bar?.length ?? Progress.DEFAULT_BAR_LENGTH,
             Progress.MIN_BAR_LENGTH,
           );
-    this.barAnimation = options.bar?.animation || false;
+    if (options.bar?.animation) {
+      this.barAnimation = options.bar.animation.type;
+      this.barAnimationSize = options.bar.animation.size ?? 0;
+      this.barAnimationSpeed =
+        options.bar.animation.speed ?? Progress.DEFAULT_ANIMATION_INTERVAL;
+    }
     this.loadedSymbol = options.bar?.loadedSymbol ?? this.loadedSymbol;
     this.bufferedSymbol = options.bar?.bufferedSymbol ?? this.bufferedSymbol;
     this.emptySymbol = options.bar?.emptySymbol ?? this.emptySymbol;
     this.barColor = {
-      buffered: "inherit",
-      empty: "inherit",
-      loaded: "inherit",
+      buffered: "foreground",
+      empty: "foreground",
+      loaded: "foreground",
       completed: "green",
       cancelled: "yellow",
       errored: "red",
@@ -357,7 +392,7 @@ class Progress extends EventEmitter {
   }
 
   private tickFrame() {
-    if (this.barAnimation === "rainbow" && this.status === "active") {
+    if (this.barAnimation && this.status === "active") {
       this.animationFrame++;
     }
   }
@@ -374,44 +409,62 @@ class Progress extends EventEmitter {
       const cycle = numColors * groupSize;
       const frame = this.animationFrame % cycle;
       const totalLength = filledLength + bufferedLength + emptyLength;
-      const loadedFg = colors?.loaded || "";
       let bar = "";
       for (let i = 0; i < totalLength; i++) {
         const colorIdx = Math.floor(((i + frame) % cycle) / groupSize);
         const fg = rainbowASCIICodes[colorIdx % numColors];
         if (i < filledLength) {
-          bar += (loadedFg || fg) + this.loadedSymbol;
+          bar += (colors?.loaded || fg) + this.loadedSymbol;
         } else if (i < filledLength + bufferedLength) {
-          bar += fg + this.bufferedSymbol;
+          bar += (colors?.buffered || fg) + this.bufferedSymbol;
         } else {
-          bar += DIM + fg + this.emptySymbol + DIM_OFF;
+          bar += (colors?.empty || fg) + this.emptySymbol;
         }
       }
-      return bar + RESET;
+      return bar + DEFAULT_COLOR;
+    } else if (this.barAnimation === "rainbow-smooth") {
+      const size = filledLength + bufferedLength + emptyLength;
+      const rbcolors = rainbowColorsExtended;
+      const colorCount = rbcolors.length;
+      const groupSize = 1;
+      const cycle = colorCount * groupSize;
+      const frame = this.animationFrame % cycle;
+      let bar = "";
+      for (let i = 0; i < size; i++) {
+        const colorIdx = Math.floor(((i + frame) % cycle) / groupSize);
+        const fg = getColorCode(
+          eightBit(rbcolors[colorIdx % colorCount] as number),
+          false,
+        );
+        if (i < filledLength) {
+          bar += (colors?.loaded || fg) + this.loadedSymbol;
+        } else if (i < filledLength + bufferedLength) {
+          bar += (colors?.buffered || fg) + this.bufferedSymbol;
+        } else {
+          bar +=
+            (colors?.empty || DIM + fg) +
+            this.emptySymbol +
+            (colors?.empty ? DIM_OFF : "");
+        }
+      }
+      return bar + DEFAULT_COLOR;
     }
 
     const loaded = colors?.loaded
-      ? colors.loaded + this.loadedSymbol.repeat(filledLength) + RESET
+      ? colors.loaded + this.loadedSymbol.repeat(filledLength) + DEFAULT_COLOR
       : this.loadedSymbol.repeat(filledLength);
     const buffered = this.buffer
       ? (colors?.buffered ?? "") +
         this.bufferedSymbol.repeat(bufferedLength) +
-        (colors?.buffered ? RESET : "")
+        (colors?.buffered ? DEFAULT_COLOR : "")
       : "";
     const empty =
       emptyLength > 0
         ? (colors?.empty ?? "") +
           this.emptySymbol.repeat(emptyLength) +
-          (colors?.empty ? RESET : "")
+          (colors?.empty ? DEFAULT_COLOR : "")
         : "";
     return loaded + buffered + empty;
-  }
-
-  private resolveColor(color: string | undefined): string {
-    return getColorCode(
-      !color || color === "inherit" ? undefined : color,
-      false,
-    );
   }
 
   private getRenderedLine(): string {
@@ -430,9 +483,9 @@ class Progress extends EventEmitter {
 
     if (this.status === "completed") {
       const bar = this.buildBar(filledLength, bufferedLength, emptyLength, {
-        loaded: this.resolveColor(bc.completed),
-        buffered: this.resolveColor(bc.buffered),
-        empty: this.resolveColor(bc.empty),
+        loaded: resolveUnSpecifiedColor(false, bc.completed),
+        buffered: resolveUnSpecifiedColor(false, bc.buffered),
+        empty: resolveUnSpecifiedColor(false, bc.empty),
       });
       return cs(
         [
@@ -447,12 +500,12 @@ class Progress extends EventEmitter {
     }
 
     if (this.status === "cancelled") {
-      const color = bc.cancelled === "inherit" ? "yellow" : bc.cancelled;
-      const cancelColor = this.resolveColor(bc.cancelled);
+      const color = bc.cancelled === "foreground" ? "yellow" : bc.cancelled;
+      const cancelColor = resolveUnSpecifiedColor(false, bc.cancelled);
       const bar = this.buildBar(filledLength, bufferedLength, emptyLength, {
         loaded: cancelColor,
         buffered: cancelColor,
-        empty: this.resolveColor(bc.empty),
+        empty: resolveUnSpecifiedColor(false, bc.empty),
       });
       return cs(
         [
@@ -468,12 +521,12 @@ class Progress extends EventEmitter {
     }
 
     if (this.status === "errored") {
-      const color = bc.errored === "inherit" ? "red" : bc.errored;
-      const errorColor = this.resolveColor(bc.errored);
+      const color = bc.errored === "foreground" ? "red" : bc.errored;
+      const errorColor = resolveUnSpecifiedColor(false, bc.errored);
       const bar = this.buildBar(filledLength, bufferedLength, emptyLength, {
         loaded: errorColor,
         buffered: errorColor,
-        empty: this.resolveColor(bc.empty),
+        empty: resolveUnSpecifiedColor(false, bc.empty),
       });
       return cs(
         [
@@ -489,9 +542,18 @@ class Progress extends EventEmitter {
     }
 
     const bar = this.buildBar(filledLength, bufferedLength, emptyLength, {
-      loaded: this.resolveColor(bc.loaded),
-      buffered: this.resolveColor(bc.buffered),
-      empty: this.resolveColor(bc.empty),
+      loaded:
+        bc.loaded === "foreground"
+          ? undefined
+          : resolveUnSpecifiedColor(false, bc.loaded),
+      buffered:
+        bc.buffered === "foreground"
+          ? undefined
+          : resolveUnSpecifiedColor(false, bc.buffered),
+      empty:
+        bc.empty === "foreground"
+          ? undefined
+          : resolveUnSpecifiedColor(false, bc.empty),
     });
     return cs(
       [
@@ -547,8 +609,11 @@ class Progress extends EventEmitter {
                 Progress.MIN_BAR_LENGTH,
               );
       }
-      if (options.bar.animation !== undefined) {
-        this.barAnimation = options.bar.animation;
+      if (options.bar.animation) {
+        this.barAnimation = options.bar.animation.type;
+        this.barAnimationSize = options.bar.animation.size ?? 0;
+        this.barAnimationSpeed =
+          options.bar.animation.speed ?? Progress.DEFAULT_ANIMATION_INTERVAL;
       }
       if (options.bar.color) {
         this.barColor = {

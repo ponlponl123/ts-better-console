@@ -43,12 +43,4 @@ function parseMouseEvent(
   return null;
 }
 
-export {
-  MOUSE_ON,
-  MOUSE_OFF,
-  CURSOR_HIDE,
-  CURSOR_SHOW,
-  enableInteractiveMode,
-  disableInteractiveMode,
-  parseMouseEvent,
-};
+export { enableInteractiveMode, disableInteractiveMode, parseMouseEvent };

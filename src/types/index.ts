@@ -3,6 +3,10 @@ export type {
   Color,
   Style,
   UnSpecifiedColor,
+  EightBitColorValue,
+  RGBColorValue,
+  ExtendedColor,
+  AnyColor,
 } from "./style.types";
 export type { Ratio, Alignment, Align, AlignmentAlias } from "./layout.types";
 export type { DebugLevel } from "./line.types";

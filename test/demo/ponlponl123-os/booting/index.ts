@@ -42,7 +42,9 @@ async function displayBootMessagesWithProgress(
   const total = messages.length;
   const progress = new Progress(progressLabel, total, {
     bar: {
-      animation: "rainbow",
+      animation: {
+        type: "rainbow",
+      },
       length: "full-width",
       position: "bottom",
     },
@@ -150,8 +152,8 @@ async function main() {
     systemdMessages.map((msg) => {
       return {
         msg: msg.msg.replace(
-          "[ OK ]",
-          s("[ OK ]", { color: "green", styles: ["bold"] }),
+          "[  OK  ]",
+          s("[  OK  ]", { color: "green", styles: ["bold"] }),
         ),
         delay: msg.delay,
       };

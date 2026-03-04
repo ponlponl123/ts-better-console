@@ -1,17 +1,6 @@
 export { default as default } from "./console";
-export {
-  s,
-  getColorCode,
-  applyUndefinedStyles,
-  clearStyle,
-  rainbow,
-  Colors,
-  BackgroundColors,
-  Styles,
-  cls,
-  rainbowColors,
-  rainbowASCIICodes,
-} from "./style";
+export * from "./style/style";
+export * from "./style/color";
 export {
   cs,
   ts,
@@ -33,10 +22,6 @@ export {
   enableInteractiveMode,
   disableInteractiveMode,
   parseMouseEvent,
-  MOUSE_ON,
-  MOUSE_OFF,
-  CURSOR_HIDE,
-  CURSOR_SHOW,
 } from "./interactive";
 export {
   Byte,
@@ -44,6 +29,10 @@ export {
   BACKSPACE,
   ESC,
   CSI,
+  MOUSE_ON,
+  MOUSE_OFF,
+  CURSOR_HIDE,
+  CURSOR_SHOW,
   CURSOR_SAVE,
   CURSOR_RESTORE,
   ERASE_LINE,
@@ -65,4 +54,8 @@ export {
   cursorUp,
   cursorDown,
   cursorTo,
+  cursorForward,
+  cursorBackward,
+  cursorToColumn,
+  stripAnsi,
 } from "./ansi";
